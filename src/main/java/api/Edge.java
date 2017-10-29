@@ -2,7 +2,7 @@ package api;
 
 
 public interface Edge {
-    Vertex source();
+    Vertex left();
 
-    Vertex target();
+    Vertex right();
 }

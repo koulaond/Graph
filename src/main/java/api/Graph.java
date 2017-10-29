@@ -8,17 +8,17 @@ public interface Graph<V extends Vertex, E extends Edge> {
 
     void setInitialVertex(V vertex);
 
-    void createEdge(V sourceVertex, V targetVertex);
+    void createEdge(V left, V right);
 
     boolean exists(V vertex);
 
-    boolean containsEdge(V sourceVertex, V targetVertex);
+    boolean containsEdge(V left, V right);
 
     boolean containsEdge(E edge);
 
     boolean containsVertex(V vertex);
 
-    E getEdgeFor(V sourceVertex, V targetVertex);
+    E getEdgeFor(V left, V right);
 
     Map<V, Set<V>> createAdjacencyList();
 
