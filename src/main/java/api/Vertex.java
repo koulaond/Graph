@@ -2,8 +2,8 @@ package api;
 
 import java.util.Set;
 
-public interface Vertex {
+public interface Vertex<E extends Edge> {
     Long id();
 
-    Set<Edge> edges();
+    Set<E> getAllEdges();
 }

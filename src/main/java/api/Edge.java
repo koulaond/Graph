@@ -1,8 +1,8 @@
 package api;
 
 
-public interface Edge {
-    Vertex left();
+public interface Edge<V extends Vertex> {
+    V left();
 
-    Vertex right();
+    V right();
 }

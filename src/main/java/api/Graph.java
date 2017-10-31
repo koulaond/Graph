@@ -3,7 +3,7 @@ package api;
 import java.util.Map;
 import java.util.Set;
 
-public interface Graph<V extends Vertex, E extends Edge> {
+public interface Graph<V extends Vertex<E>, E extends Edge<V>> {
     V getInitialVertex();
 
     void setInitialVertex(V vertex);
