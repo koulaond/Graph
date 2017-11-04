@@ -8,11 +8,9 @@ public interface Graph<V extends Vertex<E>, E extends Edge<V>> {
 
     void setInitialVertex(V vertex);
 
-    void createEdge(V left, V right);
+    void createEdge(EdgeFactory<E> edgeFactory);
 
-    boolean exists(V vertex);
-
-    boolean containsEdge(V left, V right);
+    boolean containsEdgeForVertices(V left, V right);
 
     boolean containsEdge(E edge);
 
