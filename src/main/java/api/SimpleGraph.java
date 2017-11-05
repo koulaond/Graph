@@ -1,11 +1,12 @@
 package api;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableSet;
+import static java.util.stream.Collectors.toMap;
 
 public class SimpleGraph<V extends Vertex<E>, E extends Edge<V>> implements Graph<V, E> {
     private final Set<E> edges;
@@ -31,9 +32,9 @@ public class SimpleGraph<V extends Vertex<E>, E extends Edge<V>> implements Grap
         validateVertices(edge.left(), edge.right());
         edges.add(edge);
         vertices.stream()
-                .filter(vertex -> vertex.equals(edge.left()))
-                .filter(vertex -> vertex.equals(edge.right()))
+                .filter(vertex -> vertex.equals(edge.left()) || vertex.equals(edge.right()))
                 .forEach(vertex -> vertex.addEdge(edge));
+        System.out.println();
     }
 
     public boolean containsEdgeForVertices(V left, V right) {
@@ -58,8 +59,19 @@ public class SimpleGraph<V extends Vertex<E>, E extends Edge<V>> implements Grap
     }
 
     public Map<V, Set<V>> createAdjacencyList() {
-
-        return null;
+        return vertices.stream()
+                .collect(
+                        toMap(
+                                Function.identity(),
+                                vertex -> vertex.getAllEdges().stream()
+                                        .map(edge -> {
+                                            if (edge.left().equals(vertex) && edge.right().equals(vertex)) return vertex;
+                                            else if (edge.left().equals(vertex)) return edge.right();
+                                            else return edge.left();
+                                        })
+                                        .collect(Collectors.toSet())
+                        )
+                );
     }
 
     public Set<V> getVertices() {
@@ -71,10 +83,14 @@ public class SimpleGraph<V extends Vertex<E>, E extends Edge<V>> implements Grap
     }
 
     public void insertVertex(V vertex) {
-        if(vertices.contains(vertex)){
+        if (vertices.contains(vertex)) {
             throw new IllegalStateException(format("Vertex %s is already present in the graph", vertex.id()));
         }
         vertices.add(vertex);
+    }
+
+    public void insertVertices(V... vertices) {
+        for(V vertex : vertices) insertVertex(vertex);
     }
 
     private void validateVertices(V... vertices) {
