@@ -34,7 +34,6 @@ public class SimpleGraph<V extends Vertex<E>, E extends Edge<V>> implements Grap
         vertices.stream()
                 .filter(vertex -> vertex.equals(edge.left()) || vertex.equals(edge.right()))
                 .forEach(vertex -> vertex.addEdge(edge));
-        System.out.println();
     }
 
     public boolean containsEdgeForVertices(V left, V right) {
@@ -65,7 +64,8 @@ public class SimpleGraph<V extends Vertex<E>, E extends Edge<V>> implements Grap
                                 Function.identity(),
                                 vertex -> vertex.getAllEdges().stream()
                                         .map(edge -> {
-                                            if (edge.left().equals(vertex) && edge.right().equals(vertex)) return vertex;
+                                            if (edge.left().equals(vertex) && edge.right().equals(vertex))
+                                                return vertex;
                                             else if (edge.left().equals(vertex)) return edge.right();
                                             else return edge.left();
                                         })
@@ -90,7 +90,7 @@ public class SimpleGraph<V extends Vertex<E>, E extends Edge<V>> implements Grap
     }
 
     public void insertVertices(V... vertices) {
-        for(V vertex : vertices) insertVertex(vertex);
+        for (V vertex : vertices) insertVertex(vertex);
     }
 
     private void validateVertices(V... vertices) {

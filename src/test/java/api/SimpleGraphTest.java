@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.in;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
@@ -120,7 +121,8 @@ public class SimpleGraphTest {
             expected.entrySet().forEach(entry -> {
                 Set<TestVertex> expectedSet = entry.getValue();
                 Set<TestVertex> resultSet = result.get(entry.getKey());
-                Assert.assertEquals(expectedSet.size(), resultSet.size());
+                assertEquals(expectedSet.size(), resultSet.size());
+                assertThat(expectedSet).satisfies(resultItem -> resultSet.contains(resultItem));
             });
         });
     }
@@ -152,7 +154,7 @@ public class SimpleGraphTest {
         for (int i = 0; i < indices.length; i++) {
             Set<TestVertex> adjacentSet = expectedAdjacencyList.get(vertices.get(i));
             for (int j = 1; j < indices[i].length; j++) {
-                adjacentSet.add(vertices.get(j));
+                adjacentSet.add(vertices.get(indices[i][j]));
             }
         }
         return expectedAdjacencyList;
