@@ -1,16 +1,12 @@
 package api;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.*;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -137,23 +133,23 @@ public class SimpleGraphTest {
             expectedAdjacencyList.put(testVertex, new HashSet<>());
         });
         int[][] indices = {
-                {0, 1, 2},
-                {1, 0, 2, 4},
-                {2, 0, 1, 3},
-                {3, 2, 6},
-                {4, 1, 5, 6},
-                {5, 4, 7},
-                {6, 3, 4},
-                {7, 5, 8},
-                {8, 7, 9},
-                {9, 8, 10},
-                {10, 9, 11},
-                {11, 10}
+                {1, 2},
+                {0, 2, 4},
+                {0, 1, 3},
+                {2, 6},
+                {1, 5, 6},
+                {4, 7},
+                {3, 4},
+                {5, 8},
+                {7, 9},
+                {8, 10},
+                {9, 11},
+                {10}
         };
 
         for (int i = 0; i < indices.length; i++) {
             Set<TestVertex> adjacentSet = expectedAdjacencyList.get(vertices.get(i));
-            for (int j = 1; j < indices[i].length; j++) {
+            for (int j = 0; j < indices[i].length; j++) {
                 adjacentSet.add(vertices.get(indices[i][j]));
             }
         }
