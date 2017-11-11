@@ -1,5 +1,8 @@
 package api;
 
+import api.undirected.SimpleUndirectedEdge;
+import api.undirected.SimpleUndirectedGraph;
+import api.undirected.SimpleUndirectedVertex;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,31 +13,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-public class SimpleGraphTest {
+public class SimpleUndirectedGraphTest {
 
     private static final UUID LEFT_VERTEX_UUID = UUID.randomUUID();
     private static final UUID RIGHT_VERTEX_UUID = UUID.randomUUID();
 
-    private TestVertex left;
+    private TestUndirectedVertex left;
 
-    private TestVertex right;
+    private TestUndirectedVertex right;
 
-    private TestEdge testEdge;
+    private TestUndirectedEdge testEdge;
 
-    SimpleGraph<TestVertex, TestEdge> graph;
+    SimpleUndirectedGraph<TestUndirectedVertex, TestUndirectedEdge> graph;
 
     @Before
     public void setup() {
         left = vertex(LEFT_VERTEX_UUID);
         right = vertex(RIGHT_VERTEX_UUID);
         testEdge = edge(left, right);
-        graph = new SimpleGraph<>();
+        graph = new SimpleUndirectedGraph<>();
     }
 
     @Test
@@ -43,11 +45,11 @@ public class SimpleGraphTest {
         graph.createEdge(() -> testEdge);
 
         assertThat(testEdge).satisfies(edge -> {
+            assertTrue(graph.containsEdge(testEdge));
             assertThat(left).as("Left vertex does not contain an edge")
-                    .satisfies(vertex -> verify(vertex).addEdge(any(TestEdge.class)));
+                    .satisfies(vertex -> verify(vertex).addEdge(testEdge));
             assertThat(right).as("Right vertex does not contain an edge")
-                    .satisfies(vertex -> verify(vertex).addEdge(any(TestEdge.class)));
-
+                    .satisfies(vertex -> verify(vertex).addEdge(testEdge));
         });
     }
 
@@ -102,33 +104,33 @@ public class SimpleGraphTest {
 
     @Test
     public void createAdjacencyList() throws Exception {
-        Map<TestVertex, Set<TestVertex>> expectedAdjacencyList = createExpectedAdjacencyList();
+        Map<TestUndirectedVertex, Set<TestUndirectedVertex>> expectedAdjacencyList = createExpectedAdjacencyList();
         expectedAdjacencyList.keySet()
                 .forEach(vertex -> graph.insertVertex(vertex));
         expectedAdjacencyList.entrySet()
                 .forEach(
                         entry -> entry.getValue()
                                 .forEach(
-                                        adjacent -> graph.createEdge(() -> new TestEdge(entry.getKey(), adjacent))
+                                        adjacent -> graph.createEdge(() -> new TestUndirectedEdge(entry.getKey(), adjacent))
                                 )
                 );
-        Map<TestVertex, Set<TestVertex>> result = graph.createAdjacencyList();
+        Map<TestUndirectedVertex, Set<TestUndirectedVertex>> result = graph.createAdjacencyList();
         assertThat(expectedAdjacencyList).satisfies(expected -> {
             expected.entrySet().forEach(entry -> {
-                Set<TestVertex> expectedSet = entry.getValue();
-                Set<TestVertex> resultSet = result.get(entry.getKey());
+                Set<TestUndirectedVertex> expectedSet = entry.getValue();
+                Set<TestUndirectedVertex> resultSet = result.get(entry.getKey());
                 assertEquals(expectedSet.size(), resultSet.size());
                 assertThat(expectedSet).satisfies(resultItem -> resultSet.contains(resultItem));
             });
         });
     }
 
-    private Map<TestVertex, Set<TestVertex>> createExpectedAdjacencyList() {
+    private Map<TestUndirectedVertex, Set<TestUndirectedVertex>> createExpectedAdjacencyList() {
         int numberOfVertices = 12;
-        List<TestVertex> vertices = new ArrayList<>(numberOfVertices);
-        Map<TestVertex, Set<TestVertex>> expectedAdjacencyList = new HashMap<>();
+        List<TestUndirectedVertex> vertices = new ArrayList<>(numberOfVertices);
+        Map<TestUndirectedVertex, Set<TestUndirectedVertex>> expectedAdjacencyList = new HashMap<>();
         IntStream.range(0, numberOfVertices).forEach(index -> {
-            TestVertex testVertex = new TestVertex();
+            TestUndirectedVertex testVertex = new TestUndirectedVertex();
             vertices.add(index, testVertex);
             expectedAdjacencyList.put(testVertex, new HashSet<>());
         });
@@ -148,7 +150,7 @@ public class SimpleGraphTest {
         };
 
         for (int i = 0; i < indices.length; i++) {
-            Set<TestVertex> adjacentSet = expectedAdjacencyList.get(vertices.get(i));
+            Set<TestUndirectedVertex> adjacentSet = expectedAdjacencyList.get(vertices.get(i));
             for (int j = 0; j < indices[i].length; j++) {
                 adjacentSet.add(vertices.get(indices[i][j]));
             }
@@ -157,13 +159,13 @@ public class SimpleGraphTest {
     }
 
 
-    static class TestVertex extends SimpleVertex<TestEdge> {
+    static class TestUndirectedVertex extends SimpleUndirectedVertex<TestUndirectedEdge> {
 
     }
 
-    static class TestEdge extends SimpleEdge<TestVertex> {
+    static class TestUndirectedEdge extends SimpleUndirectedEdge<TestUndirectedVertex> {
 
-        public TestEdge(TestVertex left, TestVertex right) {
+        public TestUndirectedEdge(TestUndirectedVertex left, TestUndirectedVertex right) {
             super(left, right);
         }
 
@@ -173,16 +175,16 @@ public class SimpleGraphTest {
         }
     }
 
-    private TestVertex vertex(UUID id) {
-        TestVertex testVertex = mock(TestVertex.class);
+    private TestUndirectedVertex vertex(UUID id) {
+        TestUndirectedVertex testVertex = mock(TestUndirectedVertex.class);
         when(testVertex.id()).thenReturn(id);
         return testVertex;
     }
 
-    private TestEdge edge(TestVertex left, TestVertex right) {
-        TestEdge testEdge = mock(TestEdge.class);
-        when(testEdge.left()).thenReturn(left);
-        when(testEdge.right()).thenReturn(right);
+    private TestUndirectedEdge edge(TestUndirectedVertex left, TestUndirectedVertex right) {
+        TestUndirectedEdge testEdge = mock(TestUndirectedEdge.class);
+        when(testEdge.v1()).thenReturn(left);
+        when(testEdge.v2()).thenReturn(right);
         return testEdge;
     }
 

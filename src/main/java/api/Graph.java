@@ -10,13 +10,9 @@ public interface Graph<V extends Vertex, E extends Edge> {
 
     void createEdge(EdgeFactory<E> edgeFactory);
 
-    boolean containsEdgeForVertices(V left, V right);
-
     boolean containsEdge(E edge);
 
     boolean containsVertex(V vertex);
-
-    E getEdgeFor(V left, V right);
 
     Map<V, Set<V>> createAdjacencyList();
 
@@ -27,4 +23,6 @@ public interface Graph<V extends Vertex, E extends Edge> {
     void insertVertex(V vertex);
 
     void insertVertices(V... vertices);
+
+    Couple<V> getVerticesForEdge(E edge);
 }

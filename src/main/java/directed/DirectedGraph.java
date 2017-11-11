@@ -6,5 +6,5 @@ public interface DirectedGraph<V extends DirectedVertex<E>, E extends DirectedEd
 
     boolean containsEdgeForVertices(V left, V right, Direction direction);
 
-    E getEdgeFor(V left, V right, Direction direction);
+    E getEdgeForVertices(V left, V right, Direction direction);
 }
