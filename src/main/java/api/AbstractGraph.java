@@ -1,15 +1,13 @@
 package api;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableSet;
 
-/**
- * Created by Koula on 11.11.2017.
- */
 public abstract class AbstractGraph<V extends Vertex<E>, E extends Edge<V>> implements Graph<V, E> {
     protected final Set<E> edges;
     protected final Set<V> vertices;
@@ -30,6 +28,7 @@ public abstract class AbstractGraph<V extends Vertex<E>, E extends Edge<V>> impl
         validateVertices(vertex);
         initialVertex = vertex;
     }
+
     @Override
     public boolean containsEdge(E edge) {
         return edges.contains(edge);
@@ -53,7 +52,7 @@ public abstract class AbstractGraph<V extends Vertex<E>, E extends Edge<V>> impl
     @Override
     public void insertVertex(V vertex) {
         if (containsVertex(vertex)) {
-            throw new IllegalStateException(format("Vertex %s is already present in the graph", vertex.id()));
+            throw new IllegalStateException(format("Vertex %s is already present in the graph", vertex.getId()));
         }
         vertices.add(vertex);
     }
@@ -70,12 +69,12 @@ public abstract class AbstractGraph<V extends Vertex<E>, E extends Edge<V>> impl
     public abstract Map<V, Set<V>> createAdjacencyList();
 
     @Override
-    public abstract Couple<V> getVerticesForEdge(E edge);
+    public abstract List<V> getVerticesForEdge(E edge);
 
     protected void validateVertices(V... vertices) {
         for (V vertex : vertices) {
-            if (!this.vertices.contains(vertex)) {
-                throw new IllegalStateException(format("Vertex %s is not present in the graph. ", vertex.id()));
+            if (!containsVertex(vertex)) {
+                throw new IllegalStateException(format("Vertex %s is not present in the graph. ", vertex.getId()));
             }
         }
     }

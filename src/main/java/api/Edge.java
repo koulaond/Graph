@@ -1,8 +1,13 @@
 package api;
 
-import java.util.UUID;
 
-public interface Edge<V extends Vertex> {
+public interface Edge<V extends Vertex> extends GraphElement {
 
-    UUID id();
+    V getSourceVertex();
+
+    V getTargetVertex();
+
+    int getDegree();
+
+    boolean isCyclic();
 }

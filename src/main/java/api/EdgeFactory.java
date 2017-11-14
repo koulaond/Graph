@@ -1,6 +1,6 @@
 package api;
 
 @FunctionalInterface
-public interface EdgeFactory<E extends Edge> {
+public interface EdgeFactory<E> {
     E create();
 }

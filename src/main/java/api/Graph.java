@@ -1,9 +1,10 @@
 package api;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public interface Graph<V extends Vertex, E extends Edge> {
+public interface Graph<V extends Vertex, E> {
     V getInitialVertex();
 
     void setInitialVertex(V vertex);
@@ -24,5 +25,5 @@ public interface Graph<V extends Vertex, E extends Edge> {
 
     void insertVertices(V... vertices);
 
-    Couple<V> getVerticesForEdge(E edge);
+    List<V> getVerticesForEdge(E edge);
 }

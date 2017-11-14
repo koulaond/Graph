@@ -1,7 +1,6 @@
 package api.undirected;
 
-import api.Edge;
-import api.Vertex;
+import api.AbstractGraphElement;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,16 +8,19 @@ import java.util.Set;
 import java.util.UUID;
 
 
-public class SimpleUndirectedVertex<E extends UndirectedEdge> implements UndirectedVertex<E> {
-    private final Set<E> edges;
-    private final UUID id;
+public class SimpleUndirectedVertex<E extends UndirectedEdge>
+        extends AbstractGraphElement
+        implements UndirectedVertex<E> {
+
+    protected final Set<E> edges;
+    protected final UUID id;
 
     public SimpleUndirectedVertex() {
         this.id = UUID.randomUUID();
         this.edges = new HashSet<>();
     }
 
-    public UUID id() {
+    public UUID getId() {
         return id;
     }
 
@@ -38,6 +40,6 @@ public class SimpleUndirectedVertex<E extends UndirectedEdge> implements Undirec
         if (super.equals(obj)) return true;
         if (obj == null) return false;
         if (!(obj instanceof SimpleUndirectedVertex)) return false;
-        return this.id().equals(((SimpleUndirectedVertex) obj).id());
+        return this.getId().equals(((SimpleUndirectedVertex) obj).getId());
     }
 }

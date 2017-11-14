@@ -111,7 +111,7 @@ public class SimpleUndirectedGraphTest {
                 .forEach(
                         entry -> entry.getValue()
                                 .forEach(
-                                        adjacent -> graph.createEdge(() -> new TestUndirectedEdge(entry.getKey(), adjacent))
+                                        adjacent -> graph.createEdge(() -> mockEdge(entry.getKey(), adjacent))
                                 )
                 );
         Map<TestUndirectedVertex, Set<TestUndirectedVertex>> result = graph.createAdjacencyList();
@@ -123,6 +123,13 @@ public class SimpleUndirectedGraphTest {
                 assertThat(expectedSet).satisfies(resultItem -> resultSet.contains(resultItem));
             });
         });
+    }
+
+    private TestUndirectedEdge mockEdge(TestUndirectedVertex source, TestUndirectedVertex target) {
+        TestUndirectedEdge edge = mock(TestUndirectedEdge.class);
+        when(edge.getSourceVertex()).thenReturn(source);
+        when(edge.getTargetVertex()).thenReturn(target);
+        return edge;
     }
 
     private Map<TestUndirectedVertex, Set<TestUndirectedVertex>> createExpectedAdjacencyList() {
@@ -165,10 +172,6 @@ public class SimpleUndirectedGraphTest {
 
     static class TestUndirectedEdge extends SimpleUndirectedEdge<TestUndirectedVertex> {
 
-        public TestUndirectedEdge(TestUndirectedVertex left, TestUndirectedVertex right) {
-            super(left, right);
-        }
-
         @Override
         public boolean equals(Object obj) {
             return super.equals(obj);
@@ -177,14 +180,14 @@ public class SimpleUndirectedGraphTest {
 
     private TestUndirectedVertex vertex(UUID id) {
         TestUndirectedVertex testVertex = mock(TestUndirectedVertex.class);
-        when(testVertex.id()).thenReturn(id);
+        when(testVertex.getId()).thenReturn(id);
         return testVertex;
     }
 
     private TestUndirectedEdge edge(TestUndirectedVertex left, TestUndirectedVertex right) {
         TestUndirectedEdge testEdge = mock(TestUndirectedEdge.class);
-        when(testEdge.v1()).thenReturn(left);
-        when(testEdge.v2()).thenReturn(right);
+        when(testEdge.getSourceVertex()).thenReturn(left);
+        when(testEdge.getTargetVertex()).thenReturn(right);
         return testEdge;
     }
 

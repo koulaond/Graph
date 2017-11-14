@@ -1,9 +1,9 @@
 package directed;
 
 import api.AbstractGraph;
-import api.Couple;
 import api.EdgeFactory;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,20 +14,20 @@ public class SimpleDirectedGraph<V extends DirectedVertex<E>, E extends Directed
     @Override
     public void createEdge(EdgeFactory<E> edgeFactory) {
         E edge = edgeFactory.create();
-        validateVertices(edge.getSource(), edge.getTarget());
+        validateVertices(edge.getSourceVertex(), edge.getTargetVertex());
         edges.add(edge);
-        Couple<V> verticesForEdge = getVerticesForEdge(edge);
+        List<V> verticesForEdge = getVerticesForEdge(edge);
 
-        if((edge.getDirection().equals(Direction.FORWARD) &&verticesForEdge.v1().equals(edge.getSource()))
-                || (edge.getDirection().equals(Direction.BACKWARD) && verticesForEdge.v2().equals(edge.getTarget()))){
-            verticesForEdge.v1().addOutcomeEdge(edge);
-            verticesForEdge.v2().addIncomeEdge(edge);
+        if((edge.getDirection().equals(Direction.FORWARD) &&verticesForEdge.get(0).equals(edge.getSourceVertex()))
+                || (edge.getDirection().equals(Direction.BACKWARD) && verticesForEdge.get(1).equals(edge.getTargetVertex()))){
+            verticesForEdge.get(0).addOutcomeEdge(edge);
+            verticesForEdge.get(1).addIncomeEdge(edge);
             edges.add(edge);
 
-        } else if((edge.getDirection().equals(Direction.FORWARD) && verticesForEdge.v2().equals(edge.getSource()))
-                || (edge.getDirection().equals(Direction.BACKWARD) && verticesForEdge.v1().equals(edge.getSource()))){
-            verticesForEdge.v1().addIncomeEdge(edge);
-            verticesForEdge.v2().addOutcomeEdge(edge);
+        } else if((edge.getDirection().equals(Direction.FORWARD) && verticesForEdge.get(1).equals(edge.getSourceVertex()))
+                || (edge.getDirection().equals(Direction.BACKWARD) && verticesForEdge.get(0).equals(edge.getSourceVertex()))){
+            verticesForEdge.get(0).addIncomeEdge(edge);
+            verticesForEdge.get(1).addOutcomeEdge(edge);
             edges.add(edge);
 
         } else {
@@ -41,7 +41,7 @@ public class SimpleDirectedGraph<V extends DirectedVertex<E>, E extends Directed
     }
 
     @Override
-    public Couple<V> getVerticesForEdge(E edge) {
+    public List<V> getVerticesForEdge(E edge) {
         return null;
     }
 

@@ -7,7 +7,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
-import static java.util.Collections.unmodifiableSet;
 import static java.util.stream.Collectors.toMap;
 
 public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends UndirectedEdge<V>>
@@ -15,7 +14,6 @@ public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends Undi
 
     protected final Set<E> edges;
     protected final Set<V> vertices;
-    protected V initialVertex;
 
     public SimpleUndirectedGraph() {
         this.edges = new HashSet<>();
@@ -24,10 +22,10 @@ public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends Undi
 
     public void createEdge(EdgeFactory<E> edgeFactory) {
         E edge = edgeFactory.create();
-        validateVertices(edge.v1(), edge.v2());
+        validateVertices(edge.getSourceVertex(), edge.getTargetVertex());
         edges.add(edge);
         vertices.stream()
-                .filter(vertex -> vertex.equals(edge.v1()) || vertex.equals(edge.v2()))
+                .filter(vertex -> vertex.equals(edge.getSourceVertex()) || vertex.equals(edge.getTargetVertex()))
                 .forEach(vertex -> vertex.addEdge(edge));
     }
 
@@ -41,7 +39,13 @@ public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends Undi
                 .filter(edge -> edge.isForVertices(left, right))
                 .findFirst()
                 .orElseThrow(() ->
-                        new IllegalStateException(format("No edge found for vertices %s, %s", left.id(), right.id())));
+                        new IllegalStateException(
+                                format(
+                                        "No edge found for vertices %s, %s",
+                                        left.getId(),
+                                        right.getId()
+                                )
+                        ));
     }
 
     public Map<V, Set<V>> createAdjacencyList() {
@@ -51,10 +55,10 @@ public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends Undi
                                 Function.identity(),
                                 vertex -> vertex.getAllEdges().stream()
                                         .map(edge -> {
-                                            if (edge.v1().equals(vertex) && edge.v2().equals(vertex))
+                                            if (edge.getSourceVertex().equals(vertex) && edge.getTargetVertex().equals(vertex))
                                                 return vertex;
-                                            else if (edge.v1().equals(vertex)) return edge.v2();
-                                            else return edge.v1();
+                                            else if (edge.getSourceVertex().equals(vertex)) return edge.getTargetVertex();
+                                            else return edge.getSourceVertex();
                                         })
                                         .collect(Collectors.toSet())
                         )
@@ -62,16 +66,19 @@ public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends Undi
     }
 
     @Override
-    public Couple<V> getVerticesForEdge(E edge) {
+    public List<V> getVerticesForEdge(E edge) {
         List<V> foundVertices = this.vertices.stream()
-                .filter(vertex -> vertex.equals(edge.v1()) || vertex.equals(edge.v2()))
+                .filter(vertex -> vertex.equals(edge.getSourceVertex()) || vertex.equals(edge.getTargetVertex()))
                 .collect(Collectors.toList());
-        if (foundVertices.size() == 0) {
-            return null;
+        if (foundVertices.isEmpty()) {
+            return Collections.emptyList();
         }
-        if (foundVertices.size() != 2) {
-            throw new IllegalStateException("There must be two or zero vertices for the given edge.");
+        if(foundVertices.size() == 1){
+            return Arrays.asList(foundVertices.get(0));
         }
-        return new Couple<V>(foundVertices.get(0), foundVertices.get(1));
+        if (foundVertices.size() == 2) {
+            return Arrays.asList(foundVertices.get(0), foundVertices.get(1));
+        }
+        throw new IllegalStateException("There must be two or zero vertices for the given edge.");
     }
 }
