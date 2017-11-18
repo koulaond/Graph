@@ -1,8 +1,6 @@
-package directed;
+package api.directed;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class SimpleDirectedGraphTest {
 

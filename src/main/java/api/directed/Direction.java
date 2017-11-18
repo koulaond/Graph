@@ -1,4 +1,4 @@
-package directed;
+package api.directed;
 
 public enum Direction {
     FORWARD,

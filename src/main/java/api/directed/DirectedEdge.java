@@ -1,4 +1,4 @@
-package directed;
+package api.directed;
 
 import api.Edge;
 import lombok.NonNull;

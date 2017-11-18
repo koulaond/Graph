@@ -1,11 +1,10 @@
-package directed;
+package api.directed;
 
 import api.AbstractGraphElement;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 public class SimpleDirectedVertex<E extends DirectedEdge> extends AbstractGraphElement implements DirectedVertex<E> {
 
