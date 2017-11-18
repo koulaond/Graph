@@ -167,13 +167,15 @@ public class SimpleUndirectedGraphTest {
 
     static class TestUndirectedVertex extends SimpleUndirectedVertex<TestUndirectedEdge> {
 
+        public TestUndirectedVertex() {
+            super(new Date().toString(), new HashMap<>());
+        }
     }
 
     static class TestUndirectedEdge extends SimpleUndirectedEdge<TestUndirectedVertex> {
 
-        @Override
-        public boolean equals(Object obj) {
-            return super.equals(obj);
+        protected TestUndirectedEdge() {
+            super(new Date().toString(), new HashMap<>(), 1, null, null);
         }
     }
 

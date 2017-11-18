@@ -1,5 +1,7 @@
 package api;
 
+import lombok.NonNull;
+
 import java.util.Map;
 import java.util.UUID;
 
@@ -10,13 +12,13 @@ public interface GraphElement {
 
     String getLabel();
 
-    void setLabel(String label);
+    void setLabel(@NonNull String label);
 
     Map<String, Object> getProperties();
 
-    boolean addProperty(String propName, Object propValue);
+    boolean addProperty(@NonNull String propName, @NonNull Object propValue);
 
-    void setProperty(String propName, Object propValue);
+    void setProperty(@NonNull String propName, @NonNull Object propValue);
 
-    Object deleteProperty(String propName);
+    Object deleteProperty(@NonNull String propName);
 }

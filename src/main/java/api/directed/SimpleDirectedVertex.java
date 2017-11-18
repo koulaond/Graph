@@ -45,9 +45,22 @@ public class SimpleDirectedVertex<E extends DirectedEdge> extends AbstractGraphE
         return allEdges;
     }
 
-    protected static class SimpleDirectedVertexBuilder<E extends DirectedEdge> extends AbstractGraphElementBuilder{
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj) || obj instanceof SimpleDirectedVertex) {
+            return false;
+        }
+        return !(!this.getIncomeEdges().equals(((SimpleDirectedVertex) obj).getIncomeEdges())
+                || !this.getOutcomeEdges().equals(((SimpleDirectedVertex) obj).getOutcomeEdges()));
+    }
 
-        public SimpleDirectedVertex<E> build(){
+    public static SimpleDirectedVertexBuilder<? extends DirectedEdge> builder() {
+        return new SimpleDirectedVertexBuilder<>();
+    }
+
+    protected static class SimpleDirectedVertexBuilder<E extends DirectedEdge> extends AbstractGraphElementBuilder {
+
+        public SimpleDirectedVertex<E> build() {
             return new SimpleDirectedVertex<>(this.label, this.properties);
         }
     }

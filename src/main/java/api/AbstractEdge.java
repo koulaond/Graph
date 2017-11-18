@@ -29,27 +29,42 @@ public abstract class AbstractEdge<V extends Vertex> extends AbstractGraphElemen
     }
 
     @Override
-    public  boolean isCyclic(){
+    public boolean isCyclic() {
         return sourceVertex.equals(targetVertex);
     }
 
-    protected static abstract class AbstractEdgeBuilder<V extends Vertex> extends AbstractGraphElementBuilder{
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof AbstractEdge)) {
+            return false;
+        }
+        AbstractEdge that = (AbstractEdge) obj;
+        return !(getDegree() != that.getDegree()
+                || !getSourceVertex().equals(that.getSourceVertex())
+                || !getTargetVertex().equals(that.getTargetVertex()));
+
+    }
+
+    protected static abstract class AbstractEdgeBuilder<V extends Vertex> extends AbstractGraphElementBuilder {
 
         protected int degree;
         protected V sourceVertex;
         protected V targetVertex;
 
-        public AbstractEdgeBuilder degree(int degree){
+        public AbstractEdgeBuilder degree(int degree) {
             this.degree = degree;
             return this;
         }
 
-        public AbstractEdgeBuilder sourceTarget(V sourceVertex){
+        public AbstractEdgeBuilder sourceTarget(V sourceVertex) {
             this.sourceVertex = sourceVertex;
             return this;
         }
 
-        public AbstractEdgeBuilder targetVertex(V targetVertex){
+        public AbstractEdgeBuilder targetVertex(V targetVertex) {
             this.targetVertex = targetVertex;
             return this;
         }

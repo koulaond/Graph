@@ -26,6 +26,14 @@ public class SimpleDirectedEdge<V extends DirectedVertex>
         return direction;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj) || !(obj instanceof SimpleDirectedEdge)){
+            return false;
+        }
+        return getDirection().equals(((SimpleDirectedEdge) obj).getDirection());
+    }
+
     public static SimpleUndirectedEdgeBuilder<? extends DirectedVertex> builder(){
         return new SimpleUndirectedEdgeBuilder<>();
     }

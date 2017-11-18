@@ -1,5 +1,7 @@
 package api;
 
+import lombok.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -11,7 +13,8 @@ public abstract class AbstractGraphElement implements GraphElement {
     protected String label;
     protected Map<String, Object> properties;
 
-    protected AbstractGraphElement(String label, Map<String, Object> properties) {
+    protected AbstractGraphElement(@NonNull String label,
+                                   @NonNull Map<String, Object> properties) {
         this.id = UUID.randomUUID();
         this.label = label;
         this.properties = properties;
@@ -28,7 +31,7 @@ public abstract class AbstractGraphElement implements GraphElement {
     }
 
     @Override
-    public void setLabel(String label) {
+    public void setLabel(@NonNull String label) {
         this.label = label;
     }
 
@@ -38,7 +41,7 @@ public abstract class AbstractGraphElement implements GraphElement {
     }
 
     @Override
-    public boolean addProperty(String propName, Object propValue) {
+    public boolean addProperty(@NonNull String propName, @NonNull Object propValue) {
         if (properties.containsKey(propName)) {
             return false;
         } else {
@@ -48,13 +51,31 @@ public abstract class AbstractGraphElement implements GraphElement {
     }
 
     @Override
-    public void setProperty(String propName, Object propValue) {
+    public void setProperty(@NonNull String propName, @NonNull Object propValue) {
         properties.put(propName, propValue);
     }
 
     @Override
-    public Object deleteProperty(String propName) {
+    public Object deleteProperty(@NonNull String propName) {
         return properties.remove(propName);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!super.equals(obj)){
+            return false;
+        }
+        if(!(obj instanceof AbstractGraphElement)){
+            return false;
+        }
+        AbstractGraphElement that = (AbstractGraphElement) obj;
+        if(!getId().equals(that.getId())){
+            return false;
+        }
+        if(!getProperties().equals(that.properties)){
+            return false;
+        }
+        return true;
     }
 
     protected static abstract class AbstractGraphElementBuilder {
