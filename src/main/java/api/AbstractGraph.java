@@ -68,8 +68,6 @@ public abstract class AbstractGraph<V extends Vertex<E>, E extends Edge<V>> impl
     @Override
     public abstract Map<V, Set<V>> createAdjacencyList();
 
-    @Override
-    public abstract List<V> getVerticesForEdge(E edge);
 
     protected void validateVertices(V... vertices) {
         for (V vertex : vertices) {

@@ -3,9 +3,15 @@ package api.directed;
 import api.AbstractGraph;
 import api.EdgeFactory;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toMap;
 
 public class SimpleDirectedGraph<V extends DirectedVertex<E>, E extends DirectedEdge<V>>
         extends AbstractGraph<V, E>
@@ -23,12 +29,17 @@ public class SimpleDirectedGraph<V extends DirectedVertex<E>, E extends Directed
 
     @Override
     public Map<V, Set<V>> createAdjacencyList() {
-        return null;
-    }
-
-    @Override
-    public List<V> getVerticesForEdge(E edge) {
-        return null;
+        return getVertices().stream()
+                .collect(
+                        toMap(
+                                Function.identity(),
+                                vertex -> vertex.getOutcomeEdges()
+                                        .stream()
+                                        .flatMap(edge -> asList(edge.getSourceVertex(), edge.getTargetVertex()).stream())
+                                        .filter(edgeVertex -> !edgeVertex.equals(vertex))
+                                        .collect(Collectors.toSet())
+                        )
+                );
     }
 
     @Override

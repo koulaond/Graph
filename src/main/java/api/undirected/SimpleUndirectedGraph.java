@@ -59,14 +59,4 @@ public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends Undi
                         )
                 );
     }
-
-    @Override
-    public List<V> getVerticesForEdge(E edge) {
-        List<V> foundVertices = this.vertices.stream()
-                .filter(vertex -> vertex.equals(edge.getSourceVertex()) || vertex.equals(edge.getTargetVertex()))
-                .collect(Collectors.toList());
-        if (foundVertices.size() > 2) {
-            throw new IllegalStateException("There must be max two vertices for the given edge.");
-        } else return foundVertices;
-    }
 }

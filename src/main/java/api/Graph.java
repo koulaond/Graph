@@ -24,6 +24,4 @@ public interface Graph<V extends Vertex, E> {
     void insertVertex(V vertex);
 
     void insertVertices(V... vertices);
-
-    List<V> getVerticesForEdge(E edge);
 }

@@ -36,7 +36,7 @@ public class SimpleUndirectedGraphTest {
         left = vertex(LEFT_VERTEX_UUID);
         right = vertex(RIGHT_VERTEX_UUID);
         testEdge = edge(left, right);
-        graph = new SimpleUndirectedGraph<>();
+        graph = new SimpleUndirectedGraph();
     }
 
     @Test
