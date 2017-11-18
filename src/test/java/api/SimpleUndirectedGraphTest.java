@@ -23,13 +23,13 @@ public class SimpleUndirectedGraphTest {
     private static final UUID LEFT_VERTEX_UUID = UUID.randomUUID();
     private static final UUID RIGHT_VERTEX_UUID = UUID.randomUUID();
 
-    private TestUndirectedVertex left;
+    private SimpleUndirectedVertex left;
 
-    private TestUndirectedVertex right;
+    private SimpleUndirectedVertex right;
 
-    private TestUndirectedEdge testEdge;
+    private SimpleUndirectedEdge testEdge;
 
-    SimpleUndirectedGraph<TestUndirectedVertex, TestUndirectedEdge> graph;
+    SimpleUndirectedGraph graph;
 
     @Before
     public void setup() {
@@ -103,7 +103,7 @@ public class SimpleUndirectedGraphTest {
 
     @Test
     public void createAdjacencyList() throws Exception {
-        Map<TestUndirectedVertex, Set<TestUndirectedVertex>> expectedAdjacencyList = createExpectedAdjacencyList();
+        Map<SimpleUndirectedVertex, Set<SimpleUndirectedVertex>> expectedAdjacencyList = createExpectedAdjacencyList();
         expectedAdjacencyList.keySet()
                 .forEach(vertex -> graph.insertVertex(vertex));
         expectedAdjacencyList.entrySet()
@@ -113,30 +113,30 @@ public class SimpleUndirectedGraphTest {
                                         adjacent -> graph.createEdge(() -> mockEdge(entry.getKey(), adjacent))
                                 )
                 );
-        Map<TestUndirectedVertex, Set<TestUndirectedVertex>> result = graph.createAdjacencyList();
+        Map<SimpleUndirectedVertex, Set<SimpleUndirectedVertex>> result = graph.createAdjacencyList();
         assertThat(expectedAdjacencyList).satisfies(expected -> {
             expected.entrySet().forEach(entry -> {
-                Set<TestUndirectedVertex> expectedSet = entry.getValue();
-                Set<TestUndirectedVertex> resultSet = result.get(entry.getKey());
+                Set<SimpleUndirectedVertex> expectedSet = entry.getValue();
+                Set<SimpleUndirectedVertex> resultSet = result.get(entry.getKey());
                 assertEquals(expectedSet.size(), resultSet.size());
                 assertThat(expectedSet).satisfies(resultItem -> resultSet.contains(resultItem));
             });
         });
     }
 
-    private TestUndirectedEdge mockEdge(TestUndirectedVertex source, TestUndirectedVertex target) {
-        TestUndirectedEdge edge = mock(TestUndirectedEdge.class);
+    private SimpleUndirectedEdge mockEdge(SimpleUndirectedVertex source, SimpleUndirectedVertex target) {
+        SimpleUndirectedEdge edge = mock(SimpleUndirectedEdge.class);
         when(edge.getSourceVertex()).thenReturn(source);
         when(edge.getTargetVertex()).thenReturn(target);
         return edge;
     }
 
-    private Map<TestUndirectedVertex, Set<TestUndirectedVertex>> createExpectedAdjacencyList() {
+    private Map<SimpleUndirectedVertex, Set<SimpleUndirectedVertex>> createExpectedAdjacencyList() {
         int numberOfVertices = 12;
-        List<TestUndirectedVertex> vertices = new ArrayList<>(numberOfVertices);
-        Map<TestUndirectedVertex, Set<TestUndirectedVertex>> expectedAdjacencyList = new HashMap<>();
+        List<SimpleUndirectedVertex> vertices = new ArrayList<>(numberOfVertices);
+        Map<SimpleUndirectedVertex, Set<SimpleUndirectedVertex>> expectedAdjacencyList = new HashMap<>();
         IntStream.range(0, numberOfVertices).forEach(index -> {
-            TestUndirectedVertex testVertex = new TestUndirectedVertex();
+            SimpleUndirectedVertex testVertex = new SimpleUndirectedVertex(new Date().toString(), new HashMap<>());
             vertices.add(index, testVertex);
             expectedAdjacencyList.put(testVertex, new HashSet<>());
         });
@@ -156,7 +156,7 @@ public class SimpleUndirectedGraphTest {
         };
 
         for (int i = 0; i < indices.length; i++) {
-            Set<TestUndirectedVertex> adjacentSet = expectedAdjacencyList.get(vertices.get(i));
+            Set<SimpleUndirectedVertex> adjacentSet = expectedAdjacencyList.get(vertices.get(i));
             for (int j = 0; j < indices[i].length; j++) {
                 adjacentSet.add(vertices.get(indices[i][j]));
             }
@@ -165,28 +165,16 @@ public class SimpleUndirectedGraphTest {
     }
 
 
-    static class TestUndirectedVertex extends SimpleUndirectedVertex<TestUndirectedEdge> {
+  
 
-        public TestUndirectedVertex() {
-            super(new Date().toString(), new HashMap<>());
-        }
-    }
-
-    static class TestUndirectedEdge extends SimpleUndirectedEdge<TestUndirectedVertex> {
-
-        protected TestUndirectedEdge() {
-            super(new Date().toString(), new HashMap<>(), 1, null, null);
-        }
-    }
-
-    private TestUndirectedVertex vertex(UUID id) {
-        TestUndirectedVertex testVertex = mock(TestUndirectedVertex.class);
+    private SimpleUndirectedVertex vertex(UUID id) {
+        SimpleUndirectedVertex testVertex = mock(SimpleUndirectedVertex.class);
         when(testVertex.getId()).thenReturn(id);
         return testVertex;
     }
 
-    private TestUndirectedEdge edge(TestUndirectedVertex left, TestUndirectedVertex right) {
-        TestUndirectedEdge testEdge = mock(TestUndirectedEdge.class);
+    private SimpleUndirectedEdge edge(SimpleUndirectedVertex left, SimpleUndirectedVertex right) {
+        SimpleUndirectedEdge testEdge = mock(SimpleUndirectedEdge.class);
         when(testEdge.getSourceVertex()).thenReturn(left);
         when(testEdge.getTargetVertex()).thenReturn(right);
         return testEdge;

@@ -48,9 +48,11 @@ public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends Undi
                                 Function.identity(),
                                 vertex -> vertex.getAllEdges().stream()
                                         .map(edge -> {
-                                            if (edge.getSourceVertex().equals(vertex) && edge.getTargetVertex().equals(vertex))
+                                            if (edge.getSourceVertex().equals(vertex)
+                                                    && edge.getTargetVertex().equals(vertex))
                                                 return vertex;
-                                            else if (edge.getSourceVertex().equals(vertex)) return edge.getTargetVertex();
+                                            else if (edge.getSourceVertex().equals(vertex))
+                                                return edge.getTargetVertex();
                                             else return edge.getSourceVertex();
                                         })
                                         .collect(Collectors.toSet())
@@ -63,15 +65,8 @@ public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends Undi
         List<V> foundVertices = this.vertices.stream()
                 .filter(vertex -> vertex.equals(edge.getSourceVertex()) || vertex.equals(edge.getTargetVertex()))
                 .collect(Collectors.toList());
-        if (foundVertices.isEmpty()) {
-            return Collections.emptyList();
-        }
-        if(foundVertices.size() == 1){
-            return Arrays.asList(foundVertices.get(0));
-        }
-        if (foundVertices.size() == 2) {
-            return Arrays.asList(foundVertices.get(0), foundVertices.get(1));
-        }
-        throw new IllegalStateException("There must be two or zero vertices for the given edge.");
+        if (foundVertices.size() > 2) {
+            throw new IllegalStateException("There must be max two vertices for the given edge.");
+        } else return foundVertices;
     }
 }
