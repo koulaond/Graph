@@ -3,6 +3,7 @@ package directed;
 import api.AbstractGraphElement;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -10,7 +11,8 @@ public class SimpleDirectedVertex<E extends DirectedEdge> extends AbstractGraphE
 
     private final Set<E> incomeEdges, outcomeEdges;
 
-    public SimpleDirectedVertex() {
+    public SimpleDirectedVertex(String label, Map<String, Object> properties) {
+        super(label, properties);
         this.incomeEdges = new HashSet<>();
         this.outcomeEdges = new HashSet<>();
     }
@@ -42,5 +44,12 @@ public class SimpleDirectedVertex<E extends DirectedEdge> extends AbstractGraphE
         allEdges.addAll(incomeEdges);
         allEdges.addAll(outcomeEdges);
         return allEdges;
+    }
+
+    protected static class SimpleDirectedVertexBuilder<E extends DirectedEdge> extends AbstractGraphElementBuilder{
+
+        public SimpleDirectedVertex<E> build(){
+            return new SimpleDirectedVertex<>(this.label, this.properties);
+        }
     }
 }

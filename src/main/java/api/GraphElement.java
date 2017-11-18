@@ -14,4 +14,9 @@ public interface GraphElement {
 
     Map<String, Object> getProperties();
 
+    boolean addProperty(String propName, Object propValue);
+
+    void setProperty(String propName, Object propValue);
+
+    Object deleteProperty(String propName);
 }

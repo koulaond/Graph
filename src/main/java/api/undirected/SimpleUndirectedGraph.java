@@ -12,14 +12,6 @@ import static java.util.stream.Collectors.toMap;
 public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends UndirectedEdge<V>>
         extends AbstractGraph<V, E> implements UndirectedGraph<V, E> {
 
-    protected final Set<E> edges;
-    protected final Set<V> vertices;
-
-    public SimpleUndirectedGraph() {
-        this.edges = new HashSet<>();
-        this.vertices = new HashSet<>();
-    }
-
     public void createEdge(EdgeFactory<E> edgeFactory) {
         E edge = edgeFactory.create();
         validateVertices(edge.getSourceVertex(), edge.getTargetVertex());
@@ -49,6 +41,7 @@ public class SimpleUndirectedGraph<V extends UndirectedVertex<E>, E extends Undi
     }
 
     public Map<V, Set<V>> createAdjacencyList() {
+
         return vertices.stream()
                 .collect(
                         toMap(

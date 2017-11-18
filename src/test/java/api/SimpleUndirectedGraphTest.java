@@ -43,7 +43,6 @@ public class SimpleUndirectedGraphTest {
     public void createEdge() throws Exception {
         graph.insertVertices(left, right);
         graph.createEdge(() -> testEdge);
-
         assertThat(testEdge).satisfies(edge -> {
             assertTrue(graph.containsEdge(testEdge));
             assertThat(left).as("Left vertex does not contain an edge")

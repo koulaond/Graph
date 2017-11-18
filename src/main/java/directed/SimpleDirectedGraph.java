@@ -14,25 +14,11 @@ public class SimpleDirectedGraph<V extends DirectedVertex<E>, E extends Directed
     @Override
     public void createEdge(EdgeFactory<E> edgeFactory) {
         E edge = edgeFactory.create();
-        validateVertices(edge.getSourceVertex(), edge.getTargetVertex());
+        V sourceVertex = edge.getSourceVertex();
+        V targetVertex = edge.getTargetVertex();
+        validateVertices(sourceVertex, targetVertex);
         edges.add(edge);
-        List<V> verticesForEdge = getVerticesForEdge(edge);
 
-        if((edge.getDirection().equals(Direction.FORWARD) &&verticesForEdge.get(0).equals(edge.getSourceVertex()))
-                || (edge.getDirection().equals(Direction.BACKWARD) && verticesForEdge.get(1).equals(edge.getTargetVertex()))){
-            verticesForEdge.get(0).addOutcomeEdge(edge);
-            verticesForEdge.get(1).addIncomeEdge(edge);
-            edges.add(edge);
-
-        } else if((edge.getDirection().equals(Direction.FORWARD) && verticesForEdge.get(1).equals(edge.getSourceVertex()))
-                || (edge.getDirection().equals(Direction.BACKWARD) && verticesForEdge.get(0).equals(edge.getSourceVertex()))){
-            verticesForEdge.get(0).addIncomeEdge(edge);
-            verticesForEdge.get(1).addOutcomeEdge(edge);
-            edges.add(edge);
-
-        } else {
-            throw new IllegalStateException("There is inconsistency between edges and vertices");
-        }
     }
 
     @Override
