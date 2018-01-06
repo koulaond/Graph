@@ -1,6 +1,7 @@
 package api;
 
 import api.undirected.SimpleUndirectedEdge;
+import api.undirected.SimpleUndirectedGraph;
 import api.undirected.SimpleUndirectedVertex;
 import org.junit.Before;
 import org.junit.Test;
