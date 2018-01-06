@@ -1,9 +1,21 @@
 package api;
 
-import java.util.Set;
-import java.util.UUID;
+import lombok.Getter;
+import lombok.Setter;
 
-public interface Vertex<E extends Edge> extends GraphElement {
+import java.util.Map;
 
-    Set<E> getAllEdges();
+@Getter
+@Setter
+public class Vertex extends AbstractGraphElement {
+    private int weight;
+
+    public Vertex(int weight) {
+        this.weight = weight;
+    }
+
+    public Vertex(String label, Map<String, Object> properties, int weight) {
+        super(label, properties);
+        this.weight = weight;
+    }
 }
