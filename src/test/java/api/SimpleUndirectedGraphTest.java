@@ -1,7 +1,6 @@
 package api;
 
 import api.undirected.SimpleUndirectedEdge;
-import api.undirected.SimpleUndirectedGraph;
 import api.undirected.SimpleUndirectedVertex;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,82 +22,82 @@ public class SimpleUndirectedGraphTest {
     private static final UUID LEFT_VERTEX_UUID = UUID.randomUUID();
     private static final UUID RIGHT_VERTEX_UUID = UUID.randomUUID();
 
-    private SimpleUndirectedVertex left;
+    private SimpleUndirectedVertex leftVertex;
 
-    private SimpleUndirectedVertex right;
+    private SimpleUndirectedVertex rightVertex;
 
-    private SimpleUndirectedEdge testEdge;
+    private SimpleUndirectedEdge edge;
 
-    SimpleUndirectedGraph graph;
+    private SimpleUndirectedGraph graph;
 
     @Before
     public void setup() {
-        left = vertex(LEFT_VERTEX_UUID);
-        right = vertex(RIGHT_VERTEX_UUID);
-        testEdge = edge(left, right);
+        leftVertex = vertex(LEFT_VERTEX_UUID);
+        rightVertex = vertex(RIGHT_VERTEX_UUID);
+        edge = edge(leftVertex, rightVertex);
         graph = new SimpleUndirectedGraph();
     }
 
     @Test
     public void createEdge() throws Exception {
-        graph.insertVertices(left, right);
-        graph.createEdge(() -> testEdge);
-        assertThat(testEdge).satisfies(edge -> {
-            assertTrue(graph.containsEdge(testEdge));
-            assertThat(left).as("Left vertex does not contain an edge")
-                    .satisfies(vertex -> verify(vertex).addEdge(testEdge));
-            assertThat(right).as("Right vertex does not contain an edge")
-                    .satisfies(vertex -> verify(vertex).addEdge(testEdge));
+        graph.insertVertices(leftVertex, rightVertex);
+        graph.createEdge(() -> edge);
+        assertThat(edge).satisfies(edge -> {
+            assertTrue(graph.containsEdge(this.edge));
+            assertThat(leftVertex).as("Left vertex does not contain an edge")
+                    .satisfies(vertex -> verify(vertex).addEdge(this.edge));
+            assertThat(rightVertex).as("Right vertex does not contain an edge")
+                    .satisfies(vertex -> verify(vertex).addEdge(this.edge));
         });
     }
 
     @Test
     public void containsEdge_positive() throws Exception {
-        graph.insertVertices(left, right);
-        graph.createEdge(() -> testEdge);
+        graph.insertVertices(leftVertex, rightVertex);
+        graph.createEdge(() -> edge);
         assertThat(graph).as("Graph does not contain particular edge")
-                .satisfies(graph -> assertTrue(graph.containsEdge(testEdge)));
+                .satisfies(graph -> assertTrue(graph.containsEdge(edge)));
     }
 
     @Test
     public void containsEdge_negative() throws Exception {
         assertThat(graph).as("Graph SHOULD not contain particular edge")
-                .satisfies(graph -> assertFalse(graph.containsEdge(testEdge)));
+                .satisfies(graph -> assertFalse(graph.containsEdge(edge)));
     }
 
     @Test
     public void containsEdgeForVertices_positive() throws Exception {
-        graph.insertVertices(left, right);
-        graph.createEdge(() -> testEdge);
-        when(testEdge.isForVertices(left, right)).thenReturn(true);
+        graph.insertVertices(leftVertex, rightVertex);
+        graph.createEdge(() -> edge);
+        when(edge.isForVertices(leftVertex, rightVertex)).thenReturn(true);
         assertThat(graph).as("Graph does not contain particular edge for given vertices")
-                .satisfies(graph -> assertTrue(graph.containsEdgeForVertices(left, right)));
+                .satisfies(graph -> assertTrue(graph.containsEdgeForVertices(leftVertex, rightVertex)));
     }
 
     @Test
     public void containsEdgeForVertices_negative() throws Exception {
-        when(testEdge.isForVertices(left, right)).thenReturn(false);
+        when(edge.isForVertices(leftVertex, rightVertex)).thenReturn(false);
         assertThat(graph).as("Graph SHOULD not contain particular edge for given vertices")
-                .satisfies(graph -> assertFalse(graph.containsEdgeForVertices(left, right)));
+                .satisfies(graph -> assertFalse(graph.containsEdgeForVertices(leftVertex, rightVertex)));
     }
 
     @Test
     public void containsVertex_positive() throws Exception {
-        graph.insertVertex(left);
+        graph.insertVertex(leftVertex);
         assertThat(graph).as("Graph does not contain inserted vertex")
-                .satisfies(graph -> assertTrue(graph.containsVertex(left)));
+                .satisfies(graph -> assertTrue(graph.containsVertex(leftVertex)));
     }
 
     @Test
     public void containsVertex_negative() throws Exception {
         assertThat(graph).as("Graph does not contain inserted vertex")
-                .satisfies(graph -> assertFalse(graph.containsVertex(left)));
+                .satisfies(graph -> assertFalse(graph.containsVertex(leftVertex)));
     }
 
     @Test
     public void getEdgeFor_positive() throws Exception {
-        graph.insertVertices(left, right);
-        graph.createEdge(() -> testEdge);
+        graph.insertVertices(leftVertex, rightVertex);
+        graph.createEdge(() -> edge);
     }
 
     @Test
