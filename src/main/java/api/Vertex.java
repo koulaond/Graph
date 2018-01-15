@@ -7,12 +7,8 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class Vertex extends AbstractGraphElement {
+public class Vertex extends AbstractItem implements Node{
     private int weight;
-
-    public Vertex(int weight) {
-        this.weight = weight;
-    }
 
     public Vertex(String label, Map<String, Object> properties, int weight) {
         super(label, properties);
@@ -20,13 +16,13 @@ public class Vertex extends AbstractGraphElement {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (super.equals(o)) {
-            return true;
-        }
-        if (!(o instanceof Vertex)) {
+    public boolean equals(Object that) {
+        if (!super.equals(that)) {
             return false;
         }
-        return ((Vertex) o).weight == this.weight;
+        if (!(that instanceof Vertex)) {
+            return false;
+        }
+        return ((Vertex) that).weight == this.weight;
     }
 }
