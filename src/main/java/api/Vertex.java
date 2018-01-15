@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class Vertex extends AbstractItem implements Node{
+public class Vertex extends AbstractItem implements Node {
     private int weight;
 
     public Vertex(String label, Map<String, Object> properties, int weight) {
