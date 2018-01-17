@@ -31,7 +31,7 @@ public abstract class AbstractEdge extends AbstractItem implements Edge {
             return false;
         }
         AbstractEdge edge = (AbstractEdge) that;
-        return this.getLeftNode().equals(this.getLeftNode())
-                && this.getRightNode().equals(this.getRightNode());
+        return edge.getLeftNode().equals(this.getLeftNode())
+                && edge.getRightNode().equals(this.getRightNode());
     }
 }
