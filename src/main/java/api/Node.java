@@ -6,4 +6,5 @@ public interface Node {
 
     boolean isIncludedIn(Graph graph);
 
+    boolean includes(Node other);
 }

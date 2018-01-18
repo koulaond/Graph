@@ -5,25 +5,27 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@Getter
 public abstract class AbstractItem {
 
     @NonNull
+    @Getter
     private UUID uuid = UUID.randomUUID();
 
     @NonNull
     @Setter
+    @Getter
     private String label;
 
     @NonNull
     private Map<String, Object> properties;
 
-    protected AbstractItem(@NonNull String label, @NonNull Map<String, Object> properties) {
+    protected AbstractItem(@NonNull String label) {
         this.label = label;
-        this.properties = properties;
+        this.properties = new HashMap<>();
     }
 
     public Map<String, Object> getProperties() {
