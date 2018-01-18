@@ -1,6 +1,6 @@
 package api;
 
-public interface Edge {
+public interface Edge extends GraphElement {
 
     Vertex getSourceVertex();
 

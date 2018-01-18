@@ -1,6 +1,6 @@
 package api;
 
-public interface Node {
+public interface Node extends GraphElement {
 
     Graph getParentGraph();
 
