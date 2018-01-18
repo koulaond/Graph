@@ -16,8 +16,8 @@ class DefaultEdge extends AbstractItem implements Edge {
     @NonNull
     private Vertex targetVertex;
 
-    public DefaultEdge(String label, Map<String, Object> properties, Vertex sourceVertex, Vertex targetVertex) {
-        super(label, properties);
+    public DefaultEdge(String label, Vertex sourceVertex, Vertex targetVertex) {
+        super(label);
         this.sourceVertex = sourceVertex;
         this.targetVertex = targetVertex;
     }
