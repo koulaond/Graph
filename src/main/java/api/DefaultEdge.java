@@ -31,7 +31,7 @@ class DefaultEdge extends AbstractItem implements Edge {
             return false;
         }
         DefaultEdge edge = (DefaultEdge) that;
-        return this.getSourceVertex().equals(this.getSourceVertex())
-                && this.getTargetVertex().equals(this.getTargetVertex());
+        return this.getSourceVertex().equals(edge.getSourceVertex())
+                && this.getTargetVertex().equals(edge.getTargetVertex());
     }
 }
