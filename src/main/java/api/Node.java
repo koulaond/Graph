@@ -2,6 +2,8 @@ package api;
 
 public interface Node {
 
-    int getWeight();
+    Graph getParentGraph();
+
+    boolean isIncludedIn(Graph graph);
 
 }

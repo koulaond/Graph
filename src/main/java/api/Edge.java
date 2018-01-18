@@ -2,7 +2,8 @@ package api;
 
 public interface Edge {
 
-    Node getLeftNode();
+    Vertex getSourceVertex();
 
-    Node getRightNode();
+    Vertex getTargetVertex();
+
 }

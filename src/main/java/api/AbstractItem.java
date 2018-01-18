@@ -2,6 +2,7 @@ package api;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.util.Collections;
 import java.util.Map;
@@ -14,6 +15,7 @@ public abstract class AbstractItem {
     private UUID uuid = UUID.randomUUID();
 
     @NonNull
+    @Setter
     private String label;
 
     @NonNull
@@ -26,10 +28,6 @@ public abstract class AbstractItem {
 
     public Map<String, Object> getProperties() {
         return Collections.unmodifiableMap(properties);
-    }
-
-    public void setLabel(@NonNull String label) {
-        this.label = label;
     }
 
     public void addProperty(String key, Object value){

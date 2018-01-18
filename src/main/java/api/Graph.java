@@ -1,6 +1,13 @@
 package api;
 
-public interface Graph {
+import java.util.Map;
+import java.util.Set;
 
-    Node initialNode();
+public interface Graph extends Node {
+
+    Set<Node> getSubNodes();
+
+    boolean includes(Node other);
+
+
 }

@@ -1,26 +1,31 @@
 package api;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 @Getter
-@Setter
-public abstract class AbstractGraph<E extends Edge> extends AbstractItem implements Node{
+public class AbstractGraph<E extends Edge> extends AbstractNode implements Graph {
 
-    private int weight;
+    private AbstractVertex initialVertex;
 
-    private Vertex initialVertex;
+    private Set<Node> subNodes = new HashSet<>();
 
-    private Set<Node> nodes = new HashSet<>();
+    private Set<E> insideEdges = new HashSet<>();
 
-    private Set<E> edges = new HashSet<>();
+    private Set<E> outsideEdges = new HashSet<>();
 
-    protected AbstractGraph(String label, Map<String, Object> properties) {
-        super(label, properties);
+    protected AbstractGraph(String label, Map<String, Object> properties, Graph parentGraph) {
+        super(label, properties, parentGraph);
+    }
+
+    @Override
+    public boolean includes(Node other) {
+        return subNodes.stream()
+                .anyMatch(node -> node.equals(other));
     }
 }
