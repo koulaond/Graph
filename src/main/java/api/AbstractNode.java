@@ -5,15 +5,14 @@ import lombok.NonNull;
 
 import java.util.Map;
 
-public class AbstractNode extends AbstractItem implements Node {
+public abstract class AbstractNode extends AbstractItem implements Node {
 
     @Getter
     private Graph parentGraph;
 
     protected AbstractNode(@NonNull String label,
-                           @NonNull Map<String, Object> properties,
                            Graph parentGraph) {
-        super(label, properties);
+        super(label);
         this.parentGraph = parentGraph;
     }
 
