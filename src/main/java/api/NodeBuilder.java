@@ -3,7 +3,7 @@ package api;
 import java.util.HashMap;
 import java.util.Map;
 
-class NodeBuilder {
+public class NodeBuilder {
 
     protected String label;
 

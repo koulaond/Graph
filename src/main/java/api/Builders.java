@@ -6,8 +6,8 @@ public class Builders {
         // No Builders instance !!
     }
 
-    public static EdgeBuilder edgeBuilder() {
-        return new EdgeBuilder();
+    public static ConnectionBuilder edgeBuilder() {
+        return new ConnectionBuilder();
     }
 
     public static NodeBuilder nodeBuilder() {

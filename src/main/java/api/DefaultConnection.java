@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-class DefaultEdge extends AbstractItem implements Edge {
+class DefaultConnection extends AbstractItem implements Connection {
 
     @NonNull
     private Node sourceNode;
@@ -14,7 +14,7 @@ class DefaultEdge extends AbstractItem implements Edge {
     @NonNull
     private Node targetNode;
 
-    public DefaultEdge(String label, Node sourceNode, Node targetNode) {
+    public DefaultConnection(String label, Node sourceNode, Node targetNode) {
         super(label);
         this.sourceNode = sourceNode;
         this.targetNode = targetNode;
@@ -25,11 +25,11 @@ class DefaultEdge extends AbstractItem implements Edge {
         if (!super.equals(that)) {
             return false;
         }
-        if (!(that instanceof DefaultEdge)) {
+        if (!(that instanceof DefaultConnection)) {
             return false;
         }
-        DefaultEdge edge = (DefaultEdge) that;
-        return this.getSourceNode().equals(edge.getSourceNode())
-                && this.getTargetNode().equals(edge.getTargetNode());
+        DefaultConnection connection = (DefaultConnection) that;
+        return this.getSourceNode().equals(connection.getSourceNode())
+                && this.getTargetNode().equals(connection.getTargetNode());
     }
 }

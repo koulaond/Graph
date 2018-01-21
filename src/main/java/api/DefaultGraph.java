@@ -1,5 +1,6 @@
 package api;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -21,18 +22,23 @@ public class DefaultGraph<N extends Node> extends DefaultNode implements Graph<N
     private Set<N> subNodes;
 
     @NonNull
-    private Map<Edge, N> inputEdgesMap;
+    @Getter
+    private Set<Connection> innerConnections;
 
     @NonNull
-    private Map<Edge, N> outputEdgesMap;
+    private Map<Connection, N> inputConnectionsMap;
+
+    @NonNull
+    private Map<Connection, N> outputConnectionsMap;
 
     public DefaultGraph(@NonNull String label, N initialNode, Graph parentGraph) {
         super(label, parentGraph);
         this.initialNode = initialNode;
         this.subNodes = new HashSet<>();
         this.subNodes.add(initialNode);
-        this.inputEdgesMap = new HashMap<>();
-        this.outputEdgesMap = new HashMap<>();
+        this.innerConnections = new HashSet<>();
+        this.inputConnectionsMap = new HashMap<>();
+        this.outputConnectionsMap = new HashMap<>();
     }
 
     public DefaultGraph(@NonNull String label, N initialNode) {
@@ -55,23 +61,23 @@ public class DefaultGraph<N extends Node> extends DefaultNode implements Graph<N
     }
 
     @Override
-    public Set<Edge> getInputEdges() {
-        return inputEdgesMap.keySet();
+    public Set<Connection> getInputConnections() {
+        return inputConnectionsMap.keySet();
     }
 
     @Override
-    public Set<Edge> getOutputEdges() {
-        return outputEdgesMap.keySet();
+    public Set<Connection> getOutputConnections() {
+        return outputConnectionsMap.keySet();
     }
 
     @Override
-    public Map<Edge, N> getInputEdgesMap() {
-        return unmodifiableMap(inputEdgesMap);
+    public Map<Connection, N> getInputConnectionsMap() {
+        return unmodifiableMap(inputConnectionsMap);
     }
 
     @Override
-    public Map<Edge, N> getOutputEdgesMap() {
-        return unmodifiableMap(outputEdgesMap);
+    public Map<Connection, N> getOutputConnectionsMap() {
+        return unmodifiableMap(outputConnectionsMap);
     }
 
     @Override
@@ -84,11 +90,15 @@ public class DefaultGraph<N extends Node> extends DefaultNode implements Graph<N
         return graph.includes(this);
     }
 
-    void addInputEdge(Edge inputEdge, N leadTo) {
-        this.inputEdgesMap.put(inputEdge, leadTo);
+    void addInputEdge(Connection inputConnection, N leadTo) {
+        this.inputConnectionsMap.put(inputConnection, leadTo);
     }
 
-    void addOutputEdge(Edge outputEdge, N leadTo) {
-        this.outputEdgesMap.put(outputEdge, leadTo);
+    void addOutputEdge(Connection outputConnection, N leadTo) {
+        this.outputConnectionsMap.put(outputConnection, leadTo);
+    }
+
+    void addInnerConnection(Connection innerConnection){
+        this.innerConnections.add(innerConnection);
     }
 }

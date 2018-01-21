@@ -16,26 +16,26 @@ public class DefaultNode extends AbstractItem implements Node {
     @Getter
     protected Graph parentGraph;
 
-    private Set<Edge> inputEdges;
+    private Set<Connection> inputConnections;
 
-    private Set<Edge> outputEdges;
+    private Set<Connection> outputConnections;
 
     protected DefaultNode(@NonNull String label,
                           @NonNull Graph parentGraph) {
         super(label);
         this.parentGraph = parentGraph;
-        this.inputEdges = new HashSet<>();
-        this.outputEdges = new HashSet<>();
+        this.inputConnections = new HashSet<>();
+        this.outputConnections = new HashSet<>();
     }
 
     @Override
-    public Set<Edge> getInputEdges() {
-        return unmodifiableSet(inputEdges);
+    public Set<Connection> getInputConnections() {
+        return unmodifiableSet(inputConnections);
     }
 
     @Override
-    public Set<Edge> getOutputEdges() {
-        return unmodifiableSet(outputEdges);
+    public Set<Connection> getOutputConnections() {
+        return unmodifiableSet(outputConnections);
     }
 
     @Override
@@ -48,12 +48,12 @@ public class DefaultNode extends AbstractItem implements Node {
         return graph.includes(this);
     }
 
-    void addInputEdge(Edge inputEdge){
-        this.inputEdges.add(inputEdge);
+    void addInputEdge(Connection inputConnection){
+        this.inputConnections.add(inputConnection);
     }
 
-    void addOutputEdge(Edge outputEdge){
-        this.outputEdges.add(outputEdge);
+    void addOutputEdge(Connection outputConnection){
+        this.outputConnections.add(outputConnection);
     }
 
     @Override

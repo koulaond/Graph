@@ -3,7 +3,7 @@ package api;
 import java.util.HashSet;
 import java.util.Set;
 
-class GraphBuilder extends NodeBuilder {
+public class GraphBuilder extends NodeBuilder {
 
     private Node initialNode;
 

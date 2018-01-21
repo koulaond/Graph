@@ -1,6 +1,6 @@
 package api;
 
-public interface Edge extends GraphElement {
+public interface Connection extends GraphElement {
 
     Node getSourceNode();
 

@@ -1,7 +1,5 @@
 package api;
 
-import lombok.Builder;
-
 import java.util.Set;
 
 public interface Node extends GraphElement {
@@ -12,7 +10,7 @@ public interface Node extends GraphElement {
 
     boolean includes(Node other);
 
-    Set<Edge> getInputEdges();
+    Set<Connection> getInputConnections();
 
-    Set<Edge> getOutputEdges();
+    Set<Connection> getOutputConnections();
 }

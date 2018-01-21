@@ -3,7 +3,7 @@ package api;
 import java.util.HashMap;
 import java.util.Map;
 
-class EdgeBuilder {
+class ConnectionBuilder {
 
     private String label;
 
@@ -13,27 +13,27 @@ class EdgeBuilder {
 
     private Node targetNode;
 
-    public EdgeBuilder label(String label){
+    public ConnectionBuilder label(String label){
         this.label = label;
         return this;
     }
 
-    public EdgeBuilder property(String key, Object value){
+    public ConnectionBuilder property(String key, Object value){
         this.properties.put(key, value);
         return this;
     }
-    public EdgeBuilder sourceNode(Node sourceNode){
+    public ConnectionBuilder sourceNode(Node sourceNode){
         this.sourceNode = sourceNode;
         return this;
     }
 
-    public EdgeBuilder targetNode(Node targetNode){
+    public ConnectionBuilder targetNode(Node targetNode){
         this.targetNode = targetNode;
         return this;
     }
 
-    public Edge build(){
-        DefaultEdge edge = new DefaultEdge(label, sourceNode, targetNode);
+    public Connection build(){
+        DefaultConnection edge = new DefaultConnection(label, sourceNode, targetNode);
         edge.setProperties(properties);
         return edge;
     }
