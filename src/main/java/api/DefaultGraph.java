@@ -1,6 +1,7 @@
 package api;
 
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,34 +11,32 @@ import java.util.Set;
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Collections.unmodifiableSet;
 
-public class DefaultGraph<N extends Node> extends AbstractItem implements Graph<N> {
-
-    private Graph parentGraph;
+public class DefaultGraph<N extends Node> extends DefaultNode implements Graph<N> {
 
     @NonNull
     private N initialNode;
 
     @NonNull
+    @Setter
     private Set<N> subNodes;
 
     @NonNull
-    private Map<Edge, N> inputEdges;
+    private Map<Edge, N> inputEdgesMap;
 
     @NonNull
-    private Map<Edge, N> outputEdges;
+    private Map<Edge, N> outputEdgesMap;
 
-    public DefaultGraph(@NonNull String label, N initialNode) {
-        super(label);
+    public DefaultGraph(@NonNull String label, N initialNode, Graph parentGraph) {
+        super(label, parentGraph);
         this.initialNode = initialNode;
         this.subNodes = new HashSet<>();
         this.subNodes.add(initialNode);
-        this.inputEdges = new HashMap<>();
-        this.outputEdges = new HashMap<>();
+        this.inputEdgesMap = new HashMap<>();
+        this.outputEdgesMap = new HashMap<>();
     }
 
-    public DefaultGraph(@NonNull String label, N initialNode, Graph parentGraph) {
-        this(label, initialNode);
-        this.parentGraph = parentGraph;
+    public DefaultGraph(@NonNull String label, N initialNode) {
+        this(label, initialNode, null);
     }
 
     @Override
@@ -57,22 +56,22 @@ public class DefaultGraph<N extends Node> extends AbstractItem implements Graph<
 
     @Override
     public Set<Edge> getInputEdges() {
-        return inputEdges.keySet();
+        return inputEdgesMap.keySet();
     }
 
     @Override
     public Set<Edge> getOutputEdges() {
-        return outputEdges.keySet();
+        return outputEdgesMap.keySet();
     }
 
     @Override
     public Map<Edge, N> getInputEdgesMap() {
-        return unmodifiableMap(inputEdges);
+        return unmodifiableMap(inputEdgesMap);
     }
 
     @Override
     public Map<Edge, N> getOutputEdgesMap() {
-        return unmodifiableMap(outputEdges);
+        return unmodifiableMap(outputEdgesMap);
     }
 
     @Override
@@ -86,10 +85,10 @@ public class DefaultGraph<N extends Node> extends AbstractItem implements Graph<
     }
 
     void addInputEdge(Edge inputEdge, N leadTo) {
-        this.inputEdges.put(inputEdge, leadTo);
+        this.inputEdgesMap.put(inputEdge, leadTo);
     }
 
     void addOutputEdge(Edge outputEdge, N leadTo) {
-        this.outputEdges.put(outputEdge, leadTo);
+        this.outputEdgesMap.put(outputEdge, leadTo);
     }
 }

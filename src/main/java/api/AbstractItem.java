@@ -1,5 +1,6 @@
 package api;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public abstract class AbstractItem {
     private String label;
 
     @NonNull
+    @Setter
     private Map<String, Object> properties;
 
     protected AbstractItem(@NonNull String label) {
