@@ -24,7 +24,7 @@ public class DefaultGraph<N extends Node> extends AbstractItem implements Graph<
     private Map<Edge, N> inputEdges;
 
     @NonNull
-    private Map<N, Edge> outputEdges;
+    private Map<Edge, N> outputEdges;
 
     public DefaultGraph(@NonNull String label, N initialNode) {
         super(label);
@@ -56,12 +56,22 @@ public class DefaultGraph<N extends Node> extends AbstractItem implements Graph<
     }
 
     @Override
-    public Map<Edge, N> getInputEdges() {
+    public Set<Edge> getInputEdges() {
+        return inputEdges.keySet();
+    }
+
+    @Override
+    public Set<Edge> getOutputEdges() {
+        return outputEdges.keySet();
+    }
+
+    @Override
+    public Map<Edge, N> getInputEdgesMap() {
         return unmodifiableMap(inputEdges);
     }
 
     @Override
-    public Map<N, Edge> getOutputEdges() {
+    public Map<Edge, N> getOutputEdgesMap() {
         return unmodifiableMap(outputEdges);
     }
 
@@ -75,11 +85,11 @@ public class DefaultGraph<N extends Node> extends AbstractItem implements Graph<
         return graph.includes(this);
     }
 
-    void addInputEdge(Edge inputEdge, N leadTo){
+    void addInputEdge(Edge inputEdge, N leadTo) {
         this.inputEdges.put(inputEdge, leadTo);
     }
 
-    void addOutputEdge(N leadFrom, Edge outputEdge){
-        this.outputEdges.put(leadFrom, outputEdge);
+    void addOutputEdge(Edge outputEdge, N leadTo) {
+        this.outputEdges.put(outputEdge, leadTo);
     }
 }

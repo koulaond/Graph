@@ -2,8 +2,8 @@ package api;
 
 public interface Edge extends GraphElement {
 
-    Vertex getSourceVertex();
+    Node getSourceNode();
 
-    Vertex getTargetVertex();
+    Node getTargetNode();
 
 }

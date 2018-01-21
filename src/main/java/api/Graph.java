@@ -9,8 +9,8 @@ public interface Graph<N extends Node> extends Node {
 
     Set<N> getSubNodes();
 
-    Map<Edge, N> getInputEdges();
+    Map<Edge, N> getInputEdgesMap();
 
-    Map<N, Edge> getOutputEdges();
+    Map<Edge, N> getOutputEdgesMap();
 
 }

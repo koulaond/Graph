@@ -4,21 +4,20 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.util.Collections;
 import java.util.Set;
 
 import static java.util.Collections.unmodifiableSet;
 
 @Getter
 @Setter
-public class DefaultVertex extends AbstractNode implements Vertex {
+public class DefaultNode extends AbstractNode implements Node {
 
     private Set<Edge> inputEdges;
 
     private Set<Edge> outputEdges;
 
-    protected DefaultVertex(@NonNull String label,
-                            @NonNull Graph parentGraph) {
+    protected DefaultNode(@NonNull String label,
+                          @NonNull Graph parentGraph) {
         super(label, parentGraph);
     }
 
@@ -42,7 +41,7 @@ public class DefaultVertex extends AbstractNode implements Vertex {
         if (!super.equals(that)) {
             return false;
         }
-        if (that instanceof DefaultVertex) {
+        if (that instanceof DefaultNode) {
             return true;
         }
         return false;

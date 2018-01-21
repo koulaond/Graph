@@ -4,22 +4,20 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.util.Map;
-
 @Setter
 @Getter
 class DefaultEdge extends AbstractItem implements Edge {
 
     @NonNull
-    private Vertex sourceVertex;
+    private Node sourceNode;
 
     @NonNull
-    private Vertex targetVertex;
+    private Node targetNode;
 
-    public DefaultEdge(String label, Vertex sourceVertex, Vertex targetVertex) {
+    public DefaultEdge(String label, Node sourceNode, Node targetNode) {
         super(label);
-        this.sourceVertex = sourceVertex;
-        this.targetVertex = targetVertex;
+        this.sourceNode = sourceNode;
+        this.targetNode = targetNode;
     }
 
     @Override
@@ -31,7 +29,7 @@ class DefaultEdge extends AbstractItem implements Edge {
             return false;
         }
         DefaultEdge edge = (DefaultEdge) that;
-        return this.getSourceVertex().equals(edge.getSourceVertex())
-                && this.getTargetVertex().equals(edge.getTargetVertex());
+        return this.getSourceNode().equals(edge.getSourceNode())
+                && this.getTargetNode().equals(edge.getTargetNode());
     }
 }
