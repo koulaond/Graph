@@ -1,6 +1,33 @@
+import api.Builders;
+import api.Connection;
+import api.Graph;
+import api.Node;
+
 public class App {
 
     public static void main(String[] args) {
+        Node node1 = Builders.nodeBuilder()
+                .label("Node 1")
+                .property("Description", "This is Node 1 description")
+                .build();
 
+        Node node2 = Builders.nodeBuilder()
+                .label("Node 2")
+                .property("Description", "This is Node 2 description")
+                .build();
+
+        Connection connection = Builders.connectionBuilder()
+                .label("Edge 1")
+                .property("Description", "This is the edge connecting Nodes 1 and 2")
+                .sourceNode(node1)
+                .targetNode(node2)
+                .build();
+
+        Graph graph = Builders.graphBuilder()
+                .label("Graph")
+                .subNode(node1, true)
+                .subNode(node2)
+                .innerConnection(connection)
+                .build();
     }
 }

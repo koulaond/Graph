@@ -20,13 +20,17 @@ public class NodeBuilder {
         this.properties.put(key, value);
         return this;
     }
+    public NodeBuilder properties(Map<String, Object> properties){
+        this.properties.putAll(properties);
+        return this;
+    }
 
     public NodeBuilder parentGraph(Graph parentGraph){
         this.parentGraph = parentGraph;
         return this;
     }
 
-    public Node build(){
+    public DefaultNode build(){
         DefaultNode node = new DefaultNode(label, parentGraph);
         node.setProperties(properties);
         return node;

@@ -3,7 +3,7 @@ package api;
 import java.util.HashMap;
 import java.util.Map;
 
-class ConnectionBuilder {
+public class ConnectionBuilder {
 
     private String label;
 
@@ -22,6 +22,11 @@ class ConnectionBuilder {
         this.properties.put(key, value);
         return this;
     }
+
+    public ConnectionBuilder properties(Map<String, Object> properties){
+        this.properties.putAll(properties);
+        return this;
+    }
     public ConnectionBuilder sourceNode(Node sourceNode){
         this.sourceNode = sourceNode;
         return this;
@@ -32,7 +37,7 @@ class ConnectionBuilder {
         return this;
     }
 
-    public Connection build(){
+    public DefaultConnection build(){
         DefaultConnection edge = new DefaultConnection(label, sourceNode, targetNode);
         edge.setProperties(properties);
         return edge;
