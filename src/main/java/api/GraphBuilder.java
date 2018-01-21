@@ -1,11 +1,9 @@
 package api;
 
-import lombok.NonNull;
-
 import java.util.HashSet;
 import java.util.Set;
 
-public class GraphBuilder extends NodeBuilder {
+class GraphBuilder extends NodeBuilder {
 
     private Node initialNode;
 
