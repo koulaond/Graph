@@ -10,4 +10,8 @@ public interface GraphElement {
     String getLabel();
 
     Map<String, Object> getProperties();
+
+    boolean hasProperty(String key);
+
+    boolean hasProperty(String key, Object value);
 }

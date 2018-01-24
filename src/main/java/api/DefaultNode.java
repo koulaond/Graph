@@ -12,14 +12,14 @@ import static java.util.stream.Collectors.toSet;
 
 @Getter
 @Setter
-public class DefaultNode extends AbstractItem implements Node {
+public class DefaultNode<C extends Connection> extends AbstractItem implements Node<C> {
 
     @Getter
     protected Graph parentGraph;
 
-    private Map<UUID, Connection> inputConnections;
+    private Map<UUID, C> inputConnections;
 
-    private Map<UUID, Connection> outputConnections;
+    private Map<UUID, C> outputConnections;
 
     protected DefaultNode(@NonNull String label,
                           @NonNull Graph parentGraph) {
@@ -30,12 +30,12 @@ public class DefaultNode extends AbstractItem implements Node {
     }
 
     @Override
-    public Set<Connection> getInputConnections() {
+    public Set<C> getInputConnections() {
         return unmodifiableSet(inputConnections.entrySet().stream().map(entry -> entry.getValue()).collect(toSet()));
     }
 
     @Override
-    public Set<Connection> getOutputConnections() {
+    public Set<C> getOutputConnections() {
         return unmodifiableSet(outputConnections.entrySet().stream().map(entry -> entry.getValue()).collect(toSet()));
     }
 
@@ -49,11 +49,11 @@ public class DefaultNode extends AbstractItem implements Node {
         return graph.includes(this);
     }
 
-    void addInputConnection(Connection inputConnection){
+    void addInputConnection(C inputConnection){
         this.inputConnections.put(inputConnection.getUuid(), inputConnection);
     }
 
-    void addOutputConnection(Connection outputConnection){
+    void addOutputConnection(C outputConnection){
         this.outputConnections.put(outputConnection.getUuid(), outputConnection);
     }
 

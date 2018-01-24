@@ -2,7 +2,7 @@ package api;
 
 import java.util.Set;
 
-public interface Node extends GraphElement {
+public interface Node<C extends Connection> extends GraphElement {
 
     Graph getParentGraph();
 
@@ -10,7 +10,7 @@ public interface Node extends GraphElement {
 
     boolean includes(Node other);
 
-    Set<Connection> getInputConnections();
+    Set<C> getInputConnections();
 
-    Set<Connection> getOutputConnections();
+    Set<C> getOutputConnections();
 }

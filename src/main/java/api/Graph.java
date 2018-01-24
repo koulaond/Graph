@@ -3,16 +3,16 @@ package api;
 import java.util.Map;
 import java.util.Set;
 
-public interface Graph<N extends Node> extends Node {
+public interface Graph<N extends Node, C extends Connection> extends Node<C> {
 
     N getInitialNode();
 
     Set<N> getSubNodes();
 
-    Set<Connection> getInnerConnections();
+    Set<C> getInnerConnections();
 
-    Map<Connection, N> getInputConnectionsMap();
+    Map<C, N> getInputConnectionsMap();
 
-    Map<Connection, N> getOutputConnectionsMap();
+    Map<C, N> getOutputConnectionsMap();
 
 }

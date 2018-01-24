@@ -11,7 +11,9 @@ import static java.util.Collections.unmodifiableMap;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.stream.Collectors.toSet;
 
-public class DefaultGraph<N extends Node> extends DefaultNode implements Graph<N> {
+public class DefaultGraph<N extends Node, C extends Connection>
+        extends DefaultNode<C>
+        implements Graph<N, C> {
 
     @NonNull
     private N initialNode;
@@ -22,13 +24,13 @@ public class DefaultGraph<N extends Node> extends DefaultNode implements Graph<N
 
     @NonNull
     @Getter
-    private Map<UUID, Connection> innerConnections;
+    private Map<UUID, C> innerConnections;
 
     @NonNull
-    private Map<Connection, N> inputConnectionsMap;
+    private Map<C, N> inputConnectionsMap;
 
     @NonNull
-    private Map<Connection, N> outputConnectionsMap;
+    private Map<C, N> outputConnectionsMap;
 
     public DefaultGraph(@NonNull String label, N initialNode, Graph parentGraph) {
         super(label, parentGraph);
@@ -63,22 +65,22 @@ public class DefaultGraph<N extends Node> extends DefaultNode implements Graph<N
     }
 
     @Override
-    public Set<Connection> getInputConnections() {
+    public Set<C> getInputConnections() {
         return inputConnectionsMap.keySet();
     }
 
     @Override
-    public Set<Connection> getOutputConnections() {
+    public Set<C> getOutputConnections() {
         return outputConnectionsMap.keySet();
     }
 
     @Override
-    public Map<Connection, N> getInputConnectionsMap() {
+    public Map<C, N> getInputConnectionsMap() {
         return unmodifiableMap(inputConnectionsMap);
     }
 
     @Override
-    public Map<Connection, N> getOutputConnectionsMap() {
+    public Map<C, N> getOutputConnectionsMap() {
         return unmodifiableMap(outputConnectionsMap);
     }
 
@@ -92,15 +94,15 @@ public class DefaultGraph<N extends Node> extends DefaultNode implements Graph<N
         return graph.includes(this);
     }
 
-    void addInputEdge(Connection inputConnection, N leadTo) {
+    void addInputEdge(C inputConnection, N leadTo) {
         this.inputConnectionsMap.put(inputConnection, leadTo);
     }
 
-    void addOutputEdge(Connection outputConnection, N leadTo) {
+    void addOutputEdge(C outputConnection, N leadTo) {
         this.outputConnectionsMap.put(outputConnection, leadTo);
     }
 
-    void addInnerConnection(Connection innerConnection){
+    void addInnerConnection(C innerConnection){
         this.innerConnections.put(innerConnection.getUuid(),innerConnection);
     }
 

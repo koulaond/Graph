@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class AbstractItem {
 
@@ -39,6 +36,15 @@ public abstract class AbstractItem {
 
     public void removeProperty(String key){
         this.properties.remove(key);
+    }
+
+    public boolean hasProperty(String key){
+        return this.properties.containsKey(key);
+    }
+
+    public boolean hasProperty(String key, Object value){
+        Object valueIn = this.properties.get(key);
+        return Objects.equals(value, valueIn);
     }
 
     @Override
