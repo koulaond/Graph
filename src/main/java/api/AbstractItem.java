@@ -10,16 +10,16 @@ public abstract class AbstractItem {
 
     @NonNull
     @Getter
-    private UUID uuid = UUID.randomUUID();
+    protected UUID uuid = UUID.randomUUID();
 
     @NonNull
     @Setter
     @Getter
-    private String label;
+    protected String label;
 
     @NonNull
     @Setter
-    private Map<String, Object> properties;
+    protected Map<String, Object> properties;
 
     protected AbstractItem(@NonNull String label) {
         this.label = label;

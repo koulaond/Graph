@@ -3,9 +3,6 @@ package api;
 import lombok.NonNull;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -26,7 +23,7 @@ public class GraphHandler {
             nodeBuilder.properties(properties);
         }
         DefaultNode node = nodeBuilder.build();
-        this.graph.addSubNode(node);
+        this.graph.addNode(node);
         return node;
     }
 
@@ -58,8 +55,8 @@ public class GraphHandler {
                                    @NonNull String connectionLabel,
                                    Map<String, Object> properties) {
 
-        DefaultNode sourceNode = graph.getSubNode(sourceNodeUUID);
-        DefaultNode targetNode = graph.getSubNode(targetNodeUUID);
+        DefaultNode sourceNode = graph.getNode(sourceNodeUUID);
+        DefaultNode targetNode = graph.getNode(targetNodeUUID);
         if (sourceNode == null || targetNode == null) {
             throw new IllegalStateException("Some of the connecting nodes does not exist.");
         }
@@ -71,80 +68,42 @@ public class GraphHandler {
             connectionBuilder.properties(properties);
         }
         DefaultConnection connection = connectionBuilder.build();
-        graph.addInnerConnection(connection);
+        graph.addConnection(connection);
         sourceNode.addOutputConnection(connection);
         targetNode.addInputConnection(connection);
         return connection;
     }
 
     public Set<Node> getNodesByProperty(String key) {
-        return graph.getSubNodes().stream()
+        return graph.getNodes().stream()
                 .filter(node -> node.hasProperty(key))
                 .collect(toSet());
     }
 
     public Set<Node> getNodesByProperty(String key, Object value) {
-        return graph.getSubNodes().stream()
+        return graph.getNodes().stream()
                 .filter(node -> node.hasProperty(key, value))
                 .collect(toSet());
     }
 
     public Set<Node> getNodesByLabel(String label){
-        return graph.getSubNodes().stream()
+        return graph.getNodes().stream()
                 .filter(node -> Objects.equals(node.getLabel(), label))
                 .collect(toSet());
     }
 
     public Set<Connection> getInnerConnections(){
-        return new HashSet<>(graph.getInnerConnections().values());
+        return new HashSet<>(graph.getConnections());
     }
 
-    public Set<Connection> getInnerConnectionsByProperty(String key){
-        return graph.getInnerConnections().values().stream()
-                .filter(connection -> connection.hasProperty(key))
-                .collect(toSet());
-
-    }
-
-    public Set<Connection> getInnerConnectionsByProperty(String key, Object value){
-        return graph.getInnerConnections().values().stream()
-                .filter(connection -> connection.hasProperty(key, value))
-                .collect(toSet());
-    }
-
-    public  Set<Connection> getInputConnectionsByProperty(String key) {
-        return graph.getInputConnections().stream()
-                .filter(connection -> connection.hasProperty(key))
-                .collect(toSet());
-    }
-
-    public  Set<Connection> getInputConnectionsByProperty(String key, Object value) {
-        return graph.getInputConnections().stream()
-                .filter(connection -> connection.hasProperty(key, value))
-                .collect(toSet());
-    }
-
-    public  Set<Connection> getOutputConnectionsByProperty(String key) {
-        return graph.getOutputConnections().stream()
-                .filter(connection -> connection.hasProperty(key))
-                .collect(toSet());
-    }
-
-    public  Set<Connection> getOutputConnectionsByProperty(String key, Object value) {
-        return graph.getOutputConnections().stream()
-                .filter(connection -> connection.hasProperty(key, value))
-                .collect(toSet());
-    }
 
     public Set<Connection> getConnectionsBetween(@NonNull Node sourceNode, @NonNull Node targetNode) {
         return getConnectionsBetween(sourceNode.getUuid(), targetNode.getUuid());
     }
 
     public Set<Connection> getConnectionsBetween(@NonNull UUID sourceNodeUUID, @NonNull UUID targetNodeUUID) {
-        return graph.getInnerConnections()
-                .entrySet()
+        return graph.getConnections()
                 .stream()
-                .map(entry -> entry.getValue())
                 .filter(connection ->
                         connection.getSourceNode().getUuid().equals(sourceNodeUUID)
                                 && connection.getTargetNode().getUuid().equals(targetNodeUUID)
@@ -157,12 +116,12 @@ public class GraphHandler {
     }
 
     public boolean removeConnection(@NonNull UUID connUUID) {
-        if (graph.containsInnerConnection(connUUID)) {
-            graph.removeInnerConnection(connUUID);
-            graph.getSubNodes()
+        if (graph.containsConnection(connUUID)) {
+            graph.removeConnection(connUUID);
+            graph.getNodes()
                     .stream()
-                    .filter(subNode -> subNode.containsConnection(connUUID))
-                    .forEach(subNode -> subNode.removeConnection(connUUID));
+                    .filter(node -> node.containsConnection(connUUID))
+                    .forEach(node -> node.removeConnection(connUUID));
             return true;
         }
         return false;

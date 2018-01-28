@@ -17,9 +17,9 @@ public class DefaultNode<C extends Connection> extends AbstractItem implements N
     @Getter
     protected Graph parentGraph;
 
-    private Map<UUID, C> inputConnections;
+    protected Map<UUID, C> inputConnections;
 
-    private Map<UUID, C> outputConnections;
+    protected Map<UUID, C> outputConnections;
 
     protected DefaultNode(@NonNull String label,
                           @NonNull Graph parentGraph) {

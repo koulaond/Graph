@@ -25,9 +25,9 @@ public class App {
 
         Graph graph = Builders.graphBuilder()
                 .label("Graph")
-                .subNode(node1, true)
-                .subNode(node2)
-                .innerConnection(connection)
+                .node(node1, true)
+                .node(node2)
+                .connection(connection)
                 .build();
     }
 }

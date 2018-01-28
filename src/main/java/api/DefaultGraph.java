@@ -1,128 +1,89 @@
 package api;
 
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static java.util.Collections.unmodifiableMap;
+import static java.lang.String.format;
 import static java.util.Collections.unmodifiableSet;
-import static java.util.stream.Collectors.toSet;
 
-public class DefaultGraph<N extends Node, C extends Connection>
-        extends DefaultNode<C>
-        implements Graph<N, C> {
+public class DefaultGraph<N extends Node, C extends Connection> extends AbstractItem implements Graph<N, C> {
 
     @NonNull
     private N initialNode;
 
     @NonNull
-    @Setter
-    private Map<UUID, N> subNodes;
+    private Map<UUID, N> nodes;
 
     @NonNull
-    @Getter
-    private Map<UUID, C> innerConnections;
+    private Map<UUID, C> connections;
 
-    @NonNull
-    private Map<C, N> inputConnectionsMap;
-
-    @NonNull
-    private Map<C, N> outputConnectionsMap;
-
-    public DefaultGraph(@NonNull String label, N initialNode, Graph parentGraph) {
-        super(label, parentGraph);
+    protected DefaultGraph(String label, N initialNode) {
+        super(label);
         this.initialNode = initialNode;
-        this.subNodes = new HashMap<>();
-        this.subNodes.put(initialNode.getUuid(), initialNode);
-        this.innerConnections = new HashMap<>();
-        this.inputConnectionsMap = new HashMap<>();
-        this.outputConnectionsMap = new HashMap<>();
-    }
-
-    public DefaultGraph(@NonNull String label, N initialNode) {
-        this(label, initialNode, null);
+        this.nodes = new HashMap<>();
+        this.connections = new HashMap<>();
     }
 
     @Override
     public N getInitialNode() {
-        return initialNode;
+        return this.initialNode;
+    }
+
+    void setInitialNode(@NonNull N initialNode) {
+        if (this.nodes.containsValue(initialNode)) {
+            this.initialNode = initialNode;
+        } else {
+            throw new IllegalStateException(format("Node %s is does not exist in this graph", initialNode.toString()));
+        }
     }
 
     @Override
-    public Set<N> getSubNodes() {
-        return unmodifiableSet(subNodes.values().stream().collect(toSet()));
+    public Set<N> getNodes() {
+        return unmodifiableSet(new HashSet<>(this.nodes.values()));
+    }
+
+    N getNode(@NonNull UUID uuid) {
+        return this.nodes.get(uuid);
+    }
+
+    void addNode(@NonNull N node) {
+        this.nodes.put(node.getUuid(), node);
+    }
+
+    void removeNode(@NonNull UUID uuid) {
+        this.nodes.remove(uuid);
+    }
+
+    boolean containsNode(@NonNull UUID uuid) {
+        return this.nodes.containsKey(uuid);
+    }
+
+    C getConnection(@NonNull UUID uuid) {
+        return this.connections.get(uuid);
+    }
+
+    void addConnection(@NonNull C connection) {
+        this.connections.put(connection.getUuid(), connection);
+    }
+
+    void removeConnection(UUID uuid) {
+        this.connections.remove(uuid);
+    }
+
+    boolean containsConnection(@NonNull UUID uuid) {
+        return this.connections.containsKey(uuid);
     }
 
     @Override
-    public boolean includes(Node other) {
-        return subNodes.entrySet()
+    public boolean includes(@NonNull Node other) {
+        return this.nodes.values()
                 .stream()
-                .map(entry -> entry.getValue())
                 .anyMatch(node -> node.includes(other));
     }
 
     @Override
-    public Set<C> getInputConnections() {
-        return inputConnectionsMap.keySet();
-    }
-
-    @Override
-    public Set<C> getOutputConnections() {
-        return outputConnectionsMap.keySet();
-    }
-
-    @Override
-    public Map<C, N> getInputConnectionsMap() {
-        return unmodifiableMap(inputConnectionsMap);
-    }
-
-    @Override
-    public Map<C, N> getOutputConnectionsMap() {
-        return unmodifiableMap(outputConnectionsMap);
-    }
-
-    @Override
-    public Graph getParentGraph() {
-        return parentGraph;
-    }
-
-    @Override
-    public boolean isIncludedIn(Graph graph) {
-        return graph.includes(this);
-    }
-
-    void addInputEdge(C inputConnection, N leadTo) {
-        this.inputConnectionsMap.put(inputConnection, leadTo);
-    }
-
-    void addOutputEdge(C outputConnection, N leadTo) {
-        this.outputConnectionsMap.put(outputConnection, leadTo);
-    }
-
-    void addInnerConnection(C innerConnection){
-        this.innerConnections.put(innerConnection.getUuid(),innerConnection);
-    }
-
-    void removeInnerConnection(UUID connUUID){
-        this.innerConnections.remove(connUUID);
-    }
-
-    void removeInnerConnection(Connection connection){
-        removeInnerConnection(connection.getUuid());
-    }
-
-    boolean containsInnerConnection(UUID uuid){
-        return this.innerConnections.containsKey(uuid);
-    }
-
-    void addSubNode(N subNode){
-        this.subNodes.put(subNode.getUuid(), subNode);
-    }
-
-    N getSubNode(UUID uuid){
-        return subNodes.get(uuid);
+    public Set<C> getConnections() {
+        return unmodifiableSet(new HashSet<>(this.connections.values()));
     }
 }

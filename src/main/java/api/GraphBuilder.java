@@ -2,59 +2,61 @@ package api;
 
 import java.util.*;
 
-public class GraphBuilder extends NodeBuilder {
+public class GraphBuilder {
+
+    protected String label;
+
+    protected Map<String, Object> properties = new HashMap<>();
 
     private Node initialNode;
 
-    private Map<UUID, Node> subNodes = new HashMap<>();
+    private Map<UUID, Node> nodes = new HashMap<>();
 
-    private Set<Connection> innerConnections = new HashSet<>();
+    private Set<Connection> connections = new HashSet<>();
 
-    @Override
     public GraphBuilder label(String label) {
-        return (GraphBuilder) super.label(label);
+        this.label = label;
+        return this;
     }
 
-    @Override
     public GraphBuilder property(String key, Object value) {
-        return (GraphBuilder) super.property(key, value);
+        this.properties.put(key, value);
+        return this;
     }
 
-    @Override
-    public GraphBuilder parentGraph(Graph parentGraph) {
-        return (GraphBuilder) super.parentGraph(parentGraph);
+    public GraphBuilder properties(Map<String, Object> properties) {
+        this.properties.putAll(properties);
+        return this;
     }
 
-    public GraphBuilder initialNode(Node initialNode){
-        if(!subNodes.containsKey(initialNode.getUuid())){
+    public GraphBuilder initialNode(Node initialNode) {
+        if (!nodes.containsKey(initialNode.getUuid())) {
             throw new IllegalStateException("Node must be added as a sub-node in this graph.");
         }
         this.initialNode = initialNode;
         return this;
     }
 
-    public GraphBuilder subNode(Node subNode, boolean initial){
-        this.subNodes.put(subNode.getUuid(), subNode);
-        if(initial){
-            this.initialNode = subNode;
+    public GraphBuilder node(Node node, boolean initial) {
+        this.nodes.put(node.getUuid(), node);
+        if (initial) {
+            this.initialNode = node;
         }
         return this;
     }
 
-    public GraphBuilder subNode(Node subNode){
-        return subNode(subNode, false);
+    public GraphBuilder node(Node node) {
+        return node(node, false);
     }
 
-    public GraphBuilder innerConnection(Connection innerConnection){
-        this.innerConnections.add(innerConnection);
+    public GraphBuilder connection(Connection connection) {
+        this.connections.add(connection);
         return this;
     }
 
-    @Override
     public DefaultGraph build() {
-        DefaultGraph graph = new DefaultGraph(label, initialNode, parentGraph);
+        DefaultGraph graph = new DefaultGraph(label, initialNode);
         graph.setProperties(properties);
-        graph.setSubNodes(subNodes);
         return graph;
     }
 }
