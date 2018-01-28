@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import java.util.*;
 
-public abstract class AbstractItem {
+public abstract class AbstractItem implements GraphElement {
 
     @NonNull
     @Getter
@@ -28,6 +28,29 @@ public abstract class AbstractItem {
 
     public Map<String, Object> getProperties() {
         return Collections.unmodifiableMap(properties);
+    }
+
+    @Override
+    public Object getProperty(String key) {
+        return this.properties.get(key);
+    }
+
+    @Override
+    public boolean hasProperties(String key1, Object value1, String key2, Object value2) {
+        return  hasProperty(key1, value1) && hasProperty(key2, value2);
+    }
+
+    @Override
+    public boolean hasProperties(String key1, Object value1, String key2, Object value2, String key3, Object value3) {
+        return hasProperties(key1, value1, key2, value2) && hasProperty(key3, value3);
+    }
+
+    @Override
+    public boolean hasProperties(Map<String, Object> properties) {
+        return properties.entrySet()
+                .stream()
+                .allMatch(entry -> this.properties.containsKey(entry.getKey())
+                        && this.properties.containsValue(entry.getValue()));
     }
 
     public void addProperty(String key, Object value){
