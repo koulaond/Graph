@@ -31,13 +31,13 @@ public abstract class AbstractItem implements GraphElement {
     }
 
     @Override
-    public Object getProperty(String key) {
+    public Object getPropertyValue(String key) {
         return this.properties.get(key);
     }
 
     @Override
     public boolean hasProperties(String key1, Object value1, String key2, Object value2) {
-        return  hasProperty(key1, value1) && hasProperty(key2, value2);
+        return hasProperty(key1, value1) && hasProperty(key2, value2);
     }
 
     @Override
@@ -53,19 +53,34 @@ public abstract class AbstractItem implements GraphElement {
                         && this.properties.containsValue(entry.getValue()));
     }
 
-    public void addProperty(String key, Object value){
+    @Override
+    public boolean hasProperties(String key1, String key2) {
+        return hasProperty(key1) && hasProperty(key2);
+    }
+
+    @Override
+    public boolean hasProperties(String key1, String key2, String key3) {
+        return hasProperty(key1) && hasProperty(key2) && hasProperty(key3);
+    }
+
+    @Override
+    public boolean hasProperties(Set<String> properties) {
+        return false;
+    }
+
+    public void addProperty(String key, Object value) {
         this.properties.put(key, value);
     }
 
-    public void removeProperty(String key){
+    public void removeProperty(String key) {
         this.properties.remove(key);
     }
 
-    public boolean hasProperty(String key){
+    public boolean hasProperty(String key) {
         return this.properties.containsKey(key);
     }
 
-    public boolean hasProperty(String key, Object value){
+    public boolean hasProperty(String key, Object value) {
         Object valueIn = this.properties.get(key);
         return Objects.equals(value, valueIn);
     }

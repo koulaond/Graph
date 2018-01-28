@@ -82,6 +82,27 @@ public class GraphOperator {
         return graph.getNodes().stream().filter(node -> node.hasProperty(key, value)).collect(toSet());
     }
 
+    public Set<Node> getNodesByProperties(String key1, Object value1,
+                                          String key2, Object value2) {
+        return graph.getNodes().stream()
+                .filter(node -> node.hasProperties(key1, value1, key2, value2))
+                .collect(toSet());
+    }
+
+    public Set<Node> getNodesByProperties(String key1, Object value1,
+                                          String key2, Object value2,
+                                          String key3, Object value3) {
+        return graph.getNodes().stream()
+                .filter(node -> node.hasProperties(key1, value1, key2, value2, key3, value3))
+                .collect(toSet());
+    }
+
+    public Set<Node> getNodesByProperties(Map<String, Object> properties) {
+        return graph.getNodes().stream()
+                .filter(node -> node.hasProperties(properties))
+                .collect(toSet());
+    }
+
     public Set<Node> getNodesByLabel(String label){
         return graph.getNodes().stream().filter(node -> Objects.equals(node.getLabel(), label)).collect(toSet());
     }
