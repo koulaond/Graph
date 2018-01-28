@@ -78,6 +78,14 @@ public class GraphOperator {
         return graph.getNodes().stream().filter(node -> node.hasProperty(key)).collect(toSet());
     }
 
+    public Set<Node> getNodesByProperties(String key1, String key2) {
+        return graph.getNodes().stream().filter(node -> node.hasProperties(key1, key2)).collect(toSet());
+    }
+
+    public Set<Node> getNodesByProperties(String key1, String key2, String key3) {
+        return graph.getNodes().stream().filter(node -> node.hasProperties(key1, key2, key3)).collect(toSet());
+    }
+
     public Set<Node> getNodesByProperty(String key, Object value) {
         return graph.getNodes().stream().filter(node -> node.hasProperty(key, value)).collect(toSet());
     }
@@ -103,11 +111,11 @@ public class GraphOperator {
                 .collect(toSet());
     }
 
-    public Set<Node> getNodesByLabel(String label){
+    public Set<Node> getNodesByLabel(String label) {
         return graph.getNodes().stream().filter(node -> Objects.equals(node.getLabel(), label)).collect(toSet());
     }
 
-    public Set<Connection> getInnerConnections(){
+    public Set<Connection> getInnerConnections() {
         return new HashSet<>(graph.getConnections());
     }
 
