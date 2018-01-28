@@ -15,6 +15,7 @@ import static java.util.stream.Collectors.toSet;
 public class DefaultNode<C extends Connection> extends AbstractItem implements Node<C> {
 
     @Getter
+    @NonNull
     protected Graph parentGraph;
 
     protected Map<UUID, C> inputConnections;

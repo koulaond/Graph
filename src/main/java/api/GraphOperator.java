@@ -6,7 +6,7 @@ import java.util.*;
 
 import static java.util.stream.Collectors.toSet;
 
-public class GraphHandler {
+public class GraphOperator {
 
     @NonNull
     private DefaultGraph<DefaultNode, DefaultConnection> graph;
@@ -58,7 +58,7 @@ public class GraphHandler {
         DefaultNode sourceNode = graph.getNode(sourceNodeUUID);
         DefaultNode targetNode = graph.getNode(targetNodeUUID);
         if (sourceNode == null || targetNode == null) {
-            throw new IllegalStateException("Some of the connecting nodes does not exist.");
+            throw new IllegalStateException("Both source and target nodes must be non-null.");
         }
         ConnectionBuilder connectionBuilder = Builders.connectionBuilder()
                 .label(connectionLabel)
@@ -75,21 +75,15 @@ public class GraphHandler {
     }
 
     public Set<Node> getNodesByProperty(String key) {
-        return graph.getNodes().stream()
-                .filter(node -> node.hasProperty(key))
-                .collect(toSet());
+        return graph.getNodes().stream().filter(node -> node.hasProperty(key)).collect(toSet());
     }
 
     public Set<Node> getNodesByProperty(String key, Object value) {
-        return graph.getNodes().stream()
-                .filter(node -> node.hasProperty(key, value))
-                .collect(toSet());
+        return graph.getNodes().stream().filter(node -> node.hasProperty(key, value)).collect(toSet());
     }
 
     public Set<Node> getNodesByLabel(String label){
-        return graph.getNodes().stream()
-                .filter(node -> Objects.equals(node.getLabel(), label))
-                .collect(toSet());
+        return graph.getNodes().stream().filter(node -> Objects.equals(node.getLabel(), label)).collect(toSet());
     }
 
     public Set<Connection> getInnerConnections(){
