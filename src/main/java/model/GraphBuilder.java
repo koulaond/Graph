@@ -6,8 +6,6 @@ public class GraphBuilder {
 
     protected String label;
 
-    protected Map<String, Object> properties = new HashMap<>();
-
     private Node initialNode;
 
     private Map<UUID, Node> nodes = new HashMap<>();
@@ -16,16 +14,6 @@ public class GraphBuilder {
 
     public GraphBuilder label(String label) {
         this.label = label;
-        return this;
-    }
-
-    public GraphBuilder property(String key, Object value) {
-        this.properties.put(key, value);
-        return this;
-    }
-
-    public GraphBuilder properties(Map<String, Object> properties) {
-        this.properties.putAll(properties);
         return this;
     }
 
@@ -56,7 +44,6 @@ public class GraphBuilder {
 
     public DefaultGraph build() {
         DefaultGraph graph = new DefaultGraph(label, initialNode);
-        graph.setProperties(properties);
         return graph;
     }
 }

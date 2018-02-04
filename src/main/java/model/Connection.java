@@ -1,6 +1,6 @@
 package model;
 
-public interface Connection extends GraphElement {
+public interface Connection extends Entity {
 
     Node getSourceNode();
 

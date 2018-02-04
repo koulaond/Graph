@@ -7,18 +7,18 @@ import java.util.*;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableSet;
 
-public class DefaultGraph<N extends Node, C extends Connection> extends AbstractItem implements Graph<N, C> {
+public class DefaultGraph extends AbstractItem implements Graph {
 
     @NonNull
-    private N initialNode;
+    private Node initialNode;
 
     @NonNull
-    private Map<UUID, N> nodes;
+    private Map<UUID, Node> nodes;
 
     @NonNull
-    private Map<UUID, C> connections;
+    private Map<UUID, Connection> connections;
 
-    protected DefaultGraph(String label, N initialNode) {
+    protected DefaultGraph(String label, Node initialNode) {
         super(label);
         this.initialNode = initialNode;
         this.nodes = new HashMap<>();
@@ -26,11 +26,11 @@ public class DefaultGraph<N extends Node, C extends Connection> extends Abstract
     }
 
     @Override
-    public N getInitialNode() {
+    public Node getInitialNode() {
         return this.initialNode;
     }
 
-    void setInitialNode(@NonNull N initialNode) {
+    void setInitialNode(@NonNull Node initialNode) {
         if (this.nodes.containsValue(initialNode)) {
             this.initialNode = initialNode;
         } else {
@@ -39,15 +39,15 @@ public class DefaultGraph<N extends Node, C extends Connection> extends Abstract
     }
 
     @Override
-    public Set<N> getNodes() {
+    public Set<Node> getNodes() {
         return unmodifiableSet(new HashSet<>(this.nodes.values()));
     }
 
-    N getNode(@NonNull UUID uuid) {
+    Node getNode(@NonNull UUID uuid) {
         return this.nodes.get(uuid);
     }
 
-    void addNode(@NonNull N node) {
+    void addNode(@NonNull Node node) {
         this.nodes.put(node.getUuid(), node);
     }
 
@@ -59,11 +59,11 @@ public class DefaultGraph<N extends Node, C extends Connection> extends Abstract
         return this.nodes.containsKey(uuid);
     }
 
-    C getConnection(@NonNull UUID uuid) {
+    Connection getConnection(@NonNull UUID uuid) {
         return this.connections.get(uuid);
     }
 
-    void addConnection(@NonNull C connection) {
+    void addConnection(@NonNull Connection connection) {
         this.connections.put(connection.getUuid(), connection);
     }
 
@@ -76,14 +76,21 @@ public class DefaultGraph<N extends Node, C extends Connection> extends Abstract
     }
 
     @Override
-    public boolean includes(@NonNull Node other) {
+    public boolean containsNode(@NonNull Node that) {
         return this.nodes.values()
                 .stream()
-                .anyMatch(node -> node.includes(other));
+                .anyMatch(node -> node.includes(that));
     }
 
     @Override
-    public Set<C> getConnections() {
+    public boolean containsConnection(@NonNull Connection that) {
+        return this.connections.values()
+                .stream()
+                .anyMatch(connection -> connection.equals(that));
+    }
+
+    @Override
+    public Set<Connection> getConnections() {
         return unmodifiableSet(new HashSet<>(this.connections.values()));
     }
 }

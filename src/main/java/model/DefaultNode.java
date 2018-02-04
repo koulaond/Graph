@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toSet;
 
 @Getter
 @Setter
-public class DefaultNode<C extends Connection> extends AbstractItem implements Node<C> {
+public class DefaultNode<C extends Connection> extends AbstractEntity implements Node<C> {
 
     @Getter
     @NonNull
@@ -46,7 +46,7 @@ public class DefaultNode<C extends Connection> extends AbstractItem implements N
 
     @Override
     public boolean isIncludedIn(@NonNull Graph graph) {
-        return graph.includes(this);
+        return graph.containsNode(this);
     }
 
     void addInputConnection(C inputConnection){
@@ -84,16 +84,5 @@ public class DefaultNode<C extends Connection> extends AbstractItem implements N
 
     boolean containsConnection(Connection connection){
         return containsConnection(connection.getUuid());
-    }
-
-    @Override
-    public boolean equals(Object that) {
-        if (!super.equals(that)) {
-            return false;
-        }
-        if (that instanceof DefaultNode) {
-            return true;
-        }
-        return false;
     }
 }

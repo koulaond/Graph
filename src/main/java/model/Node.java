@@ -2,11 +2,7 @@ package model;
 
 import java.util.Set;
 
-public interface Node<C extends Connection> extends GraphElement {
-
-    Graph getParentGraph();
-
-    boolean isIncludedIn(Graph graph);
+public interface Node<C extends Connection> extends Entity {
 
     boolean includes(Node other);
 

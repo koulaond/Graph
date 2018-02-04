@@ -50,7 +50,7 @@ public class DefaultComponent<N extends Node, C extends Connection>
 
     @Override
     public boolean isIncludedIn(Graph graph) {
-        return graph.includes(this);
+        return graph.containsNode(this);
     }
 
     void addInputConnection(C inputConnection) {

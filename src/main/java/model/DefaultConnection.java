@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-class DefaultConnection extends AbstractItem implements Connection {
+class DefaultConnection extends AbstractEntity implements Connection {
 
     @NonNull
     private Node sourceNode;
@@ -21,15 +21,7 @@ class DefaultConnection extends AbstractItem implements Connection {
     }
 
     @Override
-    public boolean equals(Object that) {
-        if (!super.equals(that)) {
-            return false;
-        }
-        if (!(that instanceof DefaultConnection)) {
-            return false;
-        }
-        DefaultConnection connection = (DefaultConnection) that;
-        return this.getSourceNode().equals(connection.getSourceNode())
-                && this.getTargetNode().equals(connection.getTargetNode());
+    public boolean isIncludedIn(Graph graph) {
+        return graph.containsConnection(this);
     }
 }
