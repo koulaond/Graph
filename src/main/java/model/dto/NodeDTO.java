@@ -1,4 +1,4 @@
-package api.dto;
+package model.dto;
 
 /*ublic class NodeDTO implements Node {
 

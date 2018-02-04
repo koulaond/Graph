@@ -1,4 +1,4 @@
-package api;
+package model;
 
 public final class Builders {
 

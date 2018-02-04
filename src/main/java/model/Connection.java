@@ -1,4 +1,4 @@
-package api;
+package model;
 
 public interface Connection extends GraphElement {
 

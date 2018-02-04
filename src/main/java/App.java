@@ -1,7 +1,7 @@
-import api.Builders;
-import api.Connection;
-import api.Graph;
-import api.Node;
+import model.Builders;
+import model.Connection;
+import model.Graph;
+import model.Node;
 
 public class App {
 
