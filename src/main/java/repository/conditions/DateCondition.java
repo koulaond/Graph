@@ -1,5 +1,5 @@
 package repository.conditions;
 
-public interface Condition {
+public interface DateCondition {
 
 }
