@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,11 @@ public abstract class AbstractEntity extends AbstractItem implements Entity {
     @Override
     public Object getPropertyValue(String key) {
         return this.properties.get(key);
+    }
+
+    @Override
+    public Collection<String> getPropertyKeys(){
+        return this.properties.keySet();
     }
 
     @Override

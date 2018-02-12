@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -8,6 +9,8 @@ public interface PropertyHolder {
     Map<String, Object> getProperties();
 
     Object getPropertyValue(String key);
+
+    Collection<String> getPropertyKeys();
 
     boolean hasProperty(String key);
 

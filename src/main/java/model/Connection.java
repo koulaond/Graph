@@ -6,4 +6,5 @@ public interface Connection extends Entity {
 
     Node getTargetNode();
 
+    Direction getDirection();
 }

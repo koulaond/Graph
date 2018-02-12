@@ -3,16 +3,23 @@ package repository;
 import model.Connection;
 import model.Node;
 
+import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface Repository {
 
-    Match<Node> findNode(UUID uuid);
+    Optional<Node> findNode(UUID uuid);
 
-    CollectionMatch<Node> searchNodes(Query<Node> query);
+    Collection<Node> searchNodes(Query<Node> query);
 
-    Match<Connection> findConnection(UUID uuid);
+    Optional<Node> createNode(Node node);
 
-    CollectionMatch<Connection> searchConnections(Query<Connection> query);
+    Optional<Connection> connectNodes(Node startNode, Node endNode, String connectionLabel, Map<String, Object> connectionProperties);
+
+    Optional<Connection> findConnection(UUID uuid);
+
+    Collection<Connection> searchConnections(Query<Connection> query);
 
 }
