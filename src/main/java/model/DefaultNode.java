@@ -28,16 +28,6 @@ public class DefaultNode<C extends Connection> extends AbstractEntity implements
     }
 
     @Override
-    public Set<C> getInputConnections() {
-        return unmodifiableSet(inputConnections.entrySet().stream().map(entry -> entry.getValue()).collect(toSet()));
-    }
-
-    @Override
-    public Set<C> getOutputConnections() {
-        return unmodifiableSet(outputConnections.entrySet().stream().map(entry -> entry.getValue()).collect(toSet()));
-    }
-
-    @Override
     public boolean includes(Node other) {
         return this.equals(other);
     }
