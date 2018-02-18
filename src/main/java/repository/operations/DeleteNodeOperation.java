@@ -1,14 +1,14 @@
-package repository.commands;
+package repository.operations;
 
 import model.Node;
 
 import java.util.UUID;
 
-public class DeleteNodeCommand<T extends Node> implements Command<T> {
+public class DeleteNodeOperation<T extends Node> implements Operation<T> {
 
     protected UUID nodeUuid;
 
-    public DeleteNodeCommand(UUID nodeUuid) {
+    public DeleteNodeOperation(UUID nodeUuid) {
         this.nodeUuid = nodeUuid;
     }
 

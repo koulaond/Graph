@@ -18,8 +18,7 @@ public class DefaultGraph extends AbstractItem implements Graph {
     @NonNull
     private Map<UUID, Connection> connections;
 
-    protected DefaultGraph(String label, Node initialNode) {
-        super(label);
+    protected DefaultGraph(Node initialNode) {
         this.initialNode = initialNode;
         this.nodes = new HashMap<>();
         this.connections = new HashMap<>();

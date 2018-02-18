@@ -17,8 +17,7 @@ class DefaultConnection extends AbstractEntity implements Connection {
     @NonNull
     private Direction direction;
 
-    public DefaultConnection(String label, Node sourceNode, Node targetNode, Direction direction) {
-        super(label);
+    public DefaultConnection(Node sourceNode, Node targetNode, Direction direction) {
         this.sourceNode = sourceNode;
         this.targetNode = targetNode;
         this.direction = direction;

@@ -16,7 +16,7 @@ public interface Repository {
 
     Optional<Node> createNode(Node node);
 
-    Optional<Connection> connectNodes(Node startNode, Node endNode, String connectionLabel, Map<String, Object> connectionProperties);
+    Optional<Connection> connectNodes(Node startNode, Node endNode, Map<String, Object> connectionProperties);
 
     Optional<Connection> findConnection(UUID uuid);
 

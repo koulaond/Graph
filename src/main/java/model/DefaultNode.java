@@ -21,9 +21,7 @@ public class DefaultNode<C extends Connection> extends AbstractEntity implements
 
     protected Map<UUID, C> outputConnections;
 
-    protected DefaultNode(@NonNull String label,
-                          @NonNull Graph parentGraph) {
-        super(label);
+    protected DefaultNode(@NonNull Graph parentGraph) {
         this.parentGraph = parentGraph;
         this.inputConnections = new HashMap<>();
         this.outputConnections = new HashMap<>();

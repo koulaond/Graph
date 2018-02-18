@@ -12,15 +12,6 @@ public abstract class AbstractItem implements GraphElement {
     @Getter
     protected UUID uuid = UUID.randomUUID();
 
-    @NonNull
-    @Setter
-    @Getter
-    protected String label;
-
-    protected AbstractItem(@NonNull String label) {
-        this.label = label;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (super.equals(that)) {

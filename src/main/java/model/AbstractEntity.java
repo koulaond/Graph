@@ -20,8 +20,7 @@ public abstract class AbstractEntity extends AbstractItem implements Entity {
     @Getter
     protected Graph parentGraph;
 
-    protected AbstractEntity(String label) {
-        super(label);
+    protected AbstractEntity() {
         this.properties = new HashMap<>();
     }
 

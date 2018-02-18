@@ -1,12 +1,12 @@
-package repository.commands;
+package repository.operations;
 
 import model.Entity;
 
-public class ChangeNodeCommand<T extends Entity> implements Command<T> {
+public abstract class ChangeNodeOperation<T extends Entity> implements Operation<T> {
 
     protected T data;
 
-    public ChangeNodeCommand(T data) {
+    public ChangeNodeOperation(T data) {
         this.data = data;
     }
 

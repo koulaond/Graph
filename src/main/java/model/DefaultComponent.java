@@ -22,8 +22,8 @@ public class DefaultComponent<N extends Node, C extends Connection>
     private Map<UUID, C> innerConnections;
 
 
-    public DefaultComponent(@NonNull String label, @NonNull Graph parentGraph) {
-        super(label, parentGraph);
+    public DefaultComponent(@NonNull Graph parentGraph) {
+        super(parentGraph);
         this.subNodes = new HashMap<>();
         this.innerConnections = new HashMap<>();
     }
