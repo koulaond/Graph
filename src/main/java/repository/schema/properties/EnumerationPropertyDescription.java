@@ -1,5 +1,8 @@
 package repository.schema.properties;
 
+import lombok.Getter;
+
+@Getter
 public class EnumerationPropertyDescription extends PropertyDescription<String> {
 
     private Class enumClass;

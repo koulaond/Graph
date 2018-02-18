@@ -1,7 +1,10 @@
 package repository.schema.properties;
 
+import lombok.Getter;
+
 import java.util.Date;
 
+@Getter
 public class DatePropertyDescription extends PropertyDescription<Date> {
 
     private String dateFormat;
