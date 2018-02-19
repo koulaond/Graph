@@ -1,8 +1,6 @@
 package repository.schema.properties;
 
 import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 
 @Getter
@@ -13,9 +11,12 @@ public abstract class PropertyDescription<T extends Serializable> {
 
     boolean mandatory;
 
-    public PropertyDescription(String propertyName, Class<T> propertyType, boolean mandatory) {
+    boolean multiValue;
+
+    public PropertyDescription(String propertyName, Class<T> propertyType, boolean mandatory, boolean multiValue) {
         this.propertyName = propertyName;
         this.propertyType = propertyType;
         this.mandatory = mandatory;
+        this.multiValue = multiValue;
     }
 }

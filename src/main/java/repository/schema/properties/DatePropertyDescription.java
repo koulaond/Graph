@@ -9,8 +9,8 @@ public class DatePropertyDescription extends PropertyDescription<Date> {
 
     private String dateFormat;
 
-    public DatePropertyDescription(String propertyName, Class<Date> propertyType, boolean mandatory, String dateFormat) {
-        super(propertyName, propertyType, mandatory);
+    public DatePropertyDescription(String propertyName, Class<Date> propertyType, boolean mandatory, boolean multiValue, String dateFormat) {
+        super(propertyName, propertyType, mandatory, multiValue);
         this.dateFormat = dateFormat;
     }
 }

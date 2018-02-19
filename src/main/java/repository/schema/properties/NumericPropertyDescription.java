@@ -11,13 +11,13 @@ public class NumericPropertyDescription extends PropertyDescription<BigDecimal>{
 
     private BigDecimal maxValue;
 
-    public NumericPropertyDescription(String propertyName, Class<BigDecimal> propertyType, boolean mandatory, BigDecimal minValue, BigDecimal maxValue) {
-        super(propertyName, propertyType, mandatory);
+    public NumericPropertyDescription(String propertyName, Class<BigDecimal> propertyType, boolean mandatory, boolean multiValue, BigDecimal minValue, BigDecimal maxValue) {
+        super(propertyName, propertyType, mandatory, multiValue);
         this.minValue = minValue;
         this.maxValue = maxValue;
     }
 
-    public NumericPropertyDescription(String propertyName, Class<BigDecimal> propertyType, boolean mandatory) {
-        this(propertyName, propertyType, mandatory, new BigDecimal(0), new BigDecimal(Long.MAX_VALUE));
+    public NumericPropertyDescription(String propertyName, Class<BigDecimal> propertyType, boolean mandatory, boolean multiValue) {
+        this(propertyName, propertyType, mandatory, multiValue, new BigDecimal(0), new BigDecimal(Long.MAX_VALUE));
     }
 }
