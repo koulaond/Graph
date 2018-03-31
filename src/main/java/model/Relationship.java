@@ -1,6 +1,6 @@
 package model;
 
-public interface Connection extends Entity {
+public interface Relationship extends Entity {
 
     Node getSourceNode();
 

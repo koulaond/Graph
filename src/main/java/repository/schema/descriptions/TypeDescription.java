@@ -1,9 +1,8 @@
-package repository.schema;
+package repository.schema.descriptions;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import repository.schema.properties.PropertyDescription;
 
 import java.util.Set;
 

@@ -6,12 +6,9 @@ import lombok.Setter;
 
 import java.util.*;
 
-import static java.util.Collections.unmodifiableSet;
-import static java.util.stream.Collectors.toSet;
-
 @Getter
 @Setter
-public class DefaultNode<C extends Connection> extends AbstractEntity implements Node<C> {
+public class DefaultNode<C extends Relationship> extends AbstractEntity implements Node<C> {
 
     @Getter
     @NonNull
@@ -70,7 +67,7 @@ public class DefaultNode<C extends Connection> extends AbstractEntity implements
         return containsInputConnection(connUUID) || containsOutputConnection(connUUID);
     }
 
-    boolean containsConnection(Connection connection){
-        return containsConnection(connection.getUuid());
+    boolean containsConnection(Relationship relationship){
+        return containsConnection(relationship.getUuid());
     }
 }

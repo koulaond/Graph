@@ -1,8 +1,6 @@
 package model;
 
-import java.util.Set;
-
-public interface Node<C extends Connection> extends Entity {
+public interface Node<C extends Relationship> extends Entity {
 
     boolean includes(Node other);
 }

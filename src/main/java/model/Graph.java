@@ -6,11 +6,11 @@ public interface Graph extends GraphElement {
 
     Node getInitialNode();
 
-    Set<Connection> getConnections();
+    Set<Relationship> getConnections();
 
     Set<Node> getNodes();
 
     boolean containsNode(Node node);
 
-    boolean containsConnection(Connection connection);
+    boolean containsConnection(Relationship relationship);
 }

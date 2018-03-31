@@ -1,4 +1,4 @@
-package repository.schema.properties;
+package repository.schema.descriptions;
 
 import lombok.Getter;
 

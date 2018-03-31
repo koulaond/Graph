@@ -9,7 +9,7 @@ import java.util.*;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.stream.Collectors.toSet;
 
-public class DefaultComponent<N extends Node, C extends Connection>
+public class DefaultComponent<N extends Node, C extends Relationship>
         extends DefaultNode<C>
         implements Component<N, C> {
 
@@ -69,8 +69,8 @@ public class DefaultComponent<N extends Node, C extends Connection>
         this.innerConnections.remove(connUUID);
     }
 
-    void removeInnerConnection(Connection connection){
-        removeInnerConnection(connection.getUuid());
+    void removeInnerConnection(Relationship relationship){
+        removeInnerConnection(relationship.getUuid());
     }
 
     boolean containsInnerConnection(UUID uuid){
