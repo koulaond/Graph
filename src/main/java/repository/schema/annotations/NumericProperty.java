@@ -15,8 +15,6 @@ public @interface NumericProperty {
 
     boolean immutable() default false;
 
-    boolean multiValue() default false;
-
     long minValue() default Long.MIN_VALUE;
 
     long maxValue() default Long.MAX_VALUE;

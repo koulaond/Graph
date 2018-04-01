@@ -1,7 +1,5 @@
 package repository.schema.annotations;
 
-import repository.schema.Direction;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -9,11 +7,11 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Relationship {
+public @interface EnumProperty {
 
-    String name();
+    String name() default "";
 
-    Direction direction() default Direction.OUTGOING;
+    boolean nonNull() default false;
 
-    Class<?> relationshipClass();
+    boolean immutable() default false;
 }

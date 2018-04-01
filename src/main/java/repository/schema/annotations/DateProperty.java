@@ -15,7 +15,5 @@ public @interface DateProperty {
 
     boolean immutable() default false;
 
-    boolean multiValue() default false;
-
     String format() default "YYYY-MM-DD hh:mm:ss.s";
 }

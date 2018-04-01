@@ -15,8 +15,6 @@ public @interface TextProperty {
 
     boolean immutable() default false;
 
-    boolean multiValue() default false;
-
     int minLength() default 0;
 
     int maxLength() default 65535;

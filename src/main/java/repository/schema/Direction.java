@@ -1,4 +1,4 @@
-package repository.schema.annotations;
+package repository.schema;
 
 public enum Direction {
     INCOMING,
