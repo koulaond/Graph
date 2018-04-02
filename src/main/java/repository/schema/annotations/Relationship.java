@@ -13,7 +13,7 @@ public @interface Relationship {
 
     String name();
 
-    Direction direction() default Direction.OUTGOING;
+    Direction direction() default Direction.UNDIRECTED;
 
     Class<?> relationshipClass();
 }
