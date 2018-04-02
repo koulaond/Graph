@@ -15,11 +15,11 @@ public class DefaultComponent<N extends Node, C extends Relationship>
 
     @NonNull
     @Setter
-    private Map<UUID, N> subNodes;
+    protected Map<UUID, N> subNodes;
 
     @NonNull
     @Getter
-    private Map<UUID, C> innerConnections;
+    protected Map<UUID, C> innerConnections;
 
 
     public DefaultComponent(@NonNull Graph parentGraph) {

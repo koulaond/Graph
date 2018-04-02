@@ -11,7 +11,13 @@ import java.util.Set;
 @Builder
 public class TypeDescription<T> {
 
-    Class<T> describedClass;
+    private Class<T> describedClass;
+
+    private String typeName;
+
+    private boolean immutable;
 
     private Set<PropertyDescription> propertyDescriptions;
+
+
 }
