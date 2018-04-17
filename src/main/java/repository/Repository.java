@@ -1,6 +1,6 @@
 package repository;
 
-import model.Relationship;
+import model.Relation;
 import model.Node;
 
 import java.util.Collection;
@@ -16,10 +16,10 @@ public interface Repository {
 
     Optional<Node> createNode(Node node);
 
-    Optional<Relationship> connectNodes(Node startNode, Node endNode, Map<String, Object> connectionProperties);
+    Optional<Relation> connectNodes(Node startNode, Node endNode, Map<String, Object> connectionProperties);
 
-    Optional<Relationship> findRelationship(UUID uuid);
+    Optional<Relation> findRelationship(UUID uuid);
 
-    Collection<Relationship> searchRelationships(Query<Relationship> query);
+    Collection<Relation> searchRelationships(Query<Relation> query);
 
 }

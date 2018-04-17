@@ -1,16 +1,19 @@
 package repository.schema.annotations;
 
+import repository.schema.Direction;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface NodeType {
+@Target(ElementType.FIELD)
+public @interface Relation {
 
-    String typeName() default "";
+    String name();
 
-    boolean immutable() default false;
+    Direction direction() default Direction.UNDIRECTED;
 
+    Class<?> relationshipClass();
 }

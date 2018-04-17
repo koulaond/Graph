@@ -7,5 +7,11 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface RelationshipClass {
+public @interface Node {
+
+    String nodeType() default "";
+
+    boolean immutable() default false;
+
+    long maxCount() default Long.MAX_VALUE;
 }

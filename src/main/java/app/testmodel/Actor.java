@@ -1,10 +1,10 @@
 package app.testmodel;
 
 import lombok.Getter;
-import repository.schema.annotations.NodeType;
+import repository.schema.annotations.Node;
 
 @Getter
-@NodeType(typeName = "actor")
+@Node(nodeType = "actor")
 public class Actor {
 
     private String firstName, lastName;

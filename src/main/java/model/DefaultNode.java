@@ -8,7 +8,7 @@ import java.util.*;
 
 @Getter
 @Setter
-public class DefaultNode<C extends Relationship> extends AbstractEntity implements Node<C> {
+public class DefaultNode<C extends Relation> extends AbstractEntity implements Node<C> {
 
     @Getter
     @NonNull
@@ -67,7 +67,7 @@ public class DefaultNode<C extends Relationship> extends AbstractEntity implemen
         return containsInputConnection(connUUID) || containsOutputConnection(connUUID);
     }
 
-    boolean containsConnection(Relationship relationship){
-        return containsConnection(relationship.getUuid());
+    boolean containsConnection(Relation relation){
+        return containsConnection(relation.getUuid());
     }
 }

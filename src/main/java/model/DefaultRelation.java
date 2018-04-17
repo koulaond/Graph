@@ -6,18 +6,18 @@ import lombok.Setter;
 
 @Setter
 @Getter
-class DefaultRelationship extends AbstractEntity implements Relationship {
+class DefaultRelation extends AbstractEntity implements Relation<DefaultNode> {
 
     @NonNull
-    private Node sourceNode;
+    private DefaultNode sourceNode;
 
     @NonNull
-    private Node targetNode;
+    private DefaultNode targetNode;
 
     @NonNull
     private Direction direction;
 
-    public DefaultRelationship(Node sourceNode, Node targetNode, Direction direction) {
+    public DefaultRelation(DefaultNode sourceNode, DefaultNode targetNode, Direction direction) {
         this.sourceNode = sourceNode;
         this.targetNode = targetNode;
         this.direction = direction;

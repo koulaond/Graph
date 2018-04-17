@@ -2,11 +2,11 @@ package app.testmodel;
 
 import lombok.Getter;
 import repository.schema.annotations.EnumProperty;
-import repository.schema.annotations.RelationshipClass;
+import repository.schema.annotations.PropertyHolder;
 import repository.schema.annotations.TextProperty;
 
 @Getter
-@RelationshipClass
+@PropertyHolder
 public class WatchListRelation {
 
     @EnumProperty(nonNull = true)

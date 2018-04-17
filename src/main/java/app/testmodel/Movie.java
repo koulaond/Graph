@@ -1,14 +1,14 @@
 package app.testmodel;
 
 import lombok.Getter;
-import repository.schema.annotations.NodeType;
+import repository.schema.annotations.Node;
 import repository.schema.annotations.NumericProperty;
 import repository.schema.annotations.TextProperty;
 
 import java.util.Set;
 
 @Getter
-@NodeType(typeName = "movie")
+@Node(nodeType = "movie")
 public class Movie {
 
     @TextProperty(nonNull = true)
