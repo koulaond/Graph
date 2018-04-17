@@ -2,15 +2,15 @@ package model;
 
 import java.util.Set;
 
-public interface Graph extends GraphElement {
+public interface Graph<N extends Node, R extends Relation> extends GraphElement {
 
-    Node getInitialNode();
+    N getInitialNode();
 
-    Set<Relation> getConnections();
+    Set<R> getRelations();
 
-    Set<Node> getNodes();
+    Set<N> getNodes();
 
-    boolean containsNode(Node node);
+    boolean containsNode(N node);
 
-    boolean containsConnection(Relation relation);
+    boolean containsRelation(R relation);
 }

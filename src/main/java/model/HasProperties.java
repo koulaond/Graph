@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-public interface PropertyHolder {
+public interface HasProperties {
 
     Map<String, Object> getProperties();
 

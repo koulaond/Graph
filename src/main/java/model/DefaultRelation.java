@@ -25,6 +25,6 @@ class DefaultRelation extends AbstractEntity implements Relation<DefaultNode> {
 
     @Override
     public boolean isIncludedIn(Graph graph) {
-        return graph.containsConnection(this);
+        return graph.containsRelation(this);
     }
 }

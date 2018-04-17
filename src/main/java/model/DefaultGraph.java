@@ -16,12 +16,12 @@ public class DefaultGraph extends AbstractItem implements Graph {
     private Map<UUID, Node> nodes;
 
     @NonNull
-    private Map<UUID, Relation> connections;
+    private Map<UUID, Relation> relations;
 
     protected DefaultGraph(Node initialNode) {
         this.initialNode = initialNode;
         this.nodes = new HashMap<>();
-        this.connections = new HashMap<>();
+        this.relations = new HashMap<>();
     }
 
     @Override
@@ -59,19 +59,19 @@ public class DefaultGraph extends AbstractItem implements Graph {
     }
 
     Relation getConnection(@NonNull UUID uuid) {
-        return this.connections.get(uuid);
+        return this.relations.get(uuid);
     }
 
     void addConnection(@NonNull Relation relation) {
-        this.connections.put(relation.getUuid(), relation);
+        this.relations.put(relation.getUuid(), relation);
     }
 
     void removeConnection(UUID uuid) {
-        this.connections.remove(uuid);
+        this.relations.remove(uuid);
     }
 
     boolean containsConnection(@NonNull UUID uuid) {
-        return this.connections.containsKey(uuid);
+        return this.relations.containsKey(uuid);
     }
 
     @Override
@@ -82,14 +82,14 @@ public class DefaultGraph extends AbstractItem implements Graph {
     }
 
     @Override
-    public boolean containsConnection(@NonNull Relation that) {
-        return this.connections.values()
+    public boolean containsRelation(@NonNull Relation that) {
+        return this.relations.values()
                 .stream()
                 .anyMatch(connection -> connection.equals(that));
     }
 
     @Override
-    public Set<Relation> getConnections() {
-        return unmodifiableSet(new HashSet<>(this.connections.values()));
+    public Set<Relation> getRelations() {
+        return unmodifiableSet(new HashSet<>(this.relations.values()));
     }
 }

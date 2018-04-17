@@ -15,5 +15,5 @@ public @interface Relation {
 
     Direction direction() default Direction.UNDIRECTED;
 
-    Class<?> relationshipClass();
+    Class<?> propertyHolderClass();
 }
