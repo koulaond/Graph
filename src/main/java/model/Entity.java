@@ -1,6 +1,6 @@
 package model;
 
-public interface Entity extends GraphElement, PropertyHolder {
+public interface Entity extends GraphElement, HasProperties {
 
     Graph getParentGraph();
 
