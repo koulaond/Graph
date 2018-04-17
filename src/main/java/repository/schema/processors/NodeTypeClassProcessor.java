@@ -1,4 +1,4 @@
-package repository.schema.build;
+package repository.schema.processors;
 
 import repository.schema.annotations.Node;
 import repository.schema.descriptions.TypeDescription;

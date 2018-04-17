@@ -1,4 +1,4 @@
-package repository.schema.build;
+package repository.schema.processors;
 
 import java.lang.reflect.Field;
 import java.util.Set;
