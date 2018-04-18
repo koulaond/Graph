@@ -5,9 +5,9 @@ import repository.schema.annotations.Node;
 
 import java.util.Set;
 
-public class NodeTypeClassFinder {
+public class PackageIntrospector {
 
-    public Set<Class<?>> findClasses(String pckg){
+    public Set<Class<?>> introspect(String pckg){
         Reflections reflections = new Reflections(pckg);
         Set<Class<?>> nodeTypeAnnotations = reflections.getTypesAnnotatedWith(Node.class);
         return nodeTypeAnnotations;
