@@ -1,4 +1,4 @@
-package repository.schema.annotations;
+package repository.schema.annotations.properties;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface TextProperty {
+@Target({ElementType.FIELD, ElementType.METHOD})
+public @interface DateProperty {
 
     String name() default "";
 
@@ -15,7 +15,5 @@ public @interface TextProperty {
 
     boolean immutable() default false;
 
-    int minLength() default 0;
-
-    int maxLength() default 65535;
+    String format() default "YYYY-MM-DD hh:mm:ss.s";
 }

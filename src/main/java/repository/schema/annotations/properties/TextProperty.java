@@ -1,4 +1,4 @@
-package repository.schema.annotations;
+package repository.schema.annotations.properties;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface NumericProperty {
+@Target({ElementType.FIELD, ElementType.METHOD})
+public @interface TextProperty {
 
     String name() default "";
 
@@ -15,7 +15,7 @@ public @interface NumericProperty {
 
     boolean immutable() default false;
 
-    long minValue() default Long.MIN_VALUE;
+    int minLength() default 0;
 
-    long maxValue() default Long.MAX_VALUE;
+    int maxLength() default 65535;
 }

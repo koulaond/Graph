@@ -1,22 +1,19 @@
 package repository.schema.metamodel;
 
-import model.AbstractEntity;
 import model.Graph;
 import model.Node;
 
-public class MetaNode<T> extends AbstractEntity implements Node<MetaRelation> {
+public class MetaNode<T> extends AbstractMetaEntity implements Node<MetaRelation> {
 
     private Class<T> describedClass;
-
-    private String nodeType;
 
     private boolean immutable;
 
     private Long maxCount;
 
-    public MetaNode(Class<T> describedClass, String nodeType, boolean immutable, Long maxCount) {
+    public MetaNode(String type, Class<T> describedClass, boolean immutable, Long maxCount) {
+        super(type);
         this.describedClass = describedClass;
-        this.nodeType = nodeType;
         this.immutable = immutable;
         this.maxCount = maxCount;
     }
@@ -33,10 +30,6 @@ public class MetaNode<T> extends AbstractEntity implements Node<MetaRelation> {
 
     public Class<T> getDescribedClass() {
         return describedClass;
-    }
-
-    public String getNodeType() {
-        return nodeType;
     }
 
     public boolean isImmutable() {

@@ -53,14 +53,6 @@ public class DefaultComponent<N extends Node, C extends Relation>
         return graph.containsNode(this);
     }
 
-    void addInputConnection(C inputConnection) {
-        this.inputConnections.put(inputConnection.getUuid(), inputConnection);
-    }
-
-    void addOutputConnection(C outputConnection) {
-        this.outputConnections.put(outputConnection.getUuid(), outputConnection);
-    }
-
     void addInnerConnection(C innerConnection){
         this.innerConnections.put(innerConnection.getUuid(),innerConnection);
     }

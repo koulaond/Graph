@@ -1,18 +1,15 @@
 package repository.schema.metamodel;
 
-import model.AbstractEntity;
 import model.Direction;
 import model.Graph;
 import model.Relation;
 
-public class MetaRelation extends AbstractEntity implements Relation<MetaNode> {
-
-    private String name;
+public class MetaRelation extends AbstractMetaEntity implements Relation<MetaNode> {
 
     private Class propertyHolderClass;
 
-    public MetaRelation(String name, Class propertyHolderClass) {
-        this.name = name;
+    public MetaRelation(String type, Class propertyHolderClass) {
+        super(type);
         this.propertyHolderClass = propertyHolderClass;
     }
 
@@ -34,10 +31,6 @@ public class MetaRelation extends AbstractEntity implements Relation<MetaNode> {
     @Override
     public boolean isIncludedIn(Graph graph) {
         return false;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Class getPropertyHolderClass() {

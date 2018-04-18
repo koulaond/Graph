@@ -1,9 +1,9 @@
 package app.testmodel;
 
 import lombok.Getter;
-import repository.schema.annotations.EnumProperty;
+import repository.schema.annotations.properties.EnumProperty;
 import repository.schema.annotations.PropertyHolder;
-import repository.schema.annotations.TextProperty;
+import repository.schema.annotations.properties.TextProperty;
 
 @Getter
 @PropertyHolder

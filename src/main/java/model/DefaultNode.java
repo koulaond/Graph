@@ -8,20 +8,20 @@ import java.util.*;
 
 @Getter
 @Setter
-public class DefaultNode<C extends Relation> extends AbstractEntity implements Node<C> {
+public class DefaultNode<R extends Relation> extends AbstractEntity implements Node<R> {
 
     @Getter
     @NonNull
     protected Graph parentGraph;
 
-    protected Map<UUID, C> inputConnections;
+    protected Map<UUID, R> inputRelations;
 
-    protected Map<UUID, C> outputConnections;
+    protected Map<UUID, R> outputRelations;
 
     protected DefaultNode(@NonNull Graph parentGraph) {
         this.parentGraph = parentGraph;
-        this.inputConnections = new HashMap<>();
-        this.outputConnections = new HashMap<>();
+        this.inputRelations = new HashMap<>();
+        this.outputRelations = new HashMap<>();
     }
 
     @Override
@@ -34,33 +34,33 @@ public class DefaultNode<C extends Relation> extends AbstractEntity implements N
         return graph.containsNode(this);
     }
 
-    void addInputConnection(C inputConnection){
-        this.inputConnections.put(inputConnection.getUuid(), inputConnection);
+    void addInputRelation(R inputConnection){
+        this.inputRelations.put(inputConnection.getUuid(), inputConnection);
     }
 
-    void addOutputConnection(C outputConnection){
-        this.outputConnections.put(outputConnection.getUuid(), outputConnection);
+    void addOutputRelation(R outputConnection){
+        this.outputRelations.put(outputConnection.getUuid(), outputConnection);
     }
 
-    void removeInputConnection(UUID connUUID){
-        this.inputConnections.remove(connUUID);
+    void removeInputRelation(UUID connUUID){
+        this.inputRelations.remove(connUUID);
     }
 
-    void removeOutputConnection(UUID connUUID){
-        this.outputConnections.remove(connUUID);
+    void removeOutputRelation(UUID connUUID){
+        this.outputRelations.remove(connUUID);
     }
 
-    void removeConnection(UUID connUUID){
-        removeInputConnection(connUUID);
-        removeOutputConnection(connUUID);
+    void removeRelation(UUID connUUID){
+        removeInputRelation(connUUID);
+        removeOutputRelation(connUUID);
     }
 
     boolean containsInputConnection(UUID connUUID){
-        return this.inputConnections.containsKey(connUUID);
+        return this.inputRelations.containsKey(connUUID);
     }
 
     boolean containsOutputConnection(UUID connUUID){
-        return this.outputConnections.containsKey(connUUID);
+        return this.outputRelations.containsKey(connUUID);
     }
 
     boolean containsConnection(UUID connUUID){

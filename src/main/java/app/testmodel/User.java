@@ -3,7 +3,7 @@ package app.testmodel;
 import repository.schema.Direction;
 import repository.schema.annotations.Node;
 import repository.schema.annotations.Relation;
-import repository.schema.annotations.TextProperty;
+import repository.schema.annotations.properties.TextProperty;
 
 import java.util.Set;
 
@@ -13,7 +13,7 @@ public class User {
     @TextProperty(nonNull = true)
     private String userName;
 
-    @Relation(name = "WATCHLIST", relationshipClass = WatchListRelation.class, direction = Direction.OUTGOING)
+    @Relation(name = "WATCHLIST", propertyHolderClass = WatchListRelation.class, direction = Direction.OUTGOING)
     private Set<Movie> watchList;
 
 
