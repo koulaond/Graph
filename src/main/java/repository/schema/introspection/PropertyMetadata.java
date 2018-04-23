@@ -1,4 +1,4 @@
-package repository.schema.processors;
+package repository.schema.introspection;
 
 import java.lang.annotation.Annotation;
 

@@ -1,4 +1,4 @@
-package repository.schema.processors;
+package repository.schema.introspection;
 
 import org.reflections.Reflections;
 import repository.schema.annotations.Node;

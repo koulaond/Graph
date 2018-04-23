@@ -1,13 +1,8 @@
-package repository.schema.processors;
+package repository.schema.introspection;
 
-import org.reflections.Reflections;
 import repository.schema.annotations.Node;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Stream;
 
 public class PropertyIntrospector {
 
