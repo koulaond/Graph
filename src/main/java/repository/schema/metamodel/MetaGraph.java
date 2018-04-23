@@ -3,7 +3,7 @@ package repository.schema.metamodel;
 import model.DefaultGraph;
 import model.Node;
 
-public class MetaGraph extends DefaultGraph{
+public class MetaGraph extends DefaultGraph {
 
     private String schema;
 
