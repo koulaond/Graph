@@ -13,7 +13,7 @@ public class User {
     @TextProperty(nonNull = true)
     private String userName;
 
-    @Relation(name = "WATCHLIST", propertyHolderClass = WatchListRelation.class, direction = Direction.OUTGOING)
+    @Relation(type = "WATCHLIST", propertyHolderClass = WatchListRelation.class, direction = Direction.OUTGOING)
     private Set<Movie> watchList;
 
 

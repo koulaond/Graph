@@ -4,7 +4,7 @@ import repository.schema.annotations.Node;
 import repository.schema.metamodel.MetaNode;
 import static java.lang.String.format;
 
-public class NodeDefinitionIntrospector {
+public class NodeClassIntrospector {
 
     public <T> MetaNode<T> introspectNodeClass(Class<T> clazz) {
         Node node = clazz.getAnnotation(Node.class);

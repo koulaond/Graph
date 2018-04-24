@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface Relation {
 
-    String name();
+    String type();
 
     Direction direction() default Direction.UNDIRECTED;
 
