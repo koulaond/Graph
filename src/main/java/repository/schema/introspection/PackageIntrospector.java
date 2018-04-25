@@ -1,6 +1,5 @@
 package repository.schema.introspection;
 
-import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 import repository.schema.annotations.Node;
 
