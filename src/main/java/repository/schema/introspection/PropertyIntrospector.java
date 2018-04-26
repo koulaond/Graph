@@ -1,7 +1,5 @@
 package repository.schema.introspection;
 
-import com.google.common.base.Strings;
-import com.sun.deploy.util.StringUtils;
 import repository.schema.annotations.Node;
 import repository.schema.annotations.properties.*;
 
@@ -23,28 +21,33 @@ public class PropertyIntrospector {
     private static final String PREFIX_HAS = "has";
     private static final String PREFIX_GET = "get";
 
-    public List<PropertyMetadata> introspect(Class clazz) {
+    public List<PropertyMetadata> introspect(Class declaringClass) {
         // Class must be a node
-        if (clazz.getAnnotation(Node.class) == null) {
-            throw new IllegalArgumentException(format("Class %s is not annotated as @Node", clazz.getName()));
+        if (declaringClass.getAnnotation(Node.class) == null) {
+            throw new IllegalArgumentException(format("Class %s is not annotated as @Node", declaringClass.getName()));
         }
-        Field[] fields = clazz.getFields();
+        Map<String, Field> allFieldsMap = new HashMap<>();
+        Map<String, Method> allGettersMap = new HashMap<>();
+        collectAllFieldsAndGetters(declaringClass, allFieldsMap, allGettersMap);
         // This map contains property annotation for every field in the node class
-        Map<Field, Annotation> fieldsAnnotations = processFields(fields);
+        Map<Field, Annotation> fieldsAnnotations = collectPropertyAnnotations(allFieldsMap, allGettersMap);
 
         // TODO
         return null;
     }
 
     /**
-     * Process an array of fields declared in @Node class and returns property annotation for each field.
+     * Process an array of fields declared in @Node class and its superclasses (if inherits from someone)
+     * and returns property annotation for each field.
      *
-     * @param fields fields array
+     * @param allFieldsMap class fields map containing fieldName:fieldObject
+     * @param allGettersMap map with getters declared in the class, contains getterName:getterObject
      * @return map containing field as a key and its property annotation
      */
-    private Map<Field, Annotation> processFields(Field[] fields) {
+    private Map<Field, Annotation> collectPropertyAnnotations(Map<String, Field> allFieldsMap, Map<String, Method> allGettersMap) {
+        // TODO merge getter and field property annotations
         Map<Field, Annotation> fieldsAnnotations = new HashMap<>();
-        Stream.of(fields).forEach(field -> {
+        allFieldsMap.values().forEach(field -> {
             List<Annotation> propertyAnnotations = Stream.of(field.getAnnotations())
                     .filter(PropertyDeclaration::isPropertyAnnotation)
                     .collect(Collectors.toList());
@@ -65,36 +68,53 @@ public class PropertyIntrospector {
         return fieldsAnnotations;
     }
 
-    private Map<Field, Method> findGettersForFields(Field[] fields, Class declaringClass) {
+    private void collectAllFieldsAndGetters(Class declaringClass,
+                                            Map<String, Field> allFieldsMap,
+                                            Map<String, Method> allGettersMap) {
+        Stream.of(declaringClass.getDeclaredFields()).forEach(field -> {
+            String fieldName = field.getName();
+            if (!allFieldsMap.containsKey(fieldName)) {
+                allFieldsMap.put(fieldName, field);
+            }
+        });
+        Stream.of(declaringClass.getDeclaredMethods()).forEach(method -> {
+            String methodName = method.getName();
+            if (!allGettersMap.containsKey(methodName) && isGetter(method)) {
+                allGettersMap.put(methodName, method);
+            }
 
+        });
+        Class superClass = declaringClass.getSuperclass();
+        if (superClass != null) {
+            collectAllFieldsAndGetters(superClass, allFieldsMap, allGettersMap);
+        }
     }
 
-    private Method findGetterForField(Field field, Class declaringClass) {
+    private boolean isGetter(Method method) {
+        String name = method.getName();
+        Class returnType = method.getReturnType();
+        return (name.startsWith(PREFIX_GET) || name.startsWith(PREFIX_HAS) || name.startsWith(PREFIX_IS))
+                && !returnType.equals(Void.class)
+                && method.getParameterCount() == 0;
+    }
+
+    // TODO use this method to find getters for declared fields if exist
+    private Method findGetterForField(Field field, Map<String, Method> allGetters) {
         String fieldName = capitalize(field.getName());
         Class<?> fieldType = field.getType();
 
         if (Boolean.class.equals(fieldType) || boolean.class.equals(fieldType)) {
-            Method getter = findGetter(PREFIX_IS + fieldName, fieldType, declaringClass);
-            if(getter == null){
-                findGetter(PREFIX_HAS + fieldName, fieldType, declaringClass);
+            Method getter = allGetters.get(PREFIX_IS + fieldName);
+            if (getter == null) {
+                getter = allGetters.get(PREFIX_HAS + fieldName);
             }
             return getter;
         } else {
-            return findGetter(PREFIX_GET + fieldName, fieldType, declaringClass);
+            return allGetters.get(PREFIX_GET + fieldName);
         }
-    }
-
-    private Method findGetter(String getterName, Class returnType, Class declaringClass){
-        try {
-            Method getter = declaringClass.getMethod(getterName);
-            return getter != null && !getter.getReturnType().equals(returnType) ? null : getter;
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private String capitalize(String str) {
-        return str.substring(0,1).toUpperCase() + str.substring(1);
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 }
