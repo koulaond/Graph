@@ -2,6 +2,7 @@ package repository.schema.annotations.properties;
 
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.stream.Stream;
 
 public enum PropertyDeclaration {
@@ -24,5 +25,9 @@ public enum PropertyDeclaration {
         PropertyDeclaration[] values = values();
         return Stream.of(values)
                 .anyMatch(declaration -> declaration.annotationClass.equals(annotation.annotationType()));
+    }
+
+    public static boolean hasPropertyAnnotation(Method method){
+        return Stream.of(method.getAnnotations()).anyMatch(PropertyDeclaration::isPropertyAnnotation);
     }
 }
