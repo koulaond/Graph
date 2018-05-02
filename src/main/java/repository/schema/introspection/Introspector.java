@@ -2,6 +2,9 @@ package repository.schema.introspection;
 
 import repository.schema.annotations.Node;
 import repository.schema.annotations.properties.*;
+import repository.schema.descriptions.PropertyDescription;
+import repository.schema.descriptions.RelationshipDescription;
+import repository.schema.descriptions.TypeDescription;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -10,33 +13,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.of;
 import static repository.schema.annotations.properties.PropertyDeclaration.hasPropertyAnnotation;
+import static repository.schema.introspection.Constants.*;
 
-public class PropertyIntrospector {
+public class Introspector<T> {
 
-    private static final String ERROR_DUPLICATE_PROPS_ON_FIELD = "Cannot process class %s. There is property annotations collision on field %s. Multiple property annotations are defined: %s";
-    private static final String ERROR_DUPLICATE_PROPS_ON_GETTER = "Cannot process class %s. There is property annotations collision on getter method %s. Multiple property annotations are defined: %s";
-    private static final String PREFIX_IS = "is";
-    private static final String PREFIX_HAS = "has";
-    private static final String PREFIX_GET = "get";
 
-    public List<PropertyMetadata> introspect(Class declaringClass) {
+
+    private Class<T> introspectedClass;
+
+    private String typeName;
+
+    private boolean immutable;
+
+    private Set<PropertyDescription> propertyDescriptions;
+
+    private Set<RelationshipDescription> relationshipDescriptions;
+
+    public Introspector(Class<T> introspectedClass) {
+        this.introspectedClass = introspectedClass;
+    }
+
+    public TypeDescription<T> introspect() {
         // Class must be a node
-        if (declaringClass.getAnnotation(Node.class) == null) {
-            throw new IllegalArgumentException(format("Class %s is not annotated as @Node", declaringClass.getName()));
+        if (introspectedClass.getAnnotation(Node.class) == null) {
+            throw new IllegalArgumentException(format("Class %s is not annotated as @Node", introspectedClass.getName()));
         }
-        Map<String, Field> allFieldsMap = new HashMap<>();
-        Map<String, Method> gettersForFields = new HashMap<>();
-        collectAllFieldsAndGetters(declaringClass, allFieldsMap, gettersForFields);
+        Map<String, Field> fieldMap = new FieldCollector().collect(introspectedClass);
+        Map<String, Method> getterMap = new GetterCollector().collect(introspectedClass);
         // This map contains property annotation for every field in the node class
-        Map<Field, Annotation> propertyAnnotationsForFields = collectPropertyAnnotations(allFieldsMap);
-        mergeFieldsAndGettersAnnotations(propertyAnnotationsForFields, gettersForFields);
+        Map<Field, Annotation> propertyAnnotationsForFields = collectPropertyAnnotations(fieldMap);
+        mergeFieldsAndGettersAnnotations(propertyAnnotationsForFields, getterMap);
 
         // TODO
         return null;
@@ -101,53 +112,5 @@ public class PropertyIntrospector {
 
             }
         });
-    }
-
-    private void collectAllFieldsAndGetters(Class declaringClass,
-                                            Map<String, Field> allFieldsMap,
-                                            Map<String, Method> allGettersMap) {
-        of(declaringClass.getDeclaredFields()).forEach(field -> {
-            String fieldName = field.getName();
-            if (!allFieldsMap.containsKey(fieldName)) {
-                allFieldsMap.put(fieldName, field);
-            }
-        });
-        of(declaringClass.getDeclaredMethods()).forEach(method -> {
-            String methodName = convertGetterNameToFieldName(method.getName());
-            if (!allGettersMap.containsKey(methodName) && isGetter(method) && hasPropertyAnnotation(method)) {
-                allGettersMap.put(methodName, method);
-            }
-
-        });
-        Class superClass = declaringClass.getSuperclass();
-        if (superClass != null && !Object.class.equals(superClass)) {
-            collectAllFieldsAndGetters(superClass, allFieldsMap, allGettersMap);
-        }
-    }
-
-    private String convertGetterNameToFieldName(String getterName) {
-        String fieldName = null;
-        if (getterName.startsWith(PREFIX_GET) || getterName.startsWith(PREFIX_HAS)) {
-            fieldName = getterName.substring(3);
-        } else if (getterName.startsWith(PREFIX_IS)) {
-            fieldName = getterName.substring(2);
-        }
-        return uncapitalize(fieldName);
-    }
-
-    private boolean isGetter(Method method) {
-        String name = method.getName();
-        Class returnType = method.getReturnType();
-        return (name.startsWith(PREFIX_GET) || name.startsWith(PREFIX_HAS) || name.startsWith(PREFIX_IS))
-                && !returnType.equals(Void.class)
-                && method.getParameterCount() == 0;
-    }
-
-    private String capitalize(String str) {
-        return str.substring(0, 1).toUpperCase() + str.substring(1);
-    }
-
-    private String uncapitalize(String str) {
-        return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 }

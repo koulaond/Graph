@@ -19,5 +19,5 @@ public class TypeDescription<T> {
 
     private Set<PropertyDescription> propertyDescriptions;
 
-
+    private Set<RelationshipDescription> relationshipDescriptions;
 }
