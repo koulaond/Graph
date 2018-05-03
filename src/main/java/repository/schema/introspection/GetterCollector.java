@@ -8,6 +8,7 @@ import static repository.schema.annotations.properties.PropertyDeclaration.hasPr
 import static repository.schema.introspection.Constants.PREFIX_GET;
 import static repository.schema.introspection.Constants.PREFIX_HAS;
 import static repository.schema.introspection.Constants.PREFIX_IS;
+import static repository.schema.introspection.Utils.convertGetterNameToFieldName;
 
 public class GetterCollector extends AbstractCollector<Method> {
 
@@ -21,25 +22,20 @@ public class GetterCollector extends AbstractCollector<Method> {
         });
     }
 
-    private String convertGetterNameToFieldName(String getterName) {
-        String fieldName = null;
-        if (getterName.startsWith(PREFIX_GET) || getterName.startsWith(PREFIX_HAS)) {
-            fieldName = getterName.substring(3);
-        } else if (getterName.startsWith(Constants.PREFIX_IS)) {
-            fieldName = getterName.substring(2);
-        }
-        return uncapitalize(fieldName);
-    }
-
+    /**
+     * Returns whether method is getter or not.
+     * Method is getter if meets these conditions:
+     * 1. Method's name starts with 'get', 'is' or 'has'
+     * 2. Method musts return an object so its return type must not be void
+     * 3. Method does not have parameters
+     * @param method method instance
+     * @return true when the method is getter. Otherwise it returns false.
+     */
     private boolean isGetter(Method method) {
         String name = method.getName();
         Class returnType = method.getReturnType();
         return (name.startsWith(PREFIX_GET) || name.startsWith(PREFIX_HAS) || name.startsWith(PREFIX_IS))
                 && !returnType.equals(Void.class)
                 && method.getParameterCount() == 0;
-    }
-
-    private String uncapitalize(String str) {
-        return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 }
