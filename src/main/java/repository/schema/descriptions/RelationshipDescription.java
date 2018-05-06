@@ -15,13 +15,12 @@ public class RelationshipDescription<RT> extends PropertyDescription<UUID> {
     private Direction direction;
 
     public RelationshipDescription(String propertyName,
-                                   Class<UUID> propertyType,
                                    boolean mandatory,
                                    boolean multiValue,
                                    Class<RT> referencedClass,
                                    Set<PropertyDescription> propertyDescriptions,
                                    Direction direction) {
-        super(propertyName, propertyType, mandatory, multiValue);
+        super(propertyName, UUID.class, mandatory, multiValue);
         this.referencedClass = referencedClass;
         this.propertyDescriptions = propertyDescriptions;
         this.direction = direction;

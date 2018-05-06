@@ -2,7 +2,6 @@ package repository.schema.introspection;
 
 import repository.schema.annotations.Node;
 import repository.schema.annotations.Relation;
-import repository.schema.annotations.properties.*;
 import repository.schema.descriptions.PropertyDescription;
 import repository.schema.descriptions.RelationshipDescription;
 import repository.schema.descriptions.TypeDescription;
@@ -10,16 +9,11 @@ import repository.schema.descriptions.TypeDescription;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import static java.lang.String.format;
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.of;
-import static repository.schema.annotations.properties.PropertyDeclaration.hasPropertyAnnotation;
-import static repository.schema.introspection.Constants.*;
 
 public class Introspector<T> {
 
@@ -58,8 +52,10 @@ public class Introspector<T> {
         AnnotationMerger merger = new AnnotationMerger();
         Map<String, Annotation> propertyAnnotations = merger.merge(propertyAnnotationsForFields, propertyAnnotationsForGetters);
         Map<String, Annotation> relationAnnotations = merger.merge(relationAnnotationsForFields, relationAnnotationsForGetters);
+
+
         // TODO
-        return null;
+        return typeDescription;
     }
 
 

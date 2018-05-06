@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import static java.util.stream.Stream.of;
-import static repository.schema.annotations.properties.PropertyDeclaration.hasPropertyAnnotation;
+import static repository.schema.introspection.PropertyDeclaration.hasPropertyAnnotation;
 import static repository.schema.introspection.Constants.PREFIX_GET;
 import static repository.schema.introspection.Constants.PREFIX_HAS;
 import static repository.schema.introspection.Constants.PREFIX_IS;

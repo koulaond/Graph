@@ -7,8 +7,8 @@ public class EnumerationPropertyDescription extends PropertyDescription<String> 
 
     private Class enumClass;
 
-    public EnumerationPropertyDescription(String propertyName, Class<String> propertyType, boolean mandatory, boolean multiValue, Class enumClass) {
-        super(propertyName, propertyType, mandatory, multiValue);
+    public EnumerationPropertyDescription(String propertyName, boolean mandatory, boolean multiValue, Class enumClass) {
+        super(propertyName, String.class, mandatory, multiValue);
         this.enumClass = enumClass;
     }
 }

@@ -1,5 +1,10 @@
-package repository.schema.annotations.properties;
+package repository.schema.introspection;
 
+
+import repository.schema.annotations.properties.DateProperty;
+import repository.schema.annotations.properties.EnumProperty;
+import repository.schema.annotations.properties.NumericProperty;
+import repository.schema.annotations.properties.TextProperty;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
