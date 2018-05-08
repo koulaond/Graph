@@ -1,12 +1,9 @@
 package repository.schema.descriptions;
 
-import lombok.Getter;
 import repository.schema.Direction;
-
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
 public class RelationshipDescription<RT> extends PropertyDescription<UUID> {
     private Class<RT> referencedClass;
 
@@ -17,12 +14,25 @@ public class RelationshipDescription<RT> extends PropertyDescription<UUID> {
     public RelationshipDescription(String propertyName,
                                    boolean mandatory,
                                    boolean multiValue,
+                                   boolean immutable,
                                    Class<RT> referencedClass,
                                    Set<PropertyDescription> propertyDescriptions,
                                    Direction direction) {
-        super(propertyName, UUID.class, mandatory, multiValue);
+        super(propertyName, UUID.class, mandatory, multiValue, immutable);
         this.referencedClass = referencedClass;
         this.propertyDescriptions = propertyDescriptions;
         this.direction = direction;
+    }
+
+    public Class<RT> getReferencedClass() {
+        return referencedClass;
+    }
+
+    public Set<PropertyDescription> getPropertyDescriptions() {
+        return propertyDescriptions;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 }

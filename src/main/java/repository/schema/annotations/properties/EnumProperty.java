@@ -14,4 +14,6 @@ public @interface EnumProperty {
     boolean nonNull() default false;
 
     boolean immutable() default false;
+
+    Class enumClass();
 }

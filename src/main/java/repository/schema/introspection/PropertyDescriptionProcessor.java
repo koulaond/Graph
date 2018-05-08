@@ -6,6 +6,6 @@ import java.lang.annotation.Annotation;
 
 public interface PropertyDescriptionProcessor<PD extends PropertyDescription, A extends Annotation> {
 
-    PD processProperty(A propertyAnnotation);
+    PD processProperty(A propertyAnnotation, boolean multiValue);
 
 }

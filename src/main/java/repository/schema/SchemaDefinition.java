@@ -2,16 +2,14 @@ package repository.schema;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import repository.schema.descriptions.TypeDescription;
+import repository.schema.descriptions.NodeDescription;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 @Getter
 @RequiredArgsConstructor
 public class SchemaDefinition {
 
     private String name;
-    private Map<Class, TypeDescription> typeDescriptions;
+    private Map<Class, NodeDescription> typeDescriptions;
 }
