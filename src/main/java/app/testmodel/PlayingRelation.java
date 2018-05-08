@@ -1,16 +1,16 @@
 package app.testmodel;
 
 import repository.schema.annotations.PropertyHolder;
-import repository.schema.annotations.properties.TextProperty;
+import repository.schema.annotations.properties.StringProperty;
 
 @PropertyHolder
 public class PlayingRelation {
 
-    @TextProperty(nonNull = true)
+    @StringProperty(nonNull = true)
     private String character;
 
     // Property annotation on getter overrides annotation on field
-    @TextProperty(nonNull = false)
+    @StringProperty(nonNull = false)
     public String getCharacter() {
         return character;
     }

@@ -4,7 +4,7 @@ package repository.schema.introspection;
 import repository.schema.annotations.properties.DateProperty;
 import repository.schema.annotations.properties.EnumProperty;
 import repository.schema.annotations.properties.NumericProperty;
-import repository.schema.annotations.properties.TextProperty;
+import repository.schema.annotations.properties.StringProperty;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -14,7 +14,7 @@ public enum PropertyDeclaration {
     DATE_PROP(DateProperty.class),
     ENUM_PROP(EnumProperty.class),
     NUMERIC_PROP(NumericProperty.class),
-    TEXT_PROP(TextProperty.class);
+    TEXT_PROP(StringProperty.class);
 
     private Class<? extends Annotation> annotationClass;
 

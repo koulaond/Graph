@@ -9,11 +9,17 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Relation {
+public @interface Relationship {
 
-    String type();
+    String name();
+
+    boolean nonNull() default true;
+
+    boolean immutable() default false;
 
     Direction direction() default Direction.UNDIRECTED;
 
     Class<?> propertyHolderClass();
+
+    Class<?> referencedClass();
 }

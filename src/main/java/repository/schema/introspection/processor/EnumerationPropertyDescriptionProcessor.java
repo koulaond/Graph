@@ -1,4 +1,4 @@
-package repository.schema.introspection;
+package repository.schema.introspection.processor;
 
 import repository.schema.annotations.properties.EnumProperty;
 import repository.schema.descriptions.EnumerationPropertyDescription;

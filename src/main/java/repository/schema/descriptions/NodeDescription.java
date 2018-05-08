@@ -10,18 +10,24 @@ public class NodeDescription<T> {
 
     private boolean immutable;
 
+    private long maxCount;
+
     private Set<PropertyDescription> propertyDescriptions;
 
     private Set<RelationshipDescription> relationshipDescriptions;
 
+ \
+
     public NodeDescription(Class<T> describedClass,
                            String type,
                            boolean immutable,
+                           long maxCount,
                            Set<PropertyDescription> propertyDescriptions,
                            Set<RelationshipDescription> relationshipDescriptions) {
         this.describedClass = describedClass;
         this.type = type;
         this.immutable = immutable;
+        this.maxCount = maxCount;
         this.propertyDescriptions = propertyDescriptions;
         this.relationshipDescriptions = relationshipDescriptions;
     }
@@ -36,6 +42,10 @@ public class NodeDescription<T> {
 
     public boolean isImmutable() {
         return immutable;
+    }
+
+    public long getMaxCount() {
+        return maxCount;
     }
 
     public Set<PropertyDescription> getPropertyDescriptions() {

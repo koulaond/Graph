@@ -1,17 +1,23 @@
 package repository.schema.introspection;
 
 import repository.schema.annotations.Node;
-import repository.schema.annotations.Relation;
+import repository.schema.annotations.Relationship;
 import repository.schema.descriptions.NodeDescription;
+import repository.schema.descriptions.PropertyDescription;
+import repository.schema.descriptions.RelationshipDescription;
+import repository.schema.introspection.processor.ProcessorSupplier;
+import repository.schema.introspection.processor.RelationshipDescriptionProcessor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static java.lang.String.format;
-import static repository.schema.introspection.Constants.ERROR_DUPLICATE_ANNOTATIONS;
-import static repository.schema.introspection.Constants.ERROR_MISSING_ANNOTATION;
+import static repository.schema.introspection.processor.ProcessorSupplier.supply;
 
 public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T>>{
 
@@ -34,17 +40,35 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
         AnnotationIntrospector<Method> getterAnnotationIntrospector = new AnnotationIntrospector<>(getterMap);
 
         Map<Field, Annotation> propertyAnnotationsForFields = fieldAnnotationIntrospector.introspectAnnotations(PropertyDeclaration::isPropertyAnnotation);
-        Map<Field, Annotation> relationAnnotationsForFields = fieldAnnotationIntrospector.introspectAnnotations(annotation -> Relation.class.equals(annotation));
+        Map<Field, Annotation> relationAnnotationsForFields = fieldAnnotationIntrospector.introspectAnnotations(annotation -> Relationship.class.equals(annotation));
 
         Map<Method, Annotation> propertyAnnotationsForGetters = getterAnnotationIntrospector.introspectAnnotations(PropertyDeclaration::isPropertyAnnotation);
-        Map<Method, Annotation> relationAnnotationsForGetters = getterAnnotationIntrospector.introspectAnnotations(annotation -> Relation.class.equals(annotation));
+        Map<Method, Annotation> relationAnnotationsForGetters = getterAnnotationIntrospector.introspectAnnotations(annotation -> Relationship.class.equals(annotation));
 
         AnnotationMerger merger = new AnnotationMerger();
-        Map<String, Annotation> propertyAnnotations = merger.merge(propertyAnnotationsForFields, propertyAnnotationsForGetters);
-        Map<String, Annotation> relationAnnotations = merger.merge(relationAnnotationsForFields, relationAnnotationsForGetters);
+        Map<Field, Annotation> propertyAnnotations = merger.merge(propertyAnnotationsForFields, propertyAnnotationsForGetters);
+        Map<Field, Relationship> relationAnnotations = merger.merge(relationAnnotationsForFields, relationAnnotationsForGetters);
 
-        // TODO
-        return null;
+        Set<PropertyDescription> propertyDescriptions = new HashSet<>();
+        Set<RelationshipDescription> relationshipDescriptions = new HashSet<>();
+        propertyAnnotations.forEach((field, annotation) -> {
+            boolean multiValue = Collection.class.isAssignableFrom(field.getType());
+            propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, multiValue));
+        });
+
+        relationAnnotations.forEach((field, annotation) -> {
+            boolean multiValue = Collection.class.isAssignableFrom(field.getType());
+            RelationshipDescriptionProcessor processor = new RelationshipDescriptionProcessor();
+            relationshipDescriptions.add(processor.processProperty(annotation, multiValue));
+        });
+        NodeDescription nodeDescription = new NodeDescription(
+                introspectedClass,
+                nodeType,
+                immutable,
+                maxCount,
+                propertyDescriptions,
+                relationshipDescriptions);
+        return nodeDescription;
     }
 
 

@@ -1,4 +1,4 @@
-package repository.schema.introspection;
+package repository.schema.introspection.processor;
 
 import repository.schema.annotations.properties.NumericProperty;
 import repository.schema.descriptions.NumericPropertyDescription;
