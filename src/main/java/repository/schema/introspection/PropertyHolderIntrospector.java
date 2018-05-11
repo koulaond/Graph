@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static repository.schema.introspection.processor.ProcessorSupplier.supply;
+import static repository.schema.introspection.creator.CreatorSupplier.supply;
 
 public class PropertyHolderIntrospector<T> extends Introspector<T, PropertyHolder, Set<PropertyDescription>> {
 

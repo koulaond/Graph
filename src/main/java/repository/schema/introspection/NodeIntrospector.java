@@ -5,8 +5,7 @@ import repository.schema.annotations.Relationship;
 import repository.schema.descriptions.NodeDescription;
 import repository.schema.descriptions.PropertyDescription;
 import repository.schema.descriptions.RelationshipDescription;
-import repository.schema.introspection.processor.ProcessorSupplier;
-import repository.schema.introspection.processor.RelationshipDescriptionProcessor;
+import repository.schema.introspection.creator.RelationshipDescriptionCreator;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -17,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static java.lang.String.format;
-import static repository.schema.introspection.processor.ProcessorSupplier.supply;
+import static repository.schema.introspection.creator.CreatorSupplier.supply;
 
 public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T>>{
 
@@ -58,7 +57,7 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
 
         relationAnnotations.forEach((field, annotation) -> {
             boolean multiValue = Collection.class.isAssignableFrom(field.getType());
-            RelationshipDescriptionProcessor processor = new RelationshipDescriptionProcessor();
+            RelationshipDescriptionCreator processor = new RelationshipDescriptionCreator();
             relationshipDescriptions.add(processor.processProperty(annotation, multiValue));
         });
         NodeDescription nodeDescription = new NodeDescription(

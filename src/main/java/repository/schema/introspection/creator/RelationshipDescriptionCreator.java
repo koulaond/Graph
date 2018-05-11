@@ -1,4 +1,4 @@
-package repository.schema.introspection.processor;
+package repository.schema.introspection.creator;
 
 import repository.schema.Direction;
 import repository.schema.annotations.Relationship;
@@ -8,8 +8,8 @@ import repository.schema.introspection.PropertyHolderIntrospector;
 
 import java.util.Set;
 
-public class RelationshipDescriptionProcessor
-        implements PropertyDescriptionProcessor<RelationshipDescription, Relationship> {
+public class RelationshipDescriptionCreator
+        implements PropertyDescriptionCreator<RelationshipDescription, Relationship> {
 
     @Override
     public RelationshipDescription processProperty(Relationship relationship, boolean multiValue) {

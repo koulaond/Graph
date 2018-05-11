@@ -1,9 +1,9 @@
-package repository.schema.introspection.processor;
+package repository.schema.introspection.creator;
 
 import repository.schema.annotations.properties.DateProperty;
 import repository.schema.descriptions.DatePropertyDescription;
 
-public class DatePropertyDescriptionProcessor implements PropertyDescriptionProcessor<DatePropertyDescription, DateProperty> {
+public class DatePropertyDescriptionCreator implements PropertyDescriptionCreator<DatePropertyDescription, DateProperty> {
     @Override
     public DatePropertyDescription processProperty(DateProperty propertyAnnotation, boolean multiValue) {
         String name = propertyAnnotation.name();

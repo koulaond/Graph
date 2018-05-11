@@ -1,10 +1,10 @@
-package repository.schema.introspection.processor;
+package repository.schema.introspection.creator;
 
 import repository.schema.annotations.properties.StringProperty;
 import repository.schema.descriptions.StringPropertyDescription;
 
-public class StringPropertyDescriptionProcessor
-        implements PropertyDescriptionProcessor<StringPropertyDescription, StringProperty> {
+public class StringPropertyDescriptionCreator
+        implements PropertyDescriptionCreator<StringPropertyDescription, StringProperty> {
 
     @Override
     public StringPropertyDescription processProperty(StringProperty propertyAnnotation, boolean multiValue) {
