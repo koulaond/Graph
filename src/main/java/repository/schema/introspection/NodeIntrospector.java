@@ -70,11 +70,11 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
             boolean multiValue = Collection.class.isAssignableFrom(field.getType());
             propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, multiValue));
         });
-        RelationshipDescriptionProcessor processor = new RelationshipDescriptionProcessor();
+
+        RelationshipDescriptionCreator creator = new RelationshipDescriptionCreator();
         relationAnnotations.forEach((field, annotation) -> {
             boolean multiValue = Collection.class.isAssignableFrom(field.getType());
-            RelationshipDescriptionCreator processor = new RelationshipDescriptionCreator();
-            relationshipDescriptions.add(processor.processProperty(annotation, multiValue));
+            relationshipDescriptions.add(creator.processProperty(annotation, multiValue));
         });
         NodeDescription nodeDescription = new NodeDescription(
                 introspectedClass,
