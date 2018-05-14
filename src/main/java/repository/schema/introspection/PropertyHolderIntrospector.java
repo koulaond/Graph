@@ -13,8 +13,13 @@ import java.util.Set;
 
 import static repository.schema.introspection.processor.ProcessorSupplier.supply;
 
+/**
+ * Introspector for processing a class annotated with @{@link PropertyHolder} (class describing a set of properties
+ * for some meta-node, i.e. {@link model.Relation}). Behaviour is very similar to {@link NodeIntrospector} except
+ * Relation annotations are NOT processed here.
+ * @param <T>
+ */
 public class PropertyHolderIntrospector<T> extends Introspector<T, PropertyHolder, Set<PropertyDescription>> {
-
 
     public PropertyHolderIntrospector(Class<T> introspectedClass) {
         super(introspectedClass);
