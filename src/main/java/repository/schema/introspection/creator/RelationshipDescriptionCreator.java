@@ -8,6 +8,9 @@ import repository.schema.introspection.PropertyHolderIntrospector;
 
 import java.util.Set;
 
+/**
+ * Creator class that processes @{@link Relationship} annotation and returns {@link Relationship} instance.
+ */
 public class RelationshipDescriptionCreator
         implements PropertyDescriptionCreator<RelationshipDescription, Relationship> {
 

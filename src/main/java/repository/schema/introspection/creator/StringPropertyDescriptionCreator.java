@@ -3,6 +3,9 @@ package repository.schema.introspection.creator;
 import repository.schema.annotations.properties.StringProperty;
 import repository.schema.descriptions.StringPropertyDescription;
 
+/**
+ * Creator class that processes @{@link StringProperty} annotation and returns {@link StringPropertyDescription} instance.
+ */
 public class StringPropertyDescriptionCreator
         implements PropertyDescriptionCreator<StringPropertyDescription, StringProperty> {
 

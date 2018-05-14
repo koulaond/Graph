@@ -5,6 +5,9 @@ import repository.schema.descriptions.NumericPropertyDescription;
 
 import java.math.BigDecimal;
 
+/**
+ * Creator class that processes @{@link NumericProperty} annotation and returns {@link NumericPropertyDescription} instance.
+ */
 public class NumericPropertyDescriptionCreator
         implements PropertyDescriptionCreator<NumericPropertyDescription, NumericProperty> {
 
