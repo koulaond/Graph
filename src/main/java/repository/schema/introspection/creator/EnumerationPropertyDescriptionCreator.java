@@ -1,9 +1,9 @@
-package repository.schema.introspection.processor;
+package repository.schema.introspection.creator;
 
 import repository.schema.annotations.properties.EnumProperty;
 import repository.schema.descriptions.EnumerationPropertyDescription;
 
-public class EnumerationPropertyDescriptionProcessor implements PropertyDescriptionProcessor<EnumerationPropertyDescription, EnumProperty> {
+public class EnumerationPropertyDescriptionCreator implements PropertyDescriptionCreator<EnumerationPropertyDescription, EnumProperty> {
     @Override
     public EnumerationPropertyDescription processProperty(EnumProperty propertyAnnotation, boolean multiValue) {
         String name = propertyAnnotation.name();

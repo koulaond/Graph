@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static repository.schema.introspection.processor.ProcessorSupplier.supply;
+import static repository.schema.introspection.creator.CreatorSupplier.supply;
 
 /**
  * Introspector for processing a class annotated with @{@link PropertyHolder} (class describing a set of properties
