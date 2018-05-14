@@ -2,7 +2,6 @@ package repository.schema.introspection;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,12 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.of;
 import static repository.schema.introspection.Constants.ERROR_DUPLICATE_ANNOTATIONS;
 
+/**
+ * Introspector class that processes an input map containing {@link AccessibleObject} instances. For each instance
+ * tries to find its declared annotation according to the predicate. If the annotation exists, it is stored to result
+ * map where {@link AccessibleObject} is the key and the annotation is value.
+ * @param <AO> accessible object
+ */
 public class AnnotationIntrospector<AO extends AccessibleObject> {
 
     private Map<String, AO> fieldMap;
@@ -29,7 +34,6 @@ public class AnnotationIntrospector<AO extends AccessibleObject> {
      * @return map containing accessible object as a key and its particular annotation
      */
     public Map<AO, Annotation> introspectAnnotations(Predicate<Annotation> filterPredicate) {
-
         Map<AO, Annotation> propertyAnnotations = new HashMap<>();
         fieldMap.values().forEach(accessibleObject -> {
             List<Annotation> propertyAnnotationsForField = of(accessibleObject.getAnnotations())
