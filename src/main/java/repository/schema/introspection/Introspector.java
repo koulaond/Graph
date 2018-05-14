@@ -1,7 +1,5 @@
 package repository.schema.introspection;
 
-import repository.schema.annotations.Node;
-
 import java.lang.annotation.Annotation;
 
 import static java.lang.String.format;

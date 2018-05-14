@@ -10,14 +10,22 @@ import static repository.schema.introspection.Constants.PREFIX_HAS;
 import static repository.schema.introspection.Constants.PREFIX_IS;
 import static repository.schema.introspection.Utils.convertGetterNameToFieldName;
 
+/**
+ * Collector class that collects all fields from the given class and its superclasses.
+ */
 public class GetterCollector extends AbstractCollector<Method> {
 
+    /**
+     * {@inheritDoc}
+     * @param declaringClass owner class
+     * @param getterMap values map
+     */
     @Override
-    protected void doCollect(Class declaringClass, Map<String, Method> map) {
+    protected void doCollect(Class declaringClass, Map<String, Method> getterMap) {
         of(declaringClass.getDeclaredMethods()).forEach(method -> {
             String methodName = convertGetterNameToFieldName(method.getName());
-            if (!map.containsKey(methodName) && isGetter(method) && hasPropertyAnnotation(method)) {
-                map.put(methodName, method);
+            if (!getterMap.containsKey(methodName) && isGetter(method) && hasPropertyAnnotation(method)) {
+                getterMap.put(methodName, method);
             }
         });
     }
