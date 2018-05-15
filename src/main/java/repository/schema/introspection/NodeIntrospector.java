@@ -25,9 +25,10 @@ import static repository.schema.introspection.creator.CreatorSupplier.supply;
  * 1. Property/relation defined on getter overrides property/relation defined on field
  * 2. Property/relation defined on overriden getter overrides property/relation defined on getter implemented in superclass
  * 3. Property/relation defined on overriden field overrides property/relation defined on field implemented in superclass
+ *
  * @param <T> introspected class type
  */
-public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T>>{
+public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T>> {
 
     public NodeIntrospector(Class<T> introspectedClass) {
         super(introspectedClass);
@@ -59,21 +60,21 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
 
         // Merge annotations on fields and getters -> Annotations on getters override annotations on fields
         AnnotationMerger merger = new AnnotationMerger();
-        Map<Field, Annotation> propertyAnnotations = merger.merge(propertyAnnotationsForFields, propertyAnnotationsForGetters);
-        Map<Field, Relationship> relationAnnotations = merger.merge(relationAnnotationsForFields, relationAnnotationsForGetters);
+        Map<String, Annotation> propertyAnnotations = merger.merge(propertyAnnotationsForFields, propertyAnnotationsForGetters);
+        Map<String, Relationship> relationAnnotations = merger.merge(relationAnnotationsForFields, relationAnnotationsForGetters);
 
         // Create PropertyDescription and RelationshipDescription sets
         Set<PropertyDescription> propertyDescriptions = new HashSet<>();
         Set<RelationshipDescription> relationshipDescriptions = new HashSet<>();
 
-        propertyAnnotations.forEach((field, annotation) -> {
-            boolean multiValue = Collection.class.isAssignableFrom(field.getType());
+        propertyAnnotations.forEach((fieldName, annotation) -> {
+            boolean multiValue = isMultiValue(fieldName, propertyAnnotationsForFields.keySet());
             propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, multiValue));
         });
 
         RelationshipDescriptionCreator creator = new RelationshipDescriptionCreator();
-        relationAnnotations.forEach((field, annotation) -> {
-            boolean multiValue = Collection.class.isAssignableFrom(field.getType());
+        relationAnnotations.forEach((fieldName, annotation) -> {
+            boolean multiValue = isMultiValue(fieldName, relationAnnotationsForFields.keySet());
             relationshipDescriptions.add(creator.processProperty(annotation, multiValue));
         });
         NodeDescription nodeDescription = new NodeDescription(
@@ -86,5 +87,9 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
         return nodeDescription;
     }
 
+    private boolean isMultiValue(String getterName, Set<Field> getters) {
+        Field field = getters.stream().filter(gtr -> gtr.getName().equals(getterName)).findFirst().get();
+        return field != null && Collection.class.isAssignableFrom(field.getType());
+    }
 
 }

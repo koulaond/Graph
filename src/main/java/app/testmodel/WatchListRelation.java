@@ -9,7 +9,7 @@ import repository.schema.annotations.properties.StringProperty;
 @PropertyHolder
 public class WatchListRelation {
 
-    @EnumProperty(nonNull = true)
+    @EnumProperty(nonNull = true, enumClass = WatchListState.class)
     private WatchListState state;
 
     @StringProperty

@@ -13,16 +13,12 @@ public class DefaultComponent<N extends Node, C extends Relation>
         extends DefaultNode<C>
         implements Component<N, C> {
 
-    @NonNull
-    @Setter
     protected Map<UUID, N> subNodes;
 
-    @NonNull
-    @Getter
     protected Map<UUID, C> innerConnections;
 
 
-    public DefaultComponent(@NonNull Graph parentGraph) {
+    public DefaultComponent(Graph parentGraph) {
         super(parentGraph);
         this.subNodes = new HashMap<>();
         this.innerConnections = new HashMap<>();
@@ -32,6 +28,11 @@ public class DefaultComponent<N extends Node, C extends Relation>
     @Override
     public Set<N> getSubNodes() {
         return unmodifiableSet(subNodes.values().stream().collect(toSet()));
+    }
+
+    @Override
+    public Set<C> getInnerConnections() {
+        return null;
     }
 
     @Override

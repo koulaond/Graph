@@ -1,18 +1,23 @@
 package repository;
 
-import lombok.Builder;
-import lombok.Getter;
-
-@Builder
-@Getter
 public class Range {
 
-    public static Range INFINITE = Range.builder()
-            .offset(0L)
-            .itemsCount(Long.MAX_VALUE)
-            .build();
+    public static Range INFINITE = new Range(0L, Long.MAX_VALUE);
+
+    public Range(Long offset, Long itemsCount) {
+        this.offset = offset;
+        this.itemsCount = itemsCount;
+    }
 
     private Long offset;
 
     private Long itemsCount;
+
+    public Long getOffset() {
+        return offset;
+    }
+
+    public Long getItemsCount() {
+        return itemsCount;
+    }
 }

@@ -6,22 +6,32 @@ import lombok.Setter;
 
 import java.util.*;
 
-@Getter
-@Setter
+
 public class DefaultNode<R extends Relation> extends AbstractEntity implements Node<R> {
 
-    @Getter
-    @NonNull
     protected Graph parentGraph;
 
     protected Map<UUID, R> inputRelations;
 
     protected Map<UUID, R> outputRelations;
 
-    protected DefaultNode(@NonNull Graph parentGraph) {
+    protected DefaultNode(Graph parentGraph) {
         this.parentGraph = parentGraph;
         this.inputRelations = new HashMap<>();
         this.outputRelations = new HashMap<>();
+    }
+
+    @Override
+    public Graph getParentGraph() {
+        return parentGraph;
+    }
+
+    public Map<UUID, R> getInputRelations() {
+        return inputRelations;
+    }
+
+    public Map<UUID, R> getOutputRelations() {
+        return outputRelations;
     }
 
     @Override
@@ -30,7 +40,7 @@ public class DefaultNode<R extends Relation> extends AbstractEntity implements N
     }
 
     @Override
-    public boolean isIncludedIn(@NonNull Graph graph) {
+    public boolean isIncludedIn(Graph graph) {
         return graph.containsNode(this);
     }
 

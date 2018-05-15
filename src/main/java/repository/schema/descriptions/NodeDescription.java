@@ -16,8 +16,6 @@ public class NodeDescription<T> {
 
     private Set<RelationshipDescription> relationshipDescriptions;
 
- \
-
     public NodeDescription(Class<T> describedClass,
                            String type,
                            boolean immutable,

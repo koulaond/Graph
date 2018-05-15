@@ -25,17 +25,12 @@ public class AnnotationMerger<AT extends Annotation> {
      * @param annForGetters all annotations defined on getters
      * @return merged map with field:annotation values
      */
-    public Map<Field, AT> merge(Map<Field, AT> annForFields, Map<Method, AT> annForGetters){
-        Map<Field, AT> mergedAnnotations = new HashMap<>();
-        annForFields.forEach((field, annotation) -> mergedAnnotations.put(field, annotation));
+    public Map<String, AT> merge(Map<Field, AT> annForFields, Map<Method, AT> annForGetters){
+        Map<String, AT> mergedAnnotations = new HashMap<>();
+        annForFields.forEach((field, annotation) -> mergedAnnotations.put(field.getName(), annotation));
         annForGetters.forEach((getter, annotation) -> {
             String fieldName = convertGetterNameToFieldName(getter.getName());
-            Field field = annForFields.keySet()
-                    .stream()
-                    .filter(fld -> fld.getName().equals(fieldName))
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalStateException(String.format("Field %s not found.", fieldName)));
-            mergedAnnotations.put(field, annotation);
+            mergedAnnotations.put(fieldName, annotation);
         });
         return mergedAnnotations;
     }
