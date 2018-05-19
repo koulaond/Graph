@@ -20,7 +20,7 @@ public class FieldCollector extends AbstractCollector<Field> {
     protected void doCollect(Class declaringClass, Map<String, Field> fieldMap) {
         of(declaringClass.getDeclaredFields()).forEach(field -> {
             String fieldName = field.getName();
-            if (!fieldMap.containsKey(fieldName)) {
+            if (!fieldMap.containsKey(fieldName) && !field.isSynthetic()) {
                 fieldMap.put(fieldName, field);
             }
         });

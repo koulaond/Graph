@@ -2,8 +2,11 @@ package repository.schema.introspection;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.util.Collections.emptyMap;
 
 /**
  * Abstract collector class for collecting reflecting accessible object from the owner class.
@@ -20,6 +23,9 @@ public abstract class AbstractCollector<AO extends AccessibleObject> implements 
      */
     @Override
     public Map<String, AO> collect(Class declaringClass) {
+        if(declaringClass.isInterface() || Object.class.equals(declaringClass)){
+            return emptyMap();
+        }
         Map<String, AO> fieldMap = new HashMap<>();
         doCollect(declaringClass, fieldMap);
 
