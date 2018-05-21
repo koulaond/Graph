@@ -5,6 +5,8 @@ import repository.schema.annotations.Relationship;
 import repository.schema.descriptions.NodeDescription;
 import repository.schema.descriptions.PropertyDescription;
 import repository.schema.descriptions.RelationshipDescription;
+import repository.schema.introspection.collector.FieldCollector;
+import repository.schema.introspection.collector.GetterCollector;
 import repository.schema.introspection.creator.RelationshipDescriptionCreator;
 
 import java.lang.annotation.Annotation;

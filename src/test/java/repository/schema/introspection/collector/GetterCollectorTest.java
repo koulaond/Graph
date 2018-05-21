@@ -1,7 +1,7 @@
-package repository.schema.introspection;
+package repository.schema.introspection.collector;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import repository.schema.introspection.collector.GetterCollector;
 
 import java.lang.reflect.Method;
 import java.util.Map;

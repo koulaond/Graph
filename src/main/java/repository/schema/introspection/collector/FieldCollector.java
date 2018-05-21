@@ -1,7 +1,6 @@
-package repository.schema.introspection;
+package repository.schema.introspection.collector;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.stream.Stream.of;

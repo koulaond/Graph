@@ -4,7 +4,7 @@ import static java.lang.String.format;
 import static repository.schema.introspection.Constants.PREFIX_GET;
 import static repository.schema.introspection.Constants.PREFIX_HAS;
 
-class Utils {
+public class Utils {
 
     private Utils() {
         throw new IllegalStateException(format("No instances of %s !!", getClass().getName()));
@@ -15,7 +15,7 @@ class Utils {
      * @param getterName getter name
      * @return field name
      */
-    static String convertGetterNameToFieldName(String getterName) {
+    public static String convertGetterNameToFieldName(String getterName) {
         String fieldName = null;
         if (getterName.startsWith(PREFIX_GET) || getterName.startsWith(PREFIX_HAS)) {
             fieldName = getterName.substring(3);
@@ -30,7 +30,7 @@ class Utils {
      * @param str string to be uncapitalized
      * @return uncapitalized string
      */
-    static String uncapitalize(String str) {
+    public static String uncapitalize(String str) {
         return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 }

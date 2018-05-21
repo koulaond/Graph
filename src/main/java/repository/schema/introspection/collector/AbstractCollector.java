@@ -1,8 +1,6 @@
-package repository.schema.introspection;
+package repository.schema.introspection.collector;
 
 import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Field;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 

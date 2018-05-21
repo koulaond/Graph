@@ -1,12 +1,11 @@
-package repository.schema.introspection;
+package repository.schema.introspection.collector;
+
+import repository.schema.introspection.Utils;
 
 import java.lang.reflect.Method;
-import java.util.Comparator;
 import java.util.Map;
-import java.util.TreeMap;
 
 import static java.util.stream.Stream.of;
-import static repository.schema.introspection.PropertyDeclaration.hasPropertyAnnotation;
 import static repository.schema.introspection.Constants.PREFIX_GET;
 import static repository.schema.introspection.Constants.PREFIX_HAS;
 import static repository.schema.introspection.Constants.PREFIX_IS;

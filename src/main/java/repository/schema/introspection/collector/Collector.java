@@ -1,4 +1,4 @@
-package repository.schema.introspection;
+package repository.schema.introspection.collector;
 
 import java.lang.reflect.AccessibleObject;
 import java.util.Map;

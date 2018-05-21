@@ -1,8 +1,9 @@
-package repository.schema.introspection;
+package repository.schema.introspection.collector;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import repository.schema.introspection.collector.AbstractCollector;
 
 import java.util.Map;
 

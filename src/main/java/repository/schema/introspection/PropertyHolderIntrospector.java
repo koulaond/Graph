@@ -2,6 +2,8 @@ package repository.schema.introspection;
 
 import repository.schema.annotations.PropertyHolder;
 import repository.schema.descriptions.PropertyDescription;
+import repository.schema.introspection.collector.FieldCollector;
+import repository.schema.introspection.collector.GetterCollector;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
