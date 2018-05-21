@@ -71,7 +71,7 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
 
         propertyAnnotations.forEach((fieldName, annotation) -> {
             boolean multiValue = isMultiValue(fieldName, propertyAnnotationsForFields.keySet());
-            propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, multiValue));
+            propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, fieldName, multiValue));
         });
 
         RelationshipDescriptionCreator creator = new RelationshipDescriptionCreator();

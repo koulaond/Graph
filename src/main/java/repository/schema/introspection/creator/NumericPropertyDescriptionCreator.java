@@ -12,12 +12,14 @@ public class NumericPropertyDescriptionCreator
         implements PropertyDescriptionCreator<NumericPropertyDescription, NumericProperty> {
 
     @Override
-    public NumericPropertyDescription processProperty(NumericProperty propertyAnnotation, boolean multiValue) {
+    public NumericPropertyDescription processProperty(NumericProperty propertyAnnotation,
+                                                      String fieldName,
+                                                      boolean multiValue) {
         String name = propertyAnnotation.name();
         boolean nonNull = propertyAnnotation.nonNull();
         boolean immutable = propertyAnnotation.immutable();
         long maxValue = propertyAnnotation.maxValue();
         long minValue = propertyAnnotation.minValue();
-        return new NumericPropertyDescription(name, nonNull, multiValue, immutable, new BigDecimal(minValue), new BigDecimal(maxValue));
+        return new NumericPropertyDescription(resolveName(name, fieldName), nonNull, multiValue, immutable, new BigDecimal(minValue), new BigDecimal(maxValue));
     }
 }

@@ -9,11 +9,13 @@ import repository.schema.descriptions.EnumerationPropertyDescription;
 public class EnumerationPropertyDescriptionCreator implements PropertyDescriptionCreator<EnumerationPropertyDescription, EnumProperty> {
 
     @Override
-    public EnumerationPropertyDescription processProperty(EnumProperty propertyAnnotation, boolean multiValue) {
+    public EnumerationPropertyDescription processProperty(EnumProperty propertyAnnotation,
+                                                          String fieldName,
+                                                          boolean multiValue) {
         String name = propertyAnnotation.name();
         boolean nonNull = propertyAnnotation.nonNull();
         boolean immutable = propertyAnnotation.immutable();
         Class enumClass = propertyAnnotation.enumClass();
-        return new EnumerationPropertyDescription(name, nonNull, multiValue, immutable, enumClass);
+        return new EnumerationPropertyDescription(resolveName(name, fieldName), nonNull, multiValue, immutable, enumClass);
     }
 }

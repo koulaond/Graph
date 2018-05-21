@@ -15,7 +15,9 @@ public class RelationshipDescriptionCreator
         implements PropertyDescriptionCreator<RelationshipDescription, Relationship> {
 
     @Override
-    public RelationshipDescription processProperty(Relationship relationship, boolean multiValue) {
+    public RelationshipDescription processProperty(Relationship relationship,
+                                                   String fieldName,
+                                                   boolean multiValue) {
         String name = relationship.name();
         Direction direction = relationship.direction();
         boolean nonNull = relationship.nonNull();
@@ -24,6 +26,6 @@ public class RelationshipDescriptionCreator
         Class<?> referencedClass = relationship.referencedClass();
         PropertyHolderIntrospector introspector = new PropertyHolderIntrospector(propertyHolderClass);
         Set<PropertyDescription> properties = introspector.introspect();
-        return new RelationshipDescription(name, nonNull, multiValue, immutable, referencedClass, properties, direction);
+        return new RelationshipDescription(resolveName(name, fieldName), nonNull, multiValue, immutable, referencedClass, properties, direction);
     }
 }

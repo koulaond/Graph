@@ -9,11 +9,13 @@ import repository.schema.descriptions.DatePropertyDescription;
 public class DatePropertyDescriptionCreator implements PropertyDescriptionCreator<DatePropertyDescription, DateProperty> {
 
     @Override
-    public DatePropertyDescription processProperty(DateProperty propertyAnnotation, boolean multiValue) {
+    public DatePropertyDescription processProperty(DateProperty propertyAnnotation,
+                                                   String fieldName,
+                                                   boolean multiValue) {
         String name = propertyAnnotation.name();
         boolean nonNull = propertyAnnotation.nonNull();
         boolean immutable = propertyAnnotation.immutable();
         String format = propertyAnnotation.format();
-        return new DatePropertyDescription(name, nonNull, multiValue, immutable, format);
+        return new DatePropertyDescription(resolveName(name, fieldName), nonNull, multiValue, immutable, format);
     }
 }
