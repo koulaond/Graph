@@ -2,9 +2,7 @@ package repository.schema.introspection;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static java.lang.String.format;
@@ -20,23 +18,24 @@ import static repository.schema.introspection.Constants.ERROR_DUPLICATE_ANNOTATI
  */
 public class AnnotationIntrospector<AO extends AccessibleObject> {
 
-    private Map<String, AO> fieldMap;
+    private Collection<AO> accessibleObjects;
 
-    public AnnotationIntrospector(Map<String, AO> objectsMap) {
-        this.fieldMap = objectsMap;
+    public AnnotationIntrospector(Collection<AO> accessibleObjects) {
+        this.accessibleObjects = accessibleObjects;
     }
 
     /**
      * Process an array of accessible objects declared in @Node class and its superclasses (if inherits from someone)
-     * and returns annotation for each accessible object according to the predicate. If there is more than one annotation
-     * of the same type defined on one accessible object then {@link IllegalStateException} is thrown.
+     * and returns annotation for each {@link AccessibleObject} according to the predicate. If there is more than one
+     * annotation matching the predicate defined on the same {@link AccessibleObject}
+     * then {@link IllegalStateException} is thrown.
      *
      * @return map containing accessible object as a key and its particular annotation
      */
     public Map<AO, Annotation> introspectAnnotations(Predicate<Annotation> filterPredicate) {
         Map<AO, Annotation> propertyAnnotations = new HashMap<>();
-        fieldMap.values().forEach(accessibleObject -> {
-            List<Annotation> propertyAnnotationsForField = of(accessibleObject.getAnnotations())
+        accessibleObjects.forEach(accessibleObject -> {
+            List<Annotation> propertyAnnotationsForField = of(accessibleObject.getDeclaredAnnotations())
                     .filter(filterPredicate)
                     .collect(toList());
             if (!propertyAnnotationsForField.isEmpty()) {

@@ -1,7 +1,6 @@
 package repository.schema.introspection.collector;
 
 import org.junit.Test;
-import repository.schema.introspection.collector.FieldCollector;
 
 import java.lang.reflect.Field;
 import java.util.Map;

@@ -49,8 +49,8 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
         // Find all fields and getters
         Map<String, Field> fieldMap = new FieldCollector().collect(introspectedClass);
         Map<String, Method> getterMap = new GetterCollector().collect(introspectedClass);
-        AnnotationIntrospector<Field> fieldAnnotationIntrospector = new AnnotationIntrospector(fieldMap);
-        AnnotationIntrospector<Method> getterAnnotationIntrospector = new AnnotationIntrospector<>(getterMap);
+        AnnotationIntrospector<Field> fieldAnnotationIntrospector = new AnnotationIntrospector(fieldMap.values());
+        AnnotationIntrospector<Method> getterAnnotationIntrospector = new AnnotationIntrospector(getterMap.values());
 
         // Find properties and relations on fields
         Map<Field, Annotation> propertyAnnotationsForFields = fieldAnnotationIntrospector.introspectAnnotations(PropertyDeclaration::isPropertyAnnotation);

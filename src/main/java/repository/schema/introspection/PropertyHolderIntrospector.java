@@ -33,8 +33,8 @@ public class PropertyHolderIntrospector<T> extends Introspector<T, PropertyHolde
 
         Map<String, Field> fieldMap = new FieldCollector().collect(introspectedClass);
         Map<String, Method> getterMap = new GetterCollector().collect(introspectedClass);
-        AnnotationIntrospector<Field> fieldAnnotationIntrospector = new AnnotationIntrospector(fieldMap);
-        AnnotationIntrospector<Method> getterAnnotationIntrospector = new AnnotationIntrospector<>(getterMap);
+        AnnotationIntrospector<Field> fieldAnnotationIntrospector = new AnnotationIntrospector(fieldMap.values());
+        AnnotationIntrospector<Method> getterAnnotationIntrospector = new AnnotationIntrospector(getterMap.values());
 
         Map<Field, Annotation> propertyAnnotationsForFields = fieldAnnotationIntrospector.introspectAnnotations(PropertyDeclaration::isPropertyAnnotation);
         Map<Method, Annotation> propertyAnnotationsForGetters = getterAnnotationIntrospector.introspectAnnotations(PropertyDeclaration::isPropertyAnnotation);
