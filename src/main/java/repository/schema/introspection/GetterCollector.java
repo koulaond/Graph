@@ -1,7 +1,9 @@
 package repository.schema.introspection;
 
 import java.lang.reflect.Method;
+import java.util.Comparator;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static java.util.stream.Stream.of;
 import static repository.schema.introspection.PropertyDeclaration.hasPropertyAnnotation;
@@ -11,7 +13,7 @@ import static repository.schema.introspection.Constants.PREFIX_IS;
 import static repository.schema.introspection.Utils.convertGetterNameToFieldName;
 
 /**
- * Collector class that collects all fields from the given class and its superclasses.
+ * Collector class that collects all getters from the given class and its superclasses.
  */
 public class GetterCollector extends AbstractCollector<Method> {
 
@@ -24,7 +26,7 @@ public class GetterCollector extends AbstractCollector<Method> {
     protected void doCollect(Class declaringClass, Map<String, Method> getterMap) {
         of(declaringClass.getDeclaredMethods()).forEach(method -> {
             String methodName = convertGetterNameToFieldName(method.getName());
-            if (!getterMap.containsKey(methodName) && isGetter(method) && hasPropertyAnnotation(method)) {
+            if (!getterMap.containsKey(methodName) && isGetter(method)) {
                 getterMap.put(methodName, method);
             }
         });

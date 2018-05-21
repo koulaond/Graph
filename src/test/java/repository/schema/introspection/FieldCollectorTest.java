@@ -8,6 +8,7 @@ import java.util.Map;
 
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 /**
  * Testing whether the collector returns correct fields from the declaring class.
@@ -17,7 +18,7 @@ public class FieldCollectorTest {
     /**
      * Expected result map size;
      */
-    private static final int COUNT = 5;
+    private static final int SIZE = 5;
 
     /**
      * Expected fields names.
@@ -31,12 +32,12 @@ public class FieldCollectorTest {
     @Test
     public void doCollect() throws Exception {
         FieldCollector collector = new FieldCollector();
-        Map<String, Field> fieldMap = collector.collect(TestLowestLevelClass.class);
         Class<TestLowerLevelClass> testLowerClass = TestLowerLevelClass.class;
         Class<TestLowestLevelClass> testLowestClass = TestLowestLevelClass.class;
+        Map<String, Field> fieldMap = collector.collect(testLowestClass);
         assertThat(fieldMap)
                 .isNotNull()
-                .hasSize(COUNT)
+                .hasSize(SIZE)
                 .satisfies((Map<String, Field> map) -> {
                     try {
                         assertThat(map.get(FIELD_NAME))
@@ -61,7 +62,8 @@ public class FieldCollectorTest {
                                 .isNotNull()
                                 .isEqualTo(testLowestClass.getDeclaredField(FIELD_READY));
                     } catch (NoSuchFieldException e) {
-                        Assertions.fail(format("Cannot obtain field from test class. %s", e.getMessage()));
+                        e.printStackTrace();
+                        fail(format("Cannot obtain field from test class. %s", e.getMessage()));
                     }
                 });
     }
