@@ -24,15 +24,15 @@ public abstract class AbstractCollector<AO extends AccessibleObject> implements 
         if(declaringClass.isInterface() || Object.class.equals(declaringClass)){
             return emptyMap();
         }
-        Map<String, AO> fieldMap = new HashMap<>();
-        doCollect(declaringClass, fieldMap);
+        Map<String, AO> aoMap = new HashMap<>();
+        doCollect(declaringClass, aoMap);
 
         Class superClass = declaringClass.getSuperclass();
         while (superClass != null && !Object.class.equals(superClass)) {
-            doCollect(superClass, fieldMap);
+            doCollect(superClass, aoMap);
             superClass = superClass.getSuperclass();
         }
-        return fieldMap;
+        return aoMap;
     }
 
     /**

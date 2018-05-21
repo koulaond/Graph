@@ -1,7 +1,6 @@
 package repository.schema.introspection.collector;
 
 import org.junit.Test;
-import repository.schema.introspection.collector.GetterCollector;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -28,6 +27,7 @@ public class GetterCollectorTest {
     private static final String FIELD_PRECISE = "precise";
     private static final String FIELD_TYPE = "type";
     private static final String FIELD_SIBLING = "sibling";
+    private static final String FIELD_CHUCK_NORRIS = "chuckNorris";
 
     /**
      * Fields getters names.
@@ -39,6 +39,7 @@ public class GetterCollectorTest {
     private static final String GETTER_PRECISE = "getPrecise";
     private static final String GETTER_TYPE = "getType";
     private static final String GETTER_SIBLING = "getSibling";
+    private static final String GETTER_CHUCK_NORRIS = "getChuckNorris";
 
     @Test
     public void doCollect() throws Exception {
@@ -82,6 +83,8 @@ public class GetterCollectorTest {
                                 .isNotNull()
                                 .isEqualTo(testLowestClass.getDeclaredMethod(GETTER_SIBLING));
 
+                        assertThat(map.get(FIELD_CHUCK_NORRIS))
+                                .isNull();
 
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
@@ -157,6 +160,13 @@ public class GetterCollectorTest {
 
         public TestLowerLevelClass getSibling() {
             return sibling;
+        }
+
+        /**
+         * This method is not a getter so it must not be collected.
+         */
+        public void getChuckNorris(){
+            // Do nothing.
         }
     }
 }

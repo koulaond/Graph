@@ -1,14 +1,10 @@
 package repository.schema.introspection.collector;
 
-import repository.schema.introspection.Utils;
-
 import java.lang.reflect.Method;
 import java.util.Map;
 
 import static java.util.stream.Stream.of;
-import static repository.schema.introspection.Constants.PREFIX_GET;
-import static repository.schema.introspection.Constants.PREFIX_HAS;
-import static repository.schema.introspection.Constants.PREFIX_IS;
+import static repository.schema.introspection.Constants.*;
 import static repository.schema.introspection.Utils.convertGetterNameToFieldName;
 
 /**
@@ -44,7 +40,7 @@ public class GetterCollector extends AbstractCollector<Method> {
         String name = method.getName();
         Class returnType = method.getReturnType();
         return (name.startsWith(PREFIX_GET) || name.startsWith(PREFIX_HAS) || name.startsWith(PREFIX_IS))
-                && !returnType.equals(Void.class)
+                && !returnType.equals(Void.class) && !returnType.equals(void.class)
                 && method.getParameterCount() == 0;
     }
 }
