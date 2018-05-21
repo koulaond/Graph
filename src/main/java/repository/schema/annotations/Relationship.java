@@ -22,7 +22,11 @@ public @interface Relationship {
 
     Direction direction() default Direction.UNDIRECTED;
 
-    Class<?> propertyHolderClass();
+    Class<?> propertyHolderClass() default EmptyHolder.class;
 
     Class<?> referencedClass();
+
+    class EmptyHolder {
+        // Just default empty holder class that does not describe any property
+    }
 }

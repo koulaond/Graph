@@ -29,7 +29,7 @@ public abstract class Introspector<T, A extends Annotation, RT> {
      * @param annotationClass annotation class
      */
     protected void validateClass(Class<A> annotationClass) {
-        A[] nodeAnnotations = introspectedClass.getDeclaredAnnotationsByType(annotationClass);
+        A[] nodeAnnotations = introspectedClass.getAnnotationsByType(annotationClass);
         if (nodeAnnotations.length == 0) {
             throw new IllegalStateException(format(ERROR_MISSING_ANNOTATION, annotationClass.getName(), introspectedClass.getName()));
         }

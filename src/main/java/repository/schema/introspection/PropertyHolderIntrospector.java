@@ -45,7 +45,7 @@ public class PropertyHolderIntrospector<T> extends Introspector<T, PropertyHolde
 
         propertyAnnotations.forEach((field, annotation) -> {
             boolean multiValue = Collection.class.isAssignableFrom(field.getType());
-            propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, multiValue));
+            propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, field.getName(), multiValue));
         });
         return propertyDescriptions;
     }

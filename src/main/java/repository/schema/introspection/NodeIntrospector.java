@@ -12,11 +12,11 @@ import repository.schema.introspection.creator.RelationshipDescriptionCreator;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
+import static repository.schema.introspection.Utils.convertGetterNameToFieldName;
 import static repository.schema.introspection.creator.CreatorSupplier.supply;
 
 /**
@@ -54,11 +54,11 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
 
         // Find properties and relations on fields
         Map<Field, Annotation> propertyAnnotationsForFields = fieldAnnotationIntrospector.introspectAnnotations(PropertyDeclaration::isPropertyAnnotation);
-        Map<Field, Annotation> relationAnnotationsForFields = fieldAnnotationIntrospector.introspectAnnotations(annotation -> Relationship.class.equals(annotation));
+        Map<Field, Annotation> relationAnnotationsForFields = fieldAnnotationIntrospector.introspectAnnotations(annotation -> Relationship.class.equals(annotation.annotationType()));
 
         // Find properties and relations on getters
         Map<Method, Annotation> propertyAnnotationsForGetters = getterAnnotationIntrospector.introspectAnnotations(PropertyDeclaration::isPropertyAnnotation);
-        Map<Method, Annotation> relationAnnotationsForGetters = getterAnnotationIntrospector.introspectAnnotations(annotation -> Relationship.class.equals(annotation));
+        Map<Method, Annotation> relationAnnotationsForGetters = getterAnnotationIntrospector.introspectAnnotations(annotation -> Relationship.class.equals(annotation.annotationType()));
 
         // Merge annotations on fields and getters -> Annotations on getters override annotations on fields
         AnnotationMerger merger = new AnnotationMerger();
@@ -70,14 +70,17 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
         Set<RelationshipDescription> relationshipDescriptions = new HashSet<>();
 
         propertyAnnotations.forEach((fieldName, annotation) -> {
-            boolean multiValue = isMultiValue(fieldName, propertyAnnotationsForFields.keySet());
+            boolean multiValue = isMultiValue(fieldName, propertyAnnotationsForFields.keySet(), propertyAnnotationsForGetters.keySet());
             propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, fieldName, multiValue));
         });
 
         RelationshipDescriptionCreator creator = new RelationshipDescriptionCreator();
         relationAnnotations.forEach((fieldName, annotation) -> {
-            boolean multiValue = isMultiValue(fieldName, relationAnnotationsForFields.keySet());
-            relationshipDescriptions.add(creator.processProperty(annotation, multiValue));
+            boolean multiValue = isMultiValue(
+                    fieldName,
+                    relationAnnotationsForFields.keySet(),
+                    relationAnnotationsForGetters.keySet());
+            relationshipDescriptions.add(creator.processProperty(annotation, fieldName, multiValue));
         });
         NodeDescription nodeDescription = new NodeDescription(
                 introspectedClass,
@@ -89,9 +92,16 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
         return nodeDescription;
     }
 
-    private boolean isMultiValue(String getterName, Set<Field> getters) {
-        Field field = getters.stream().filter(gtr -> gtr.getName().equals(getterName)).findFirst().get();
-        return field != null && Collection.class.isAssignableFrom(field.getType());
+    private boolean isMultiValue(String fieldName, Set<Field> fields, Set<Method> getters) {
+
+        List<Class<?>> types = Stream.concat(fields.stream()
+                        .filter(fld -> fld.getName().equals(fieldName))
+                        .map(fld -> fld.getType()),
+                getters.stream()
+                        .filter(gtr -> convertGetterNameToFieldName(gtr.getName()).equals(fieldName))
+                        .map(gtr -> gtr.getReturnType())
+        ).collect(toList());
+        return types.isEmpty() || Collection.class.isAssignableFrom(types.get(0));
     }
 
 }

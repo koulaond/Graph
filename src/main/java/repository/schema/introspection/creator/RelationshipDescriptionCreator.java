@@ -8,6 +8,8 @@ import repository.schema.introspection.PropertyHolderIntrospector;
 
 import java.util.Set;
 
+import static java.util.Collections.emptySet;
+
 /**
  * Creator class that processes @{@link Relationship} annotation and returns {@link Relationship} instance.
  */
@@ -22,10 +24,14 @@ public class RelationshipDescriptionCreator
         Direction direction = relationship.direction();
         boolean nonNull = relationship.nonNull();
         boolean immutable = relationship.immutable();
-        Class<?> propertyHolderClass = relationship.propertyHolderClass();
         Class<?> referencedClass = relationship.referencedClass();
-        PropertyHolderIntrospector introspector = new PropertyHolderIntrospector(propertyHolderClass);
-        Set<PropertyDescription> properties = introspector.introspect();
+        Class<?> propertyHolderClass = relationship.propertyHolderClass();
+        Set<PropertyDescription> properties = null;
+        if(Relationship.EmptyHolder.class.equals(propertyHolderClass)) {
+            properties = emptySet();
+        } else {
+            properties = new PropertyHolderIntrospector(propertyHolderClass).introspect();
+        }
         return new RelationshipDescription(resolveName(name, fieldName), nonNull, multiValue, immutable, referencedClass, properties, direction);
     }
 }
