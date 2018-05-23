@@ -2,6 +2,7 @@ package repository.schema.introspection;
 
 import org.junit.Test;
 import repository.schema.annotations.Node;
+import repository.schema.annotations.PropertyHolder;
 import repository.schema.annotations.Relationship;
 import repository.schema.annotations.properties.DateProperty;
 import repository.schema.annotations.properties.NumericProperty;
@@ -20,6 +21,7 @@ public class NodeIntrospectorTest {
 
     private static final int PROP_DESCRIPTIONS_SIZE = 6;
     private static final int REL_DESCRIPTIONS_SIZE = 1;
+    private static final int PROP_HOLDER_PROPS_SIZE = 1;
 
     private static final String NODE_TYPE = "_TestClass";
     private static final String PROP_NAME = "_name";
@@ -31,6 +33,9 @@ public class NodeIntrospectorTest {
 
     private static final String REL_SIBLING = "is_sibling_with";
 
+    private static final String PROP_HOLDER_PROP_NAME = "_name";
+    private static final boolean PROP_HOLDER_PROP_NAME_NON_NULL = true;
+    private static final boolean PROP_HOLDER_PROP_NAME_IMMUTABLE = true;
     private static final int NODE_MAX_COUNT = 42;
     private static final boolean NODE_IS_IMMUTABLE = true;
     private static final int PROP_NAME_MAX_LENGTH = 256;
@@ -125,6 +130,20 @@ public class NodeIntrospectorTest {
                                         .satisfies(relation -> {
                                             assertThat(relation.getPropertyName()).isEqualTo(REL_SIBLING);
                                             assertThat(relation.getReferencedClass()).isEqualTo(TestClass.class);
+                                            assertThat(relation.getPropertyDescriptions())
+                                                    .isNotNull()
+                                                    .hasSize(PROP_HOLDER_PROPS_SIZE);
+                                            assertThat(relation.getPropertyDescriptions().iterator().next())
+                                                    .isInstanceOf(StringPropertyDescription.class)
+                                                    .satisfies(propDesc -> {
+                                                        StringPropertyDescription cast = (StringPropertyDescription) propDesc;
+                                                        assertThat(cast.getPropertyName())
+                                                                .isEqualTo(PROP_HOLDER_PROP_NAME);
+                                                        assertThat(cast.isMandatory())
+                                                                .isEqualTo(PROP_HOLDER_PROP_NAME_NON_NULL);
+                                                        assertThat(cast.isImmutable())
+                                                                .isEqualTo(PROP_HOLDER_PROP_NAME_IMMUTABLE);
+                                                    });
                                         });
                             });
                 });
@@ -139,7 +158,7 @@ public class NodeIntrospectorTest {
         @NumericProperty
         protected Long size;
 
-        @Relationship(referencedClass = TestClass.class, name = REL_SIBLING)
+        @Relationship(referencedClass = TestClass.class, propertyHolderClass = PropertyHolderClass.class, name = REL_SIBLING)
         protected TestClass sibling;
 
         @NumericProperty
@@ -195,6 +214,15 @@ public class NodeIntrospectorTest {
         public int getDepth() {
             return depth;
         }
+    }
+
+    @PropertyHolder
+    private class PropertyHolderClass {
+
+        @StringProperty(name = PROP_HOLDER_PROP_NAME,
+                nonNull = PROP_HOLDER_PROP_NAME_NON_NULL,
+                immutable = PROP_HOLDER_PROP_NAME_IMMUTABLE)
+        private String name;
     }
 
     private class TestClassNoAnnotation {

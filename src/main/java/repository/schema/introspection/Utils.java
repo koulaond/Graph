@@ -1,6 +1,11 @@
 package repository.schema.introspection;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Collection;
+
 import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
 import static repository.schema.introspection.Constants.PREFIX_GET;
 import static repository.schema.introspection.Constants.PREFIX_HAS;
 
@@ -32,5 +37,29 @@ public class Utils {
      */
     public static String uncapitalize(String str) {
         return str.substring(0, 1).toLowerCase() + str.substring(1);
+    }
+
+    /**
+     * Returns whether field type is multi-value. That means the type is a collection.
+     * @param field checked field
+     */
+    public static boolean isFieldTypeMultiValue(Field field) {
+        return isTypeMultiValue(requireNonNull(field).getType());
+    }
+
+    /**
+     * Returns whether method return type is multi-value. That means the type is a collection.
+     * @param method checked method
+     */
+    public static boolean isMethodReturnTypeMultiValue(Method method) {
+        return isTypeMultiValue(requireNonNull(method).getReturnType());
+    }
+
+    /**
+     * Returns whether class type is multi-value. That means the type is a collection.
+     * @param clazz checked class
+     */
+    public static boolean isTypeMultiValue(Class<?> clazz) {
+        return Collection.class.isAssignableFrom(requireNonNull(clazz));
     }
 }

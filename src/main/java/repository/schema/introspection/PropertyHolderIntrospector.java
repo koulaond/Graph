@@ -8,7 +8,6 @@ import repository.schema.introspection.collector.GetterCollector;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -39,13 +38,13 @@ public class PropertyHolderIntrospector<T> extends Introspector<T, PropertyHolde
         Map<Field, Annotation> propertyAnnotationsForFields = fieldAnnotationIntrospector.introspectAnnotations(PropertyDeclaration::isPropertyAnnotation);
         Map<Method, Annotation> propertyAnnotationsForGetters = getterAnnotationIntrospector.introspectAnnotations(PropertyDeclaration::isPropertyAnnotation);
 
-        Map<Field, Annotation> propertyAnnotations = new AnnotationMerger().merge(propertyAnnotationsForFields, propertyAnnotationsForGetters);
+        Map<String, Annotation> propertyAnnotations = new AnnotationMerger().merge(propertyAnnotationsForFields, propertyAnnotationsForGetters);
 
         Set<PropertyDescription> propertyDescriptions = new HashSet<>();
 
-        propertyAnnotations.forEach((field, annotation) -> {
-            boolean multiValue = Collection.class.isAssignableFrom(field.getType());
-            propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, field.getName(), multiValue));
+        propertyAnnotations.forEach((fieldName, annotation) -> {
+            boolean multiValue = Utils.isFieldTypeMultiValue(fieldMap.get(fieldName));
+            propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, fieldName, multiValue));
         });
         return propertyDescriptions;
     }

@@ -12,11 +12,11 @@ import repository.schema.introspection.creator.RelationshipDescriptionCreator;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-import static java.util.stream.Collectors.toList;
-import static repository.schema.introspection.Utils.convertGetterNameToFieldName;
+import static repository.schema.introspection.Utils.isFieldTypeMultiValue;
 import static repository.schema.introspection.creator.CreatorSupplier.supply;
 
 /**
@@ -70,16 +70,13 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
         Set<RelationshipDescription> relationshipDescriptions = new HashSet<>();
 
         propertyAnnotations.forEach((fieldName, annotation) -> {
-            boolean multiValue = isMultiValue(fieldName, propertyAnnotationsForFields.keySet(), propertyAnnotationsForGetters.keySet());
+            boolean multiValue = isFieldTypeMultiValue(fieldMap.get(fieldName));
             propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, fieldName, multiValue));
         });
 
         RelationshipDescriptionCreator creator = new RelationshipDescriptionCreator();
         relationAnnotations.forEach((fieldName, annotation) -> {
-            boolean multiValue = isMultiValue(
-                    fieldName,
-                    relationAnnotationsForFields.keySet(),
-                    relationAnnotationsForGetters.keySet());
+            boolean multiValue = isFieldTypeMultiValue(fieldMap.get(fieldName));
             relationshipDescriptions.add(creator.processProperty(annotation, fieldName, multiValue));
         });
         NodeDescription nodeDescription = new NodeDescription(
@@ -91,17 +88,4 @@ public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T
                 relationshipDescriptions);
         return nodeDescription;
     }
-
-    private boolean isMultiValue(String fieldName, Set<Field> fields, Set<Method> getters) {
-
-        List<Class<?>> types = Stream.concat(fields.stream()
-                        .filter(fld -> fld.getName().equals(fieldName))
-                        .map(fld -> fld.getType()),
-                getters.stream()
-                        .filter(gtr -> convertGetterNameToFieldName(gtr.getName()).equals(fieldName))
-                        .map(gtr -> gtr.getReturnType())
-        ).collect(toList());
-        return types.isEmpty() || Collection.class.isAssignableFrom(types.get(0));
-    }
-
 }
