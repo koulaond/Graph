@@ -19,10 +19,14 @@ public class PackageIntrospector {
      * @return set of @{@link NodeDescription} instances =
      */
     public Set<NodeDescription> introspectPackage(String pckg) {
-        Reflections reflections = new Reflections(pckg);
-        Set<Class<?>> nodeClasses = reflections.getTypesAnnotatedWith(Node.class);
+        Set<Class<?>> nodeClasses = getClasses(pckg);
         return nodeClasses.stream()
                 .map(nodeClass -> new NodeIntrospector<>(nodeClass).introspect())
                 .collect(Collectors.toSet());
+    }
+
+    protected Set<Class<?>> getClasses(String pckg) {
+        Reflections reflections = new Reflections(pckg);
+        return reflections.getTypesAnnotatedWith(Node.class);
     }
 }
