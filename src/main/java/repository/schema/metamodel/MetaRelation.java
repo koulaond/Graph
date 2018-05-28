@@ -1,39 +1,60 @@
 package repository.schema.metamodel;
 
-import model.Direction;
-import model.Graph;
-import model.Relation;
+import repository.schema.Direction;
+import repository.schema.descriptions.PropertyDescription;
+import java.util.Set;
 
-public class MetaRelation extends AbstractMetaEntity implements Relation<MetaNode> {
+public class MetaRelation {
 
-    private Class propertyHolderClass;
+    /**
+     * Unique type for relations that are defined by this meta-relation. It is something like class type for relations.
+     */
+    private String relationType;
 
-    public MetaRelation(String type, Class propertyHolderClass) {
-        super(type);
-        this.propertyHolderClass = propertyHolderClass;
+    /**
+     * Set of property description that describe properties, which can be stored in the relation of this type.
+     */
+    private Set<PropertyDescription> propertyDescriptions;
+
+    private Direction direction;
+
+    public String getRelationType() {
+        return relationType;
     }
 
-    @Override
-    public MetaNode getSourceNode() {
-        return null;
+    public void setRelationType(String relationType) {
+        this.relationType = relationType;
     }
 
-    @Override
-    public MetaNode getTargetNode() {
-        return null;
+    public Set<PropertyDescription> getPropertyDescriptions() {
+        return propertyDescriptions;
     }
 
-    @Override
+    public void setPropertyDescriptions(Set<PropertyDescription> propertyDescriptions) {
+        this.propertyDescriptions = propertyDescriptions;
+    }
+
     public Direction getDirection() {
-        return null;
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     @Override
-    public boolean isIncludedIn(Graph graph) {
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        MetaRelation that = (MetaRelation) o;
+        return relationType != null ? relationType.equals(that.relationType) : that.relationType == null;
     }
 
-    public Class getPropertyHolderClass() {
-        return propertyHolderClass;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (relationType != null ? relationType.hashCode() : 0);
+        return result;
     }
 }

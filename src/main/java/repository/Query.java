@@ -1,7 +1,7 @@
 package repository;
 
-import model.GraphElement;
+import model.GraphEntity;
 
-public class Query<T extends GraphElement> {
+public class Query<E extends GraphEntity> {
 
 }

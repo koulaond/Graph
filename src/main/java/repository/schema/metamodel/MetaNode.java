@@ -1,35 +1,56 @@
 package repository.schema.metamodel;
 
-import model.Graph;
-import model.Node;
+import repository.schema.descriptions.PropertyDescription;
+import repository.schema.descriptions.RelationshipDescription;
 
-public class MetaNode<T> extends AbstractMetaEntity implements Node<MetaRelation> {
+import java.util.Set;
 
+/**
+ * Special Node class that describes @{@link model.Node}s of the given type.
+ * @param <T> described class
+ */
+public class MetaNode<T>{
+
+    private MetaGraph metaGraph;
+
+    /**
+     * Model class that is described by this meta-node.
+     */
     private Class<T> describedClass;
 
+    /**
+     * Unique type for nodes that are defined by this meta-node. It is something like class type for nodes.
+     */
+    private String nodeType;
+
+    /**
+     * Indicator whether nodes defined by this meta-node are immutable.
+     */
     private boolean immutable;
 
+    /**
+     * Maximum count of nodes defined by this meta-node in the repository.
+     */
     private Long maxCount;
 
-    public MetaNode(String type, Class<T> describedClass, boolean immutable, Long maxCount) {
-        super(type);
-        this.describedClass = describedClass;
-        this.immutable = immutable;
-        this.maxCount = maxCount;
-    }
+    /**
+     * Set of property description that describe properties, which can be stored in the node of this type.
+     */
+    private Set<PropertyDescription> propertyDescriptions;
 
-    @Override
-    public boolean includes(Node other) {
-        return false;
-    }
 
-    @Override
-    public boolean isIncludedIn(Graph graph) {
-        return false;
+    private Set<RelationshipDescription> relationshipDescriptions;
+
+    public MetaGraph getMetaGraph() {
+        return metaGraph;
     }
 
     public Class<T> getDescribedClass() {
         return describedClass;
+    }
+
+    public String getNodeType() {
+        return nodeType;
     }
 
     public boolean isImmutable() {
@@ -38,5 +59,56 @@ public class MetaNode<T> extends AbstractMetaEntity implements Node<MetaRelation
 
     public Long getMaxCount() {
         return maxCount;
+    }
+
+    public Set<PropertyDescription> getPropertyDescriptions() {
+        return propertyDescriptions;
+    }
+
+    public void setMetaGraph(MetaGraph metaGraph) {
+        this.metaGraph = metaGraph;
+    }
+
+    public void setDescribedClass(Class<T> describedClass) {
+        this.describedClass = describedClass;
+    }
+
+    public void setNodeType(String nodeType) {
+        this.nodeType = nodeType;
+    }
+
+    public void setImmutable(boolean immutable) {
+        this.immutable = immutable;
+    }
+
+    public void setMaxCount(Long maxCount) {
+        this.maxCount = maxCount;
+    }
+
+    public void setPropertyDescriptions(Set<PropertyDescription> propertyDescriptions) {
+        this.propertyDescriptions = propertyDescriptions;
+    }
+
+    public Set<RelationshipDescription> getRelationshipDescriptions() {
+        return relationshipDescriptions;
+    }
+
+    public void setRelationshipDescriptions(Set<RelationshipDescription> relationshipDescriptions) {
+        this.relationshipDescriptions = relationshipDescriptions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MetaNode<?> metaNode = (MetaNode<?>) o;
+
+        return nodeType != null ? nodeType.equals(metaNode.nodeType) : metaNode.nodeType == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return nodeType != null ? nodeType.hashCode() : 0;
     }
 }

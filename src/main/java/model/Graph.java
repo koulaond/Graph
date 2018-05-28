@@ -1,16 +1,40 @@
 package model;
 
-import java.util.Set;
+public class Graph implements HasId {
 
-public interface Graph<N extends Node, R extends Relation> extends GraphElement {
+    private Long id;
 
-    N getInitialNode();
+    private String name;
 
-    Set<R> getRelations();
+    private String description;
 
-    Set<N> getNodes();
+    private Node initialNode;
 
-    boolean containsNode(N node);
+    public Graph(Long id, String name, String description, Node initialNode) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.initialNode = initialNode;
+    }
 
-    boolean containsRelation(R relation);
+    public Graph(Long id, String name, String description) {
+        this(id, name, description, null);
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Node getInitialNode() {
+        return this.initialNode;
+    }
 }

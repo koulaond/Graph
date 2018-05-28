@@ -3,9 +3,9 @@ package repository.schema.descriptions;
 import java.io.Serializable;
 
 public abstract class PropertyDescription<T extends Serializable> {
-    private String propertyName;
+    private String type;
 
-    private Class<T> propertyType;
+    private Class<T> typeClass;
 
     boolean mandatory;
 
@@ -13,24 +13,24 @@ public abstract class PropertyDescription<T extends Serializable> {
 
     boolean immutable;
 
-    public PropertyDescription(String propertyName,
-                               Class<T> propertyType,
+    public PropertyDescription(String type,
+                               Class<T> typeClass,
                                boolean mandatory,
                                boolean multiValue,
                                boolean immutable) {
-        this.propertyName = propertyName;
-        this.propertyType = propertyType;
+        this.type = type;
+        this.typeClass = typeClass;
         this.mandatory = mandatory;
         this.multiValue = multiValue;
         this.immutable = immutable;
     }
 
-    public String getPropertyName() {
-        return propertyName;
+    public String getType() {
+        return type;
     }
 
-    public Class<T> getPropertyType() {
-        return propertyType;
+    public Class<T> getTypeClass() {
+        return typeClass;
     }
 
     public boolean isMandatory() {

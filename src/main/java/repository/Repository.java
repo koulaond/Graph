@@ -1,7 +1,7 @@
 package repository;
 
-import model.Relation;
 import model.Node;
+import model.Relation;
 
 import java.util.Collection;
 import java.util.Map;

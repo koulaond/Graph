@@ -1,27 +1,28 @@
 package model;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import java.util.*;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+public abstract class GraphEntity implements HasId, HasProperties {
 
-public abstract class AbstractEntity extends AbstractItem implements Entity {
+    protected Long id;
 
-    @NonNull
-    @Setter
     protected Map<String, Object> properties;
 
-    @Getter
     protected Graph parentGraph;
 
-    protected AbstractEntity() {
-        this.properties = new HashMap<>();
+    public GraphEntity(Long id, Map<String, Object> properties, Graph parentGraph) {
+        this.id = id;
+        this.properties = properties;
+        this.parentGraph = parentGraph;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public Graph getParentGraph() {
+        return parentGraph;
     }
 
     @Override
@@ -72,14 +73,6 @@ public abstract class AbstractEntity extends AbstractItem implements Entity {
         return false;
     }
 
-    public void addProperty(String key, Object value) {
-        this.properties.put(key, value);
-    }
-
-    public void removeProperty(String key) {
-        this.properties.remove(key);
-    }
-
     @Override
     public boolean hasProperty(String key) {
         return this.properties.containsKey(key);
@@ -89,5 +82,20 @@ public abstract class AbstractEntity extends AbstractItem implements Entity {
     public boolean hasProperty(String key, Object value) {
         Object valueIn = this.properties.get(key);
         return Objects.equals(value, valueIn);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GraphEntity that = (GraphEntity) o;
+
+        return id != null ? id.equals(that.id) : that.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
