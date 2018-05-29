@@ -1,9 +1,13 @@
 package repository.schema.metamodel;
 
 import java.util.Date;
-import java.util.Set;
 
-public class MetaGraph {
+public class DefaultGraphDefinition implements GraphDefinition {
+
+    /**
+     * Graph identifier.
+     */
+    private Long id;
 
     /**
      * Unique schema name that is defined by this meta-graph and its child meta-nodes and meta-relations.
@@ -20,13 +24,18 @@ public class MetaGraph {
      */
     private Date lastModified;
 
-    /**
-     * All meta-nodes in this schema describing meta-graph.
-     */
-    private Set<MetaNode> metaNodes;
-
     // TODO another fields, such as Users, roles, authorization...
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
     public String getSchema() {
         return schema;
     }
@@ -35,6 +44,7 @@ public class MetaGraph {
         this.schema = schema;
     }
 
+    @Override
     public Date getCreated() {
         return created;
     }
@@ -43,19 +53,12 @@ public class MetaGraph {
         this.created = created;
     }
 
+    @Override
     public Date getLastModified() {
         return lastModified;
     }
 
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public Set<MetaNode> getMetaNodes() {
-        return metaNodes;
-    }
-
-    public void setMetaNodes(Set<MetaNode> metaNodes) {
-        this.metaNodes = metaNodes;
     }
 }

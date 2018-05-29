@@ -7,11 +7,15 @@ import java.util.Set;
 
 /**
  * Special Node class that describes @{@link model.Node}s of the given type.
+ *
  * @param <T> described class
  */
-public class MetaNode<T>{
+public class DefaultNodeDefinition<T> implements NodeDefinition<T, DefaultGraphDefinition> {
 
-    private MetaGraph metaGraph;
+    /**
+     * Parent Graph definition.
+     */
+    private DefaultGraphDefinition graphDefinition;
 
     /**
      * Model class that is described by this meta-node.
@@ -38,35 +42,39 @@ public class MetaNode<T>{
      */
     private Set<PropertyDescription> propertyDescriptions;
 
-
     private Set<RelationshipDescription> relationshipDescriptions;
 
-    public MetaGraph getMetaGraph() {
-        return metaGraph;
+    @Override
+    public DefaultGraphDefinition getGraphDefinition() {
+        return graphDefinition;
     }
 
+    public void setGraphDefinition(DefaultGraphDefinition graphDefinition) {
+        this.graphDefinition = graphDefinition;
+    }
+
+    @Override
     public Class<T> getDescribedClass() {
         return describedClass;
     }
 
+    @Override
     public String getNodeType() {
         return nodeType;
     }
 
+    @Override
     public boolean isImmutable() {
         return immutable;
     }
 
+    @Override
     public Long getMaxCount() {
         return maxCount;
     }
 
     public Set<PropertyDescription> getPropertyDescriptions() {
         return propertyDescriptions;
-    }
-
-    public void setMetaGraph(MetaGraph metaGraph) {
-        this.metaGraph = metaGraph;
     }
 
     public void setDescribedClass(Class<T> describedClass) {
@@ -102,9 +110,9 @@ public class MetaNode<T>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MetaNode<?> metaNode = (MetaNode<?>) o;
+        DefaultNodeDefinition<?> defaultNodeDefinition = (DefaultNodeDefinition<?>) o;
 
-        return nodeType != null ? nodeType.equals(metaNode.nodeType) : metaNode.nodeType == null;
+        return nodeType != null ? nodeType.equals(defaultNodeDefinition.nodeType) : defaultNodeDefinition.nodeType == null;
     }
 
     @Override

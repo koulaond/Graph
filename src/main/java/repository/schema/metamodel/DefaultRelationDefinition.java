@@ -3,7 +3,7 @@ package repository.schema.metamodel;
 import repository.schema.descriptions.PropertyDescription;
 import java.util.Set;
 
-public class MetaRelation {
+public class DefaultRelationDefinition implements RelationDefinition {
 
     /**
      * Unique type for relations that are defined by this meta-relation. It is something like class type for relations.
@@ -17,6 +17,7 @@ public class MetaRelation {
 
     private Direction direction;
 
+    @Override
     public String getRelationType() {
         return relationType;
     }
@@ -25,6 +26,7 @@ public class MetaRelation {
         this.relationType = relationType;
     }
 
+    @Override
     public Set<PropertyDescription> getPropertyDescriptions() {
         return propertyDescriptions;
     }
@@ -46,7 +48,7 @@ public class MetaRelation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        MetaRelation that = (MetaRelation) o;
+        DefaultRelationDefinition that = (DefaultRelationDefinition) o;
         return relationType != null ? relationType.equals(that.relationType) : that.relationType == null;
     }
 
