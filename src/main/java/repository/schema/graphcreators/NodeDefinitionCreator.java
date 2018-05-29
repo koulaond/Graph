@@ -1,4 +1,4 @@
-package repository.schema.graphbuild;
+package repository.schema.graphcreators;
 
 import repository.schema.descriptions.NodeDescription;
 import repository.schema.descriptions.RelationshipDescription;
@@ -12,7 +12,7 @@ import java.util.Set;
  * Class for building @{@link DefaultNodeDefinition}s from @{@link NodeDescription}s stored in set and connect them each other
  * using their @{@link RelationshipDescription}s.
  */
-public interface NodeDefinitionBuilder<GD extends GraphDefinition> {
+public interface NodeDefinitionCreator<GD extends GraphDefinition> {
 
     /**
      * Receives a set of {@link NodeDescription}s and creates the particular {@link DefaultNodeDefinition} for each description.

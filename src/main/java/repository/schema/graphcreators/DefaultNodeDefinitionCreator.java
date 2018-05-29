@@ -1,4 +1,4 @@
-package repository.schema.graphbuild;
+package repository.schema.graphcreators;
 
 import repository.schema.metamodel.DefaultGraphDefinition;
 import repository.schema.metamodel.Direction;
@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toSet;
 /**
  * {@inheritDoc}
  */
-public class DefaultNodeDefinitionBuilder implements NodeDefinitionBuilder<DefaultGraphDefinition> {
+public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<DefaultGraphDefinition> {
 
     /**
      * {@inheritDoc}
