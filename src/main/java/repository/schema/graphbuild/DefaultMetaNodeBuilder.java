@@ -14,7 +14,14 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultMetaNodeBuilder implements MetaNodeBuilder {
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<MetaNode> buildGraph(Set<NodeDescription> nodeDescriptions) {
         Map<Class, MetaNode> nodes = nodeDescriptions.stream()
@@ -43,6 +50,9 @@ public class DefaultMetaNodeBuilder implements MetaNodeBuilder {
         return nodes.values();
     }
 
+    /**
+     * Builds {@link MetaNode} using values in {@link NodeDescription} param.
+     */
     private <T> MetaNode<T> buildNode(NodeDescription<T> description) {
         MetaNode metaNode = new MetaNode();
         metaNode.setPropertyDescriptions(description.getPropertyDescriptions());
