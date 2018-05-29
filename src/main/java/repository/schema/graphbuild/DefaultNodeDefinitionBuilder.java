@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toSet;
 /**
  * {@inheritDoc}
  */
-public class DefaultGraphDefinitionBuilder implements GraphDefinitionBuilder<DefaultGraphDefinition> {
+public class DefaultNodeDefinitionBuilder implements NodeDefinitionBuilder<DefaultGraphDefinition> {
 
     /**
      * {@inheritDoc}
@@ -27,7 +27,7 @@ public class DefaultGraphDefinitionBuilder implements GraphDefinitionBuilder<Def
     public Collection<DefaultNodeDefinition> buildGraph(Set<NodeDescription> nodeDescriptions,
                                                         DefaultGraphDefinition graphDefinition) {
         Map<Class, DefaultNodeDefinition> nodes = nodeDescriptions.stream()
-                .map(description -> buildNode(description))
+                .map(description -> buildNode(description, graphDefinition))
                 .collect(toMap(node -> node.getDescribedClass(), identity()));
         nodes.values().forEach(node -> {
             Set<RelationshipDescription> relationshipDescriptions = node.getRelationshipDescriptions();
@@ -55,8 +55,10 @@ public class DefaultGraphDefinitionBuilder implements GraphDefinitionBuilder<Def
     /**
      * Builds {@link DefaultNodeDefinition} using values in {@link NodeDescription} param.
      */
-    private <T> DefaultNodeDefinition<T> buildNode(NodeDescription<T> description) {
+    private <T> DefaultNodeDefinition<T> buildNode(NodeDescription<T> description,
+                                                   DefaultGraphDefinition graphDefinition) {
         DefaultNodeDefinition defaultNodeDefinition = new DefaultNodeDefinition();
+        defaultNodeDefinition.setGraphDefinition(graphDefinition);
         defaultNodeDefinition.setPropertyDescriptions(description.getPropertyDescriptions());
         defaultNodeDefinition.setRelationshipDescriptions(description.getRelationshipDescriptions()
                 .stream()
