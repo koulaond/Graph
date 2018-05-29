@@ -1,6 +1,6 @@
 package repository.schema.descriptions;
 
-import repository.schema.Direction;
+import repository.schema.metamodel.Direction;
 import java.util.Set;
 import java.util.UUID;
 

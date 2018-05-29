@@ -1,6 +1,6 @@
 package repository.schema.graphbuild;
 
-import repository.schema.Direction;
+import repository.schema.metamodel.Direction;
 import repository.schema.descriptions.NodeDescription;
 import repository.schema.descriptions.RelationshipDescription;
 import repository.schema.metamodel.MetaNode;

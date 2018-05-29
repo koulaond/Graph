@@ -1,6 +1,6 @@
 package app.testmodel;
 
-import repository.schema.Direction;
+import repository.schema.metamodel.Direction;
 import repository.schema.annotations.Node;
 import repository.schema.annotations.Relationship;
 import repository.schema.annotations.properties.StringProperty;

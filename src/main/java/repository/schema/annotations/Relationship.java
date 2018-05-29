@@ -1,6 +1,6 @@
 package repository.schema.annotations;
 
-import repository.schema.Direction;
+import repository.schema.metamodel.Direction;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,5 @@
 package repository.schema.metamodel;
 
-import repository.schema.Direction;
 import repository.schema.descriptions.PropertyDescription;
 import java.util.Set;
 

@@ -1,6 +1,6 @@
 package repository.schema.introspection.creator;
 
-import repository.schema.Direction;
+import repository.schema.metamodel.Direction;
 import repository.schema.annotations.Relationship;
 import repository.schema.descriptions.PropertyDescription;
 import repository.schema.descriptions.RelationshipDescription;

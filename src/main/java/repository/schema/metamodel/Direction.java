@@ -1,4 +1,4 @@
-package repository.schema;
+package repository.schema.metamodel;
 
 public enum Direction {
     INCOMING,
