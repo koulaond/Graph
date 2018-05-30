@@ -1,9 +1,9 @@
 package app.testmodel;
 
 import lombok.Getter;
-import repository.schema.annotations.Node;
-import repository.schema.annotations.properties.NumericProperty;
-import repository.schema.annotations.properties.StringProperty;
+import core.schema.annotations.Node;
+import core.schema.annotations.properties.NumericProperty;
+import core.schema.annotations.properties.StringProperty;
 
 import java.util.Set;
 

@@ -1,7 +1,7 @@
 package app.testmodel;
 
 import lombok.Getter;
-import repository.schema.annotations.Node;
+import core.schema.annotations.Node;
 
 @Getter
 @Node(nodeType = "actor")

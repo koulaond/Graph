@@ -1,9 +1,9 @@
 package app.testmodel;
 
-import repository.schema.metamodel.Direction;
-import repository.schema.annotations.Node;
-import repository.schema.annotations.Relationship;
-import repository.schema.annotations.properties.StringProperty;
+import core.schema.metamodel.Direction;
+import core.schema.annotations.Node;
+import core.schema.annotations.Relationship;
+import core.schema.annotations.properties.StringProperty;
 
 import java.util.Set;
 

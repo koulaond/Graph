@@ -1,7 +1,7 @@
 package app.testmodel;
 
-import repository.schema.annotations.PropertyHolder;
-import repository.schema.annotations.properties.StringProperty;
+import core.schema.annotations.PropertyHolder;
+import core.schema.annotations.properties.StringProperty;
 
 @PropertyHolder
 public class PlayingRelation {

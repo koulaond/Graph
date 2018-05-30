@@ -1,8 +1,8 @@
 package app.testmodel;
 
 import lombok.Getter;
-import repository.schema.annotations.PropertyHolder;
-import repository.schema.annotations.properties.StringProperty;
+import core.schema.annotations.PropertyHolder;
+import core.schema.annotations.properties.StringProperty;
 
 @Getter
 @PropertyHolder
