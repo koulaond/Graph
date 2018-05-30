@@ -1,13 +1,11 @@
 package app.testmodel;
 
-import lombok.Getter;
 import core.schema.annotations.Node;
 import core.schema.annotations.properties.NumericProperty;
 import core.schema.annotations.properties.StringProperty;
 
 import java.util.Set;
 
-@Getter
 @Node(nodeType = "movie")
 public class Movie {
 
