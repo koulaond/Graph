@@ -10,11 +10,6 @@ public class DefaultGraphDefinition implements GraphDefinition {
     private Long id;
 
     /**
-     * Unique schema name that is defined by this meta-graph and its child meta-nodes and meta-relations.
-     */
-    private String schema;
-
-    /**
      * Date where the schema was created.
      */
     private Date created;
@@ -33,15 +28,6 @@ public class DefaultGraphDefinition implements GraphDefinition {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    @Override
-    public String getSchema() {
-        return schema;
-    }
-
-    public void setSchema(String schema) {
-        this.schema = schema;
     }
 
     @Override

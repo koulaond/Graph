@@ -4,20 +4,20 @@ import java.util.*;
 
 public abstract class GraphEntity implements HasId, HasProperties {
 
-    protected Long id;
+    protected UUID id;
 
     protected Map<String, Object> properties;
 
     protected Graph parentGraph;
 
-    public GraphEntity(Long id, Map<String, Object> properties, Graph parentGraph) {
+    public GraphEntity(UUID id, Map<String, Object> properties, Graph parentGraph) {
         this.id = id;
         this.properties = properties;
         this.parentGraph = parentGraph;
     }
 
     @Override
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 

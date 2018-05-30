@@ -1,15 +1,17 @@
 package repository.schema.graphcreators;
 
 import repository.schema.metamodel.DefaultGraphDefinition;
+import repository.schema.metamodel.DefaultSchematicSpaceDefinition;
 
 import java.util.Date;
 
-public class DefaultGraphDefinitionCreator implements GraphDefinitionCreator<DefaultGraphDefinition> {
+public class DefaultGraphDefinitionCreator
+        implements GraphDefinitionCreator<DefaultGraphDefinition, DefaultSchematicSpaceDefinition> {
 
     @Override
-    public DefaultGraphDefinition build(String schema) {
+    public DefaultGraphDefinition build(DefaultSchematicSpaceDefinition schemaDefinition) {
         DefaultGraphDefinition definition = new DefaultGraphDefinition();
-        definition.setSchema(schema);
+        definition.setSchemaDefinition(schemaDefinition);
         Date created = new Date();
         definition.setCreated(created);
         definition.setLastModified(created);

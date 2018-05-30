@@ -1,6 +1,8 @@
 package model;
 
+import java.util.UUID;
+
 public interface HasId {
 
-    Long getId();
+    UUID getId();
 }

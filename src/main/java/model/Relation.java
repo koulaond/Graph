@@ -2,6 +2,7 @@ package model;
 
 
 import java.util.Map;
+import java.util.UUID;
 
 public class Relation extends GraphEntity {
 
@@ -11,7 +12,7 @@ public class Relation extends GraphEntity {
 
     private boolean directed;
 
-    public Relation(Long id, Map<String,
+    public Relation(UUID id, Map<String,
             Object> properties,
                     Graph parentGraph,
                     Node sourceNode,

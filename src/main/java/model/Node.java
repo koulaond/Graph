@@ -1,12 +1,13 @@
 package model;
 
 import java.util.Map;
+import java.util.UUID;
 
 public class Node extends GraphEntity {
 
     private Map<Relation, Direction> relations;
 
-    public Node(Long id,
+    public Node(UUID id,
                 Map<String, Object> properties,
                 Graph parentGraph,
                 Map<Relation, Direction> relations) {
