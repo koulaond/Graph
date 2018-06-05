@@ -1,4 +1,4 @@
-package core.schema.metamodel;
+package core.schema.definitions;
 
 public interface SchematicSpaceDefinition<GD extends GraphDefinition> extends SpaceDefinition {
 

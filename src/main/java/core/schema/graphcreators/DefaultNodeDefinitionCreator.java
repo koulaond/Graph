@@ -1,11 +1,11 @@
 package core.schema.graphcreators;
 
-import core.schema.metamodel.DefaultGraphDefinition;
-import core.schema.metamodel.Direction;
+import core.schema.definitions.DefaultGraphDefinition;
+import core.schema.definitions.Direction;
 import core.schema.descriptions.NodeDescription;
 import core.schema.descriptions.RelationshipDescription;
-import core.schema.metamodel.DefaultNodeDefinition;
-import core.schema.metamodel.DefaultRelationDefinition;
+import core.schema.definitions.DefaultNodeDefinition;
+import core.schema.definitions.DefaultRelationDefinition;
 
 import java.util.Collection;
 import java.util.Map;

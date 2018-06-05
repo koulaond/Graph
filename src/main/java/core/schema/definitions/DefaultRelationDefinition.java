@@ -1,4 +1,4 @@
-package core.schema.metamodel;
+package core.schema.definitions;
 
 import core.schema.descriptions.PropertyDescription;
 import java.util.Set;

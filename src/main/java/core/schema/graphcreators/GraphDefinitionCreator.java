@@ -1,6 +1,6 @@
 package core.schema.graphcreators;
 
-import core.schema.metamodel.GraphDefinition;
+import core.schema.definitions.GraphDefinition;
 
 public interface GraphDefinitionCreator<GD extends GraphDefinition> {
 

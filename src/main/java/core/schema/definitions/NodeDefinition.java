@@ -1,4 +1,4 @@
-package core.schema.metamodel;
+package core.schema.definitions;
 
 public interface NodeDefinition<T, GD extends GraphDefinition> {
     GD getGraphDefinition();

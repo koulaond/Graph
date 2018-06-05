@@ -1,4 +1,4 @@
-package core.schema.metamodel;
+package core.schema.definitions;
 
 public enum Direction {
     INCOMING,

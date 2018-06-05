@@ -1,6 +1,6 @@
 package core.context;
 
-import core.schema.metamodel.GraphDefinition;
+import core.schema.definitions.GraphDefinition;
 
 public class DefaultRepositoryContext implements RepositoryContext {
 

@@ -2,8 +2,8 @@ package core.schema.graphcreators;
 
 import core.schema.descriptions.NodeDescription;
 import core.schema.descriptions.RelationshipDescription;
-import core.schema.metamodel.DefaultNodeDefinition;
-import core.schema.metamodel.GraphDefinition;
+import core.schema.definitions.DefaultNodeDefinition;
+import core.schema.definitions.GraphDefinition;
 
 import java.util.Collection;
 import java.util.Set;

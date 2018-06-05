@@ -1,6 +1,6 @@
 package core.schema.graphcreators;
 
-import core.schema.metamodel.DefaultGraphDefinition;
+import core.schema.definitions.DefaultGraphDefinition;
 
 import java.util.Date;
 
