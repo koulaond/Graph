@@ -1,7 +1,5 @@
 package core.context;
 
-import core.schema.definitions.GraphDefinition;
-
 public class DefaultRepositoryContext implements RepositoryContext {
 
     // TODO
