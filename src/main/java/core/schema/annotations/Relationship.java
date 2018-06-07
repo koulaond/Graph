@@ -1,6 +1,6 @@
 package core.schema.annotations;
 
-import core.schema.definitions.Direction;
+import model.Direction;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

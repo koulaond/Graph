@@ -1,6 +1,6 @@
 package core.schema.descriptions;
 
-import core.schema.definitions.Direction;
+import model.Direction;
 import java.util.Set;
 import java.util.UUID;
 

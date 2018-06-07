@@ -1,6 +1,6 @@
 package app.testmodel;
 
-import core.schema.definitions.Direction;
+import model.Direction;
 import core.schema.annotations.Node;
 import core.schema.annotations.Relationship;
 import core.schema.annotations.properties.StringProperty;

@@ -1,4 +1,4 @@
-package core.schema.definitions;
+package model.definitions;
 
 import core.schema.descriptions.PropertyDescription;
 import core.schema.descriptions.RelationshipDescription;

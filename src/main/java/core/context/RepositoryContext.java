@@ -1,6 +1,6 @@
 package core.context;
 
-import core.schema.definitions.GraphDefinition;
+import model.definitions.GraphDefinition;
 
 public interface RepositoryContext {
     GraphDefinition getGraphDefinition(String schema);

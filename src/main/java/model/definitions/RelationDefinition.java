@@ -1,6 +1,8 @@
-package core.schema.definitions;
+package model.definitions;
 
 import core.schema.descriptions.PropertyDescription;
+import model.Direction;
+
 import java.util.Set;
 
 public class RelationDefinition {

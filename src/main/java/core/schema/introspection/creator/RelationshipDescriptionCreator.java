@@ -1,6 +1,6 @@
 package core.schema.introspection.creator;
 
-import core.schema.definitions.Direction;
+import model.Direction;
 import core.schema.annotations.Relationship;
 import core.schema.descriptions.PropertyDescription;
 import core.schema.descriptions.RelationshipDescription;

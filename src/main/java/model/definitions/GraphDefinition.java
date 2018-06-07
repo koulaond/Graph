@@ -1,4 +1,4 @@
-package core.schema.definitions;
+package model.definitions;
 
 import java.util.Date;
 

@@ -1,11 +1,11 @@
 package core.schema.graphcreators;
 
-import core.schema.definitions.GraphDefinition;
-import core.schema.definitions.Direction;
+import model.definitions.GraphDefinition;
+import model.Direction;
 import core.schema.descriptions.NodeDescription;
 import core.schema.descriptions.RelationshipDescription;
-import core.schema.definitions.NodeDefinition;
-import core.schema.definitions.RelationDefinition;
+import model.definitions.NodeDefinition;
+import model.definitions.RelationDefinition;
 
 import java.util.Collection;
 import java.util.Map;
