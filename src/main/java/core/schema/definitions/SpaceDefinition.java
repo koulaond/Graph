@@ -2,17 +2,16 @@ package core.schema.definitions;
 
 import java.util.UUID;
 
-public class DefaultSpaceDefinition implements SpaceDefinition {
+public class SpaceDefinition {
 
     protected UUID id;
     protected String name;
 
-    public DefaultSpaceDefinition(UUID id, String name) {
+    public SpaceDefinition(UUID id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    @Override
     public UUID getId() {
         return id;
     }
@@ -21,7 +20,6 @@ public class DefaultSpaceDefinition implements SpaceDefinition {
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }

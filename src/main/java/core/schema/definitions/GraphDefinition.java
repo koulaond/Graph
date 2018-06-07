@@ -2,7 +2,7 @@ package core.schema.definitions;
 
 import java.util.Date;
 
-public class DefaultGraphDefinition implements GraphDefinition {
+public class GraphDefinition {
 
     /**
      * Graph identifier.
@@ -21,7 +21,6 @@ public class DefaultGraphDefinition implements GraphDefinition {
 
     // TODO another fields, such as Users, roles, authorization...
 
-    @Override
     public Long getId() {
         return id;
     }
@@ -30,7 +29,6 @@ public class DefaultGraphDefinition implements GraphDefinition {
         this.id = id;
     }
 
-    @Override
     public Date getCreated() {
         return created;
     }
@@ -39,7 +37,6 @@ public class DefaultGraphDefinition implements GraphDefinition {
         this.created = created;
     }
 
-    @Override
     public Date getLastModified() {
         return lastModified;
     }

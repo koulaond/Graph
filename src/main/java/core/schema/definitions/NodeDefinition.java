@@ -10,12 +10,12 @@ import java.util.Set;
  *
  * @param <T> described class
  */
-public class DefaultNodeDefinition<T> implements NodeDefinition<T, DefaultGraphDefinition> {
+public class NodeDefinition<T> {
 
     /**
      * Parent Graph definition.
      */
-    private DefaultGraphDefinition graphDefinition;
+    private GraphDefinition graphDefinition;
 
     /**
      * Model class that is described by this meta-node.
@@ -44,31 +44,26 @@ public class DefaultNodeDefinition<T> implements NodeDefinition<T, DefaultGraphD
 
     private Set<RelationshipDescription> relationshipDescriptions;
 
-    @Override
-    public DefaultGraphDefinition getGraphDefinition() {
+    public GraphDefinition getGraphDefinition() {
         return graphDefinition;
     }
 
-    public void setGraphDefinition(DefaultGraphDefinition graphDefinition) {
+    public void setGraphDefinition(GraphDefinition graphDefinition) {
         this.graphDefinition = graphDefinition;
     }
 
-    @Override
     public Class<T> getDescribedClass() {
         return describedClass;
     }
 
-    @Override
     public String getNodeType() {
         return nodeType;
     }
 
-    @Override
     public boolean isImmutable() {
         return immutable;
     }
 
-    @Override
     public Long getMaxCount() {
         return maxCount;
     }
@@ -110,9 +105,9 @@ public class DefaultNodeDefinition<T> implements NodeDefinition<T, DefaultGraphD
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DefaultNodeDefinition<?> defaultNodeDefinition = (DefaultNodeDefinition<?>) o;
+        NodeDefinition<?> nodeDefinition = (NodeDefinition<?>) o;
 
-        return nodeType != null ? nodeType.equals(defaultNodeDefinition.nodeType) : defaultNodeDefinition.nodeType == null;
+        return nodeType != null ? nodeType.equals(nodeDefinition.nodeType) : nodeDefinition.nodeType == null;
     }
 
     @Override

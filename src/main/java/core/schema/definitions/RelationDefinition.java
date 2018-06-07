@@ -3,7 +3,7 @@ package core.schema.definitions;
 import core.schema.descriptions.PropertyDescription;
 import java.util.Set;
 
-public class DefaultRelationDefinition implements RelationDefinition {
+public class RelationDefinition {
 
     /**
      * Unique type for relations that are defined by this meta-relation. It is something like class type for relations.
@@ -17,7 +17,6 @@ public class DefaultRelationDefinition implements RelationDefinition {
 
     private Direction direction;
 
-    @Override
     public String getRelationType() {
         return relationType;
     }
@@ -26,7 +25,6 @@ public class DefaultRelationDefinition implements RelationDefinition {
         this.relationType = relationType;
     }
 
-    @Override
     public Set<PropertyDescription> getPropertyDescriptions() {
         return propertyDescriptions;
     }
@@ -48,7 +46,7 @@ public class DefaultRelationDefinition implements RelationDefinition {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        DefaultRelationDefinition that = (DefaultRelationDefinition) o;
+        RelationDefinition that = (RelationDefinition) o;
         return relationType != null ? relationType.equals(that.relationType) : that.relationType == null;
     }
 

@@ -1,11 +1,11 @@
 package core.schema.graphcreators;
 
-import core.schema.definitions.DefaultGraphDefinition;
+import core.schema.definitions.GraphDefinition;
 import core.schema.definitions.Direction;
 import core.schema.descriptions.NodeDescription;
 import core.schema.descriptions.RelationshipDescription;
-import core.schema.definitions.DefaultNodeDefinition;
-import core.schema.definitions.DefaultRelationDefinition;
+import core.schema.definitions.NodeDefinition;
+import core.schema.definitions.RelationDefinition;
 
 import java.util.Collection;
 import java.util.Map;
@@ -18,22 +18,22 @@ import static java.util.stream.Collectors.toSet;
 /**
  * {@inheritDoc}
  */
-public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<DefaultGraphDefinition> {
+public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<GraphDefinition> {
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<DefaultNodeDefinition> buildGraph(Set<NodeDescription> nodeDescriptions,
-                                                        DefaultGraphDefinition graphDefinition) {
-        Map<Class, DefaultNodeDefinition> nodes = nodeDescriptions.stream()
+    public Collection<NodeDefinition> buildGraph(Set<NodeDescription> nodeDescriptions,
+                                                 GraphDefinition graphDefinition) {
+        Map<Class, NodeDefinition> nodes = nodeDescriptions.stream()
                 .map(description -> buildNode(description, graphDefinition))
                 .collect(toMap(node -> node.getDescribedClass(), identity()));
         nodes.values().forEach(node -> {
             Set<RelationshipDescription> relationshipDescriptions = node.getRelationshipDescriptions();
             // Assign relations to opposite nodes.
             relationshipDescriptions.forEach(relDescription -> {
-                DefaultRelationDefinition relation = new DefaultRelationDefinition();
+                RelationDefinition relation = new RelationDefinition();
                 relation.setPropertyDescriptions(relDescription.getPropertyDescriptions());
                 relation.setRelationType(relDescription.getType());
                 switch (relDescription.getDirection()){
@@ -53,26 +53,26 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Defau
     }
 
     /**
-     * Builds {@link DefaultNodeDefinition} using values in {@link NodeDescription} param.
+     * Builds {@link NodeDefinition} using values in {@link NodeDescription} param.
      */
-    private <T> DefaultNodeDefinition<T> buildNode(NodeDescription<T> description,
-                                                   DefaultGraphDefinition graphDefinition) {
-        DefaultNodeDefinition defaultNodeDefinition = new DefaultNodeDefinition();
-        defaultNodeDefinition.setGraphDefinition(graphDefinition);
-        defaultNodeDefinition.setPropertyDescriptions(description.getPropertyDescriptions());
-        defaultNodeDefinition.setRelationshipDescriptions(description.getRelationshipDescriptions()
+    private <T> NodeDefinition<T> buildNode(NodeDescription<T> description,
+                                            GraphDefinition graphDefinition) {
+        NodeDefinition nodeDefinition = new NodeDefinition();
+        nodeDefinition.setGraphDefinition(graphDefinition);
+        nodeDefinition.setPropertyDescriptions(description.getPropertyDescriptions());
+        nodeDefinition.setRelationshipDescriptions(description.getRelationshipDescriptions()
                 .stream()
                 .map(relationshipDescription -> {
-                    DefaultRelationDefinition relation = new DefaultRelationDefinition();
+                    RelationDefinition relation = new RelationDefinition();
                     relation.setRelationType(relationshipDescription.getType());
                     relation.setPropertyDescriptions(relationshipDescription.getPropertyDescriptions());
                     relation.setDirection(relationshipDescription.getDirection());
                     return relation;
                 }).collect(toSet()));
-        defaultNodeDefinition.setDescribedClass(description.getDescribedClass());
-        defaultNodeDefinition.setMaxCount(description.getMaxCount());
-        defaultNodeDefinition.setNodeType(description.getType());
-        defaultNodeDefinition.setImmutable(description.isImmutable());
-        return defaultNodeDefinition;
+        nodeDefinition.setDescribedClass(description.getDescribedClass());
+        nodeDefinition.setMaxCount(description.getMaxCount());
+        nodeDefinition.setNodeType(description.getType());
+        nodeDefinition.setImmutable(description.isImmutable());
+        return nodeDefinition;
     }
 }

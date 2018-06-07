@@ -1,14 +1,14 @@
 package core.schema.graphcreators;
 
-import core.schema.definitions.DefaultGraphDefinition;
+import core.schema.definitions.GraphDefinition;
 
 import java.util.Date;
 
-public class DefaultGraphDefinitionCreator implements GraphDefinitionCreator<DefaultGraphDefinition> {
+public class DefaultGraphDefinitionCreator implements GraphDefinitionCreator<GraphDefinition> {
 
     @Override
-    public DefaultGraphDefinition build() {
-        DefaultGraphDefinition definition = new DefaultGraphDefinition();
+    public GraphDefinition build() {
+        GraphDefinition definition = new GraphDefinition();
         Date created = new Date();
         definition.setCreated(created);
         definition.setLastModified(created);
