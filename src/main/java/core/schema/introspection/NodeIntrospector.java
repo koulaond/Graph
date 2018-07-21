@@ -30,7 +30,7 @@ import static core.schema.introspection.creator.CreatorSupplier.supply;
  *
  * @param <T> introspected class type
  */
-public class NodeIntrospector<T> extends Introspector<T, Node, NodeDescription<T>> {
+public class NodeIntrospector<T> extends AbstractIntrospector<T, Node, NodeDescription<T>> {
 
     public NodeIntrospector(Class<T> introspectedClass) {
         super(introspectedClass);

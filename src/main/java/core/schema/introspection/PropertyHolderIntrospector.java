@@ -20,7 +20,7 @@ import static core.schema.introspection.creator.CreatorSupplier.supply;
  * Relation annotations are NOT processed here.
  * @param <T>
  */
-public class PropertyHolderIntrospector<T> extends Introspector<T, PropertyHolder, Set<PropertyDescription>> {
+public class PropertyHolderIntrospector<T> extends AbstractIntrospector<T, PropertyHolder, Set<PropertyDescription>> {
 
     public PropertyHolderIntrospector(Class<T> introspectedClass) {
         super(introspectedClass);

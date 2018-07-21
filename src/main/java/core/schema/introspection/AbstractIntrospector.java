@@ -12,14 +12,14 @@ import static core.schema.introspection.Constants.ERROR_MISSING_ANNOTATION;
  * @param <A> type of the class annotation that describes the schema meta-node (i.e. @{@link model.Node})
  * @param <RT> result type
  */
-public abstract class Introspector<T, A extends Annotation, RT> {
+public abstract class AbstractIntrospector<T, A extends Annotation, RT> {
 
     protected Class<T> introspectedClass;
 
     /**
      * @param introspectedClass class to be introspected
      */
-    public Introspector(Class<T> introspectedClass) {
+    public AbstractIntrospector(Class<T> introspectedClass) {
         this.introspectedClass = introspectedClass;
     }
 
