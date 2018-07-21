@@ -6,7 +6,7 @@ import core.schema.descriptions.EnumerationPropertyDescription;
 /**
  * Creator class that processes @{@link EnumProperty} annotation and returns {@link EnumerationPropertyDescription} instance.
  */
-public class EnumerationPropertyDescriptionCreator implements PropertyDescriptionCreator<EnumerationPropertyDescription, EnumProperty> {
+public class EnumerationDescriptionCreator implements DescriptionCreator<EnumerationPropertyDescription, EnumProperty> {
 
     @Override
     public EnumerationPropertyDescription processProperty(EnumProperty propertyAnnotation,

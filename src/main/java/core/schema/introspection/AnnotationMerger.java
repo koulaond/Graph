@@ -10,7 +10,7 @@ import java.util.Map;
 import static core.schema.introspection.Utils.convertGetterNameToFieldName;
 
 /**
- * Helper class for merging Property/Relation annotations on field and getters to single map.
+ * Helper class for merging Property/Relation annotations on fields and getters to single map.
  * The merger does following for each getter:annotation value in the second map:
  * 1. Converts getter name to particular field name
  * 2. Finds {@link Field} in the first map

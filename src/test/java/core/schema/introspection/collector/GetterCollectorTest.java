@@ -25,7 +25,7 @@ public class GetterCollectorTest {
     private static final String FIELD_READY = "ready";
     private static final String FIELD_COUNT = "count";
     private static final String FIELD_PRECISE = "precise";
-    private static final String FIELD_TYPE = "type";
+    private static final String FIELD_PROPERTY_NAME = "propertyName";
     private static final String FIELD_SIBLING = "sibling";
     private static final String FIELD_CHUCK_NORRIS = "chuckNorris";
 
@@ -37,7 +37,7 @@ public class GetterCollectorTest {
     private static final String GETTER_READY = "isReady";
     private static final String GETTER_COUNT = "getCount";
     private static final String GETTER_PRECISE = "getPrecise";
-    private static final String GETTER_TYPE = "getType";
+    private static final String GETTER_PROPERTY_NAME = "getPropertyName";
     private static final String GETTER_SIBLING = "getSibling";
     private static final String GETTER_CHUCK_NORRIS = "getChuckNorris";
 
@@ -75,9 +75,9 @@ public class GetterCollectorTest {
                                 .isEqualTo(testLowestClass.getDeclaredMethod(GETTER_PRECISE))
                                 .isNotEqualTo(testLowerClass.getDeclaredMethod(GETTER_PRECISE));
 
-                        assertThat(map.get(FIELD_TYPE))
+                        assertThat(map.get(FIELD_PROPERTY_NAME))
                                 .isNotNull()
-                                .isEqualTo(testLowestClass.getDeclaredMethod(GETTER_TYPE));
+                                .isEqualTo(testLowestClass.getDeclaredMethod(GETTER_PROPERTY_NAME));
 
                         assertThat(map.get(FIELD_SIBLING))
                                 .isNotNull()

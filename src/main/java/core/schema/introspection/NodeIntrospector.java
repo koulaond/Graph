@@ -2,6 +2,7 @@ package core.schema.introspection;
 
 import core.schema.annotations.Node;
 import core.schema.annotations.Relationship;
+import core.schema.annotations.properties.IdProperty;
 import core.schema.descriptions.NodeDescription;
 import core.schema.descriptions.PropertyDescription;
 import core.schema.descriptions.RelationshipDescription;
@@ -25,8 +26,8 @@ import static core.schema.introspection.creator.CreatorSupplier.supply;
  * {@link PropertyDescription}s and @{@link model.Relation}s for each defined @Property annotated field or getter.
  * Class is introspected with following rules:
  * 1. Property/relation defined on getter overrides property/relation defined on field
- * 2. Property/relation defined on overriden getter overrides property/relation defined on getter implemented in superclass
- * 3. Property/relation defined on overriden field overrides property/relation defined on field implemented in superclass
+ * 2. Property/relation defined on overridden getter overrides property/relation defined on getter implemented in superclass
+ * 3. Property/relation defined on overridden field overrides property/relation defined on field implemented in superclass
  *
  * @param <T> introspected class type
  */
@@ -71,7 +72,11 @@ public class NodeIntrospector<T> extends AbstractIntrospector<T, Node, NodeDescr
 
         propertyAnnotations.forEach((fieldName, annotation) -> {
             boolean multiValue = isFieldTypeMultiValue(fieldMap.get(fieldName));
-            propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, fieldName, multiValue));
+            if(IdProperty.class.equals(annotation.annotationType())){
+               // propertyDescriptions.add(new IdPro)
+            } else {
+                propertyDescriptions.add(supply(annotation.annotationType()).processProperty(annotation, fieldName, multiValue));
+            }
         });
 
         RelationshipDescriptionCreator creator = new RelationshipDescriptionCreator();

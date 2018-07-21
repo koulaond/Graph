@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 /**
  * Simple introspector class that introspects the package, finds all classes with @{@link Node} annotation
- * and for each class creates @{@link NodeDescription} objects.
+ * and for each class creates @{@link NodeDescription} object.
  */
 public class PackageIntrospector {
 

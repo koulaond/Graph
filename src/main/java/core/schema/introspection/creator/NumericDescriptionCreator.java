@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 /**
  * Creator class that processes @{@link NumericProperty} annotation and returns {@link NumericPropertyDescription} instance.
  */
-public class NumericPropertyDescriptionCreator
-        implements PropertyDescriptionCreator<NumericPropertyDescription, NumericProperty> {
+public class NumericDescriptionCreator
+        implements DescriptionCreator<NumericPropertyDescription, NumericProperty> {
 
     @Override
     public NumericPropertyDescription processProperty(NumericProperty propertyAnnotation,

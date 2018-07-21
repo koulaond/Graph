@@ -1,6 +1,6 @@
 package core.schema.introspection.creator;
 
-import core.schema.descriptions.PropertyDescription;
+import core.schema.descriptions.Description;
 
 import java.lang.annotation.Annotation;
 
@@ -11,7 +11,7 @@ import java.lang.annotation.Annotation;
  * @param <PD> property/relation description type
  * @param <A>  property/relation annotation type
  */
-public interface PropertyDescriptionCreator<PD extends PropertyDescription, A extends Annotation> {
+public interface DescriptionCreator<PD extends Description, A extends Annotation> {
 
     PD processProperty(A annotation, String fieldName, boolean multiValue);
 

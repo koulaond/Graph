@@ -6,8 +6,8 @@ import core.schema.descriptions.StringPropertyDescription;
 /**
  * Creator class that processes @{@link StringProperty} annotation and returns {@link StringPropertyDescription} instance.
  */
-public class StringPropertyDescriptionCreator
-        implements PropertyDescriptionCreator<StringPropertyDescription, StringProperty> {
+public class StringDescriptionCreator
+        implements DescriptionCreator<StringPropertyDescription, StringProperty> {
 
     @Override
     public StringPropertyDescription processProperty(StringProperty propertyAnnotation,

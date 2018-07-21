@@ -6,7 +6,7 @@ import core.schema.descriptions.DatePropertyDescription;
 /**
  * Creator class that processes @{@link DateProperty} annotation and returns {@link DatePropertyDescription} instance.
  */
-public class DatePropertyDescriptionCreator implements PropertyDescriptionCreator<DatePropertyDescription, DateProperty> {
+public class DateDescriptionCreator implements DescriptionCreator<DatePropertyDescription, DateProperty> {
 
     @Override
     public DatePropertyDescription processProperty(DateProperty propertyAnnotation,

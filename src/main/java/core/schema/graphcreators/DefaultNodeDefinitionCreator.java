@@ -1,9 +1,9 @@
 package core.schema.graphcreators;
 
-import model.definitions.GraphDefinition;
-import model.Direction;
 import core.schema.descriptions.NodeDescription;
 import core.schema.descriptions.RelationshipDescription;
+import model.Direction;
+import model.definitions.GraphDefinition;
 import model.definitions.NodeDefinition;
 import model.definitions.RelationDefinition;
 
@@ -28,14 +28,14 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
                                                  GraphDefinition graphDefinition) {
         Map<Class, NodeDefinition> nodes = nodeDescriptions.stream()
                 .map(description -> buildNode(description, graphDefinition))
-                .collect(toMap(node -> node.getDescribedClass(), identity()));
+                .collect(toMap(o -> o.getDescribedClass(), identity()));
         nodes.values().forEach(node -> {
             Set<RelationshipDescription> relationshipDescriptions = node.getRelationshipDescriptions();
             // Assign relations to opposite nodes.
             relationshipDescriptions.forEach(relDescription -> {
                 RelationDefinition relation = new RelationDefinition();
                 relation.setPropertyDescriptions(relDescription.getPropertyDescriptions());
-                relation.setRelationType(relDescription.getType());
+                relation.setRelationType(relDescription.getPropertyName());
                 switch (relDescription.getDirection()){
                     case UNDIRECTED:
                         relation.setDirection(Direction.UNDIRECTED);
@@ -64,7 +64,7 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
                 .stream()
                 .map(relationshipDescription -> {
                     RelationDefinition relation = new RelationDefinition();
-                    relation.setRelationType(relationshipDescription.getType());
+                    relation.setRelationType(relationshipDescription.getPropertyName());
                     relation.setPropertyDescriptions(relationshipDescription.getPropertyDescriptions());
                     relation.setDirection(relationshipDescription.getDirection());
                     return relation;

@@ -14,7 +14,7 @@ import static java.util.Collections.emptySet;
  * Creator class that processes @{@link Relationship} annotation and returns {@link Relationship} instance.
  */
 public class RelationshipDescriptionCreator
-        implements PropertyDescriptionCreator<RelationshipDescription, Relationship> {
+        implements DescriptionCreator<RelationshipDescription, Relationship> {
 
     @Override
     public RelationshipDescription processProperty(Relationship relationship,

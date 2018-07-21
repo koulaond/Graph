@@ -11,21 +11,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Static class for supplying @{@link PropertyDescriptionCreator} instances.
+ * Static class for supplying @{@link DescriptionCreator} instances.
  */
 public class CreatorSupplier {
 
-    private static Map<Class<? extends Annotation>, PropertyDescriptionCreator> processors = new HashMap<>();
+    private static Map<Class<? extends Annotation>, DescriptionCreator> processors = new HashMap<>();
 
     static {
-        processors.put(DateProperty.class, new DatePropertyDescriptionCreator());
-        processors.put(EnumProperty.class, new EnumerationPropertyDescriptionCreator());
-        processors.put(NumericProperty.class, new NumericPropertyDescriptionCreator());
-        processors.put(StringProperty.class, new StringPropertyDescriptionCreator());
+        processors.put(DateProperty.class, new DateDescriptionCreator());
+        processors.put(EnumProperty.class, new EnumerationDescriptionCreator());
+        processors.put(NumericProperty.class, new NumericDescriptionCreator());
+        processors.put(StringProperty.class, new StringDescriptionCreator());
         processors.put(Relationship.class, new RelationshipDescriptionCreator());
     }
 
-    public static PropertyDescriptionCreator supply(Class<? extends Annotation> forType) {
+    public static DescriptionCreator supply(Class<? extends Annotation> forType) {
         return processors.get(forType);
     }
 }

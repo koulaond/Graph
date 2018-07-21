@@ -69,13 +69,13 @@ public class NodeIntrospectorTest {
                             .satisfies(propDescs -> {
                                 Map<String, PropertyDescription> collectedProps = ((Set<PropertyDescription>) propDescs)
                                         .stream()
-                                        .collect(toMap(PropertyDescription::getType, Function.identity()));
+                                        .collect(toMap(PropertyDescription::getPropertyName, Function.identity()));
 
                                 assertThat(collectedProps.get(PROP_NAME))
                                         .isNotNull()
                                         .isInstanceOf(StringPropertyDescription.class)
                                         .satisfies(prop -> {
-                                            assertThat(prop.getType()).isEqualTo(PROP_NAME);
+                                            assertThat(prop.getPropertyName()).isEqualTo(PROP_NAME);
                                             assertThat(((StringPropertyDescription) prop).getMaxLength())
                                                     .isEqualTo(PROP_NAME_MAX_LENGTH);
                                             assertThat(prop.isMandatory()).isEqualTo(PROP_NAME_NON_NULL);
@@ -85,7 +85,7 @@ public class NodeIntrospectorTest {
                                         .isNotNull()
                                         .isInstanceOf(NumericPropertyDescription.class)
                                         .satisfies(prop -> {
-                                            assertThat(prop.getType()).isEqualTo(PROP_SIZE);
+                                            assertThat(prop.getPropertyName()).isEqualTo(PROP_SIZE);
                                             assertThat(prop.isMandatory()).isEqualTo(PROP_SIZE_NON_NULL);
                                         });
 
@@ -93,7 +93,7 @@ public class NodeIntrospectorTest {
                                         .isNotNull()
                                         .isInstanceOf(NumericPropertyDescription.class)
                                         .satisfies(prop -> {
-                                            assertThat(prop.getType()).isEqualTo(PROP_DAY);
+                                            assertThat(prop.getPropertyName()).isEqualTo(PROP_DAY);
                                             assertThat(prop.isImmutable()).isEqualTo(PROP_DAY_IMMUTABLE);
                                         });
 
@@ -101,7 +101,7 @@ public class NodeIntrospectorTest {
                                         .isNotNull()
                                         .isInstanceOf(StringPropertyDescription.class)
                                         .satisfies(prop -> {
-                                            assertThat(prop.getType()).isEqualTo(PROP_DATE);
+                                            assertThat(prop.getPropertyName()).isEqualTo(PROP_DATE);
                                             assertThat(prop.isMandatory()).isEqualTo(PROP_DATE_NON_NULL);
                                         });
 
@@ -109,14 +109,14 @@ public class NodeIntrospectorTest {
                                         .isNotNull()
                                         .isInstanceOf(NumericPropertyDescription.class)
                                         .satisfies(prop -> {
-                                            assertThat(prop.getType()).isEqualTo(PROP_DEPTH);
+                                            assertThat(prop.getPropertyName()).isEqualTo(PROP_DEPTH);
                                         });
 
                                 assertThat(collectedProps.get(PROP_EXTENDED_INFO))
                                         .isNotNull()
                                         .isInstanceOf(StringPropertyDescription.class)
                                         .satisfies(prop -> {
-                                            assertThat(prop.getType()).isEqualTo(PROP_EXTENDED_INFO);
+                                            assertThat(prop.getPropertyName()).isEqualTo(PROP_EXTENDED_INFO);
                                         });
                             });
 
@@ -128,7 +128,7 @@ public class NodeIntrospectorTest {
                                 assertThat(rels.iterator().next())
                                         .isNotNull()
                                         .satisfies(relation -> {
-                                            assertThat(relation.getType()).isEqualTo(REL_SIBLING);
+                                            assertThat(relation.getPropertyName()).isEqualTo(REL_SIBLING);
                                             assertThat(relation.getReferencedClass()).isEqualTo(TestClass.class);
                                             assertThat(relation.getPropertyDescriptions())
                                                     .isNotNull()
@@ -137,7 +137,7 @@ public class NodeIntrospectorTest {
                                                     .isInstanceOf(StringPropertyDescription.class)
                                                     .satisfies(propDesc -> {
                                                         StringPropertyDescription cast = (StringPropertyDescription) propDesc;
-                                                        assertThat(cast.getType())
+                                                        assertThat(cast.getPropertyName())
                                                                 .isEqualTo(PROP_HOLDER_PROP_NAME);
                                                         assertThat(cast.isMandatory())
                                                                 .isEqualTo(PROP_HOLDER_PROP_NAME_NON_NULL);
