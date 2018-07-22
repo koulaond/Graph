@@ -30,14 +30,15 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
                 .map(description -> buildNode(description, graphDefinition))
                 .collect(toMap(o -> o.getDescribedClass(), identity()));
         nodes.values().forEach(node -> {
-            Collection<RelationshipDescription> relationshipDescriptions = node.getCache()
+            Collection<RelationDefinition> relationshipDescriptions = node.getCache()
                     .getRelationshipDescriptionsByPropertyName()
                     .values();
             // Assign relations to opposite nodes.
             relationshipDescriptions.forEach(relDescription -> {
                 RelationDefinition relation = new RelationDefinition();
                 relation.setPropertyDescriptions(relDescription.getPropertyDescriptions());
-                relation.setRelationType(relDescription.getName());
+                relation.setOwnerFieldName(relDescription.getOwnerFieldName());
+                relation.setRelationType(relDescription.getRelationType());
                 switch (relDescription.getDirection()){
                     case UNDIRECTED:
                         relation.setDirection(Direction.UNDIRECTED);
@@ -67,6 +68,7 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
                 .stream()
                 .map(relationshipDescription -> {
                     RelationDefinition relation = new RelationDefinition();
+                    relation.setOwnerFieldName(relationshipDescription.getOwnerFieldName());
                     relation.setRelationType(relationshipDescription.getName());
                     relation.setPropertyDescriptions(relationshipDescription.getPropertyDescriptions());
                     relation.setDirection(relationshipDescription.getDirection());

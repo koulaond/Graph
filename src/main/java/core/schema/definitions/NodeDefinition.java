@@ -87,7 +87,7 @@ public class NodeDefinition<T> {
     }
 
     public void cache(Map<String, PropertyDescription> propertyDescriptionsByPropertyName,
-                      Map<String, RelationshipDescription> relationshipDescriptionsByPropertyName) {
+                      Map<String, RelationDefinition> relationshipDescriptionsByPropertyName) {
         this.cache =  new NodeDefinitionCache(propertyDescriptionsByPropertyName, relationshipDescriptionsByPropertyName);
     }
 
@@ -112,16 +112,17 @@ public class NodeDefinition<T> {
          * node of this type. The key to the map is property name.
          */
         private Map<String, PropertyDescription> propertyDescriptionsByPropertyName;
-        private Map<String, RelationshipDescription> relationshipDescriptionsByPropertyName;
+        private Map<String, RelationDefinition> relationshipDescriptionsByPropertyName;
 
         /**
          * Map of property and relation descriptions by their owner field names.
          */
         private Map<String, PropertyDescription> propertyDescriptionsByFieldName;
-        private Map<String, RelationshipDescription> relationDescriptionsByFieldName;
+        private Map<String, RelationDefinition> relationDescriptionsByFieldName;
 
         private NodeDefinitionCache(Map<String, PropertyDescription> propertyDescriptionsByPropertyName,
-                                   Map<String, RelationshipDescription> relationshipDescriptionsByPropertyName) {
+                                   Map<String, RelationDefinition> relationshipDescriptionsByPropertyName) {
+
             this.propertyDescriptionsByPropertyName = propertyDescriptionsByPropertyName;
             this.relationshipDescriptionsByPropertyName = relationshipDescriptionsByPropertyName;
             this.propertyDescriptionsByFieldName = propertyDescriptionsByPropertyName.values()
@@ -136,7 +137,7 @@ public class NodeDefinition<T> {
             return propertyDescriptionsByPropertyName;
         }
 
-        public Map<String, RelationshipDescription> getRelationshipDescriptionsByPropertyName() {
+        public Map<String, RelationDefinition> getRelationshipDescriptionsByPropertyName() {
             return relationshipDescriptionsByPropertyName;
         }
 
@@ -144,7 +145,7 @@ public class NodeDefinition<T> {
             return propertyDescriptionsByFieldName;
         }
 
-        public Map<String, RelationshipDescription> getRelationDescriptionsByFieldName() {
+        public Map<String, RelationDefinition> getRelationDescriptionsByFieldName() {
             return relationDescriptionsByFieldName;
         }
     }

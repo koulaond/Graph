@@ -21,9 +21,7 @@ public class ModelSchemaBuilder {
     private String schemaName;
     private String packageName;
 
-    private ModelSchemaBuilder() {
-        // No instances of builder!!
-        throw new IllegalStateException(format("No instances of %s!", this.getClass().getName()));
+    ModelSchemaBuilder() {
     }
 
     public ModelSchemaBuilder schemaName(String schemaName) {

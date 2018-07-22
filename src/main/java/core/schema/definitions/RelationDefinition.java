@@ -13,6 +13,11 @@ public class RelationDefinition {
     private String relationType;
 
     /**
+     * Name of the class field that this definition is for.
+     */
+    private String ownerFieldName;
+
+    /**
      * Set of property description that describe properties, which can be stored in the relation of this type.
      */
     private Set<PropertyDescription> propertyDescriptions;
@@ -25,6 +30,14 @@ public class RelationDefinition {
 
     public void setRelationType(String relationType) {
         this.relationType = relationType;
+    }
+
+    public String getOwnerFieldName() {
+        return ownerFieldName;
+    }
+
+    public void setOwnerFieldName(String ownerFieldName) {
+        this.ownerFieldName = ownerFieldName;
     }
 
     public Set<PropertyDescription> getPropertyDescriptions() {
