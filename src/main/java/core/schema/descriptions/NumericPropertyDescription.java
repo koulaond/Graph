@@ -9,21 +9,23 @@ public class NumericPropertyDescription extends PropertyDescription<BigDecimal>{
     private BigDecimal maxValue;
 
     public NumericPropertyDescription(String propertyName,
+                                      String ownerFieldName,
                                       boolean mandatory,
                                       boolean multiValue,
                                       boolean immutable,
                                       BigDecimal minValue,
                                       BigDecimal maxValue) {
-        super(propertyName, BigDecimal.class, mandatory, multiValue, immutable);
+        super(propertyName, BigDecimal.class, ownerFieldName, mandatory, multiValue, immutable);
         this.minValue = minValue;
         this.maxValue = maxValue;
     }
 
     public NumericPropertyDescription(String propertyName,
+                                      String ownerFieldName,
                                       boolean mandatory,
                                       boolean multiValue,
                                       boolean immutable) {
-        this(propertyName, mandatory, multiValue, immutable, new BigDecimal(0), new BigDecimal(Long.MAX_VALUE));
+        this(propertyName, ownerFieldName, mandatory, multiValue, immutable, new BigDecimal(0), new BigDecimal(Long.MAX_VALUE));
     }
 
     public BigDecimal getMinValue() {

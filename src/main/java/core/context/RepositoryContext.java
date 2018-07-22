@@ -1,7 +1,32 @@
 package core.context;
 
-import model.definitions.GraphDefinition;
+import core.schema.Schema;
 
-public interface RepositoryContext {
-    GraphDefinition getGraphDefinition(String schema);
+import java.util.Collection;
+import java.util.Map;
+
+public class RepositoryContext {
+    /**
+     * Context singleton instance.
+     */
+    private static RepositoryContext context;
+
+    private Map<String, Schema> schemas;
+
+    private RepositoryContext() {
+        // TODO create context by singleton builder
+    }
+
+    Collection<Schema> getAllSchemas(){
+        return schemas.values();
+    }
+
+    Schema getSchema(String schemaName){
+        return schemas.get(schemaName);
+    }
+
+    public static RepositoryContext instance() {
+        return context;
+    }
+
 }

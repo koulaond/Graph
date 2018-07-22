@@ -1,7 +1,7 @@
 package core.schema.introspection;
 
 import core.schema.annotations.PropertyHolder;
-import core.schema.descriptions.PropertyDescription;
+import core.schema.descriptions.Description;
 import core.schema.introspection.collector.FieldCollector;
 import core.schema.introspection.collector.GetterCollector;
 
@@ -20,14 +20,14 @@ import static core.schema.introspection.creator.CreatorSupplier.supply;
  * Relation annotations are NOT processed here.
  * @param <T>
  */
-public class PropertyHolderIntrospector<T> extends AbstractIntrospector<T, PropertyHolder, Set<PropertyDescription>> {
+public class PropertyHolderIntrospector<T> extends AbstractIntrospector<T, PropertyHolder, Set<Description>> {
 
     public PropertyHolderIntrospector(Class<T> introspectedClass) {
         super(introspectedClass);
     }
 
     @Override
-    public Set<PropertyDescription> introspect() {
+    public Set<Description> introspect() {
         validateClass(PropertyHolder.class);
 
         Map<String, Field> fieldMap = new FieldCollector().collect(introspectedClass);
@@ -40,7 +40,7 @@ public class PropertyHolderIntrospector<T> extends AbstractIntrospector<T, Prope
 
         Map<String, Annotation> propertyAnnotations = new AnnotationMerger().merge(propertyAnnotationsForFields, propertyAnnotationsForGetters);
 
-        Set<PropertyDescription> propertyDescriptions = new HashSet<>();
+        Set<Description> propertyDescriptions = new HashSet<>();
 
         propertyAnnotations.forEach((fieldName, annotation) -> {
             boolean multiValue = Utils.isFieldTypeMultiValue(fieldMap.get(fieldName));

@@ -6,13 +6,16 @@ public abstract class PropertyDescription<T extends Serializable> extends Descri
     private boolean mandatory;
     private boolean multiValue;
     private boolean immutable;
+    private String ownerFieldName;
 
     public PropertyDescription(String propertyName,
                                Class<T> propertyNameClass,
+                               String ownerFieldName,
                                boolean mandatory,
                                boolean multiValue,
                                boolean immutable) {
         super(propertyName, propertyNameClass);
+        this.ownerFieldName = ownerFieldName;
         this.mandatory = mandatory;
         this.multiValue = multiValue;
         this.immutable = immutable;
@@ -29,5 +32,9 @@ public abstract class PropertyDescription<T extends Serializable> extends Descri
 
     public boolean isImmutable() {
         return immutable;
+    }
+
+    public String getOwnerFieldName() {
+        return ownerFieldName;
     }
 }

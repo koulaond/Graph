@@ -16,6 +16,6 @@ public class DateDescriptionCreator implements DescriptionCreator<DatePropertyDe
         boolean nonNull = propertyAnnotation.nonNull();
         boolean immutable = propertyAnnotation.immutable();
         String format = propertyAnnotation.format();
-        return new DatePropertyDescription(resolveName(name, fieldName), nonNull, multiValue, immutable, format);
+        return new DatePropertyDescription(resolveName(name, fieldName), fieldName, nonNull, multiValue, immutable, format);
     }
 }

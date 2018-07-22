@@ -3,9 +3,9 @@ package core.schema.graphcreators;
 import core.schema.descriptions.NodeDescription;
 import core.schema.descriptions.RelationshipDescription;
 import model.Direction;
-import model.definitions.GraphDefinition;
-import model.definitions.NodeDefinition;
-import model.definitions.RelationDefinition;
+import core.schema.definitions.GraphDefinition;
+import core.schema.definitions.NodeDefinition;
+import core.schema.definitions.RelationDefinition;
 
 import java.util.Collection;
 import java.util.Map;
@@ -13,7 +13,6 @@ import java.util.Set;
 
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
-import static java.util.stream.Collectors.toSet;
 
 /**
  * {@inheritDoc}
@@ -24,13 +23,13 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
      * {@inheritDoc}
      */
     @Override
-    public Collection<NodeDefinition> buildGraph(Set<NodeDescription> nodeDescriptions,
-                                                 GraphDefinition graphDefinition) {
+    public Collection<NodeDefinition> create(Set<NodeDescription> nodeDescriptions,
+                                             GraphDefinition graphDefinition) {
         Map<Class, NodeDefinition> nodes = nodeDescriptions.stream()
                 .map(description -> buildNode(description, graphDefinition))
                 .collect(toMap(o -> o.getDescribedClass(), identity()));
         nodes.values().forEach(node -> {
-            Set<RelationshipDescription> relationshipDescriptions = node.getRelationshipDescriptions();
+            Collection<RelationshipDescription> relationshipDescriptions = node.getRelationshipDescriptions().values();
             // Assign relations to opposite nodes.
             relationshipDescriptions.forEach(relDescription -> {
                 RelationDefinition relation = new RelationDefinition();
@@ -59,7 +58,10 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
                                             GraphDefinition graphDefinition) {
         NodeDefinition nodeDefinition = new NodeDefinition();
         nodeDefinition.setGraphDefinition(graphDefinition);
-        nodeDefinition.setPropertyDescriptions(description.getPropertyDescriptions());
+        nodeDefinition.setPropertyDescriptions(description.getPropertyDescriptions()
+        .stream()
+        .collect(toMap(propertyDescription -> propertyDescription.getName(), identity())));
+
         nodeDefinition.setRelationshipDescriptions(description.getRelationshipDescriptions()
                 .stream()
                 .map(relationshipDescription -> {
@@ -68,7 +70,7 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
                     relation.setPropertyDescriptions(relationshipDescription.getPropertyDescriptions());
                     relation.setDirection(relationshipDescription.getDirection());
                     return relation;
-                }).collect(toSet()));
+                }).collect(toMap(relationDefinition -> relationDefinition.getRelationType() , identity())));
         nodeDefinition.setDescribedClass(description.getDescribedClass());
         nodeDefinition.setMaxCount(description.getMaxCount());
         nodeDefinition.setNodeType(description.getType());

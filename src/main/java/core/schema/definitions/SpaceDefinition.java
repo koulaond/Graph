@@ -1,4 +1,4 @@
-package model.definitions;
+package core.schema.definitions;
 
 import java.util.UUID;
 

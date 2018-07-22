@@ -1,4 +1,4 @@
-package model.definitions;
+package core.schema.definitions;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ public class GraphDefinition {
      */
     private Date lastModified;
 
-    // TODO another fields, such as Users, roles, authorization...
+    // TODO another fields, such as Users, roles, authorization, statistics...
 
     public Long getId() {
         return id;

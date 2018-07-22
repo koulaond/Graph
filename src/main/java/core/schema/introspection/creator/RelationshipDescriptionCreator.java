@@ -32,6 +32,6 @@ public class RelationshipDescriptionCreator
         } else {
             properties = new PropertyHolderIntrospector(propertyHolderClass).introspect();
         }
-        return new RelationshipDescription(resolveName(name, fieldName), nonNull, multiValue, immutable, referencedClass, properties, direction);
+        return new RelationshipDescription(resolveName(name, fieldName), fieldName, nonNull, multiValue, immutable, referencedClass, properties, direction);
     }
 }

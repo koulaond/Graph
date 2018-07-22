@@ -3,6 +3,7 @@ package core.schema.introspection;
 import core.schema.annotations.Node;
 import core.schema.annotations.Relationship;
 import core.schema.annotations.properties.IdProperty;
+import core.schema.descriptions.Description;
 import core.schema.descriptions.NodeDescription;
 import core.schema.descriptions.PropertyDescription;
 import core.schema.descriptions.RelationshipDescription;
@@ -67,7 +68,7 @@ public class NodeIntrospector<T> extends AbstractIntrospector<T, Node, NodeDescr
         Map<String, Relationship> relationAnnotations = merger.merge(relationAnnotationsForFields, relationAnnotationsForGetters);
 
         // Create PropertyDescription and RelationshipDescription sets
-        Set<PropertyDescription> propertyDescriptions = new HashSet<>();
+        Set<Description> propertyDescriptions = new HashSet<>();
         Set<RelationshipDescription> relationshipDescriptions = new HashSet<>();
 
         propertyAnnotations.forEach((fieldName, annotation) -> {

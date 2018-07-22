@@ -16,6 +16,6 @@ public class EnumerationDescriptionCreator implements DescriptionCreator<Enumera
         boolean nonNull = propertyAnnotation.nonNull();
         boolean immutable = propertyAnnotation.immutable();
         Class enumClass = propertyAnnotation.enumClass();
-        return new EnumerationPropertyDescription(resolveName(name, fieldName), nonNull, multiValue, immutable, enumClass);
+        return new EnumerationPropertyDescription(resolveName(name, fieldName), fieldName, nonNull, multiValue, immutable, enumClass);
     }
 }

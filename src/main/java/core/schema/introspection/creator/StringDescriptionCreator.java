@@ -18,6 +18,6 @@ public class StringDescriptionCreator
         boolean immutable = propertyAnnotation.immutable();
         int minLength = propertyAnnotation.minLength();
         int maxLength = propertyAnnotation.maxLength();
-        return new StringPropertyDescription(resolveName(name, fieldName), nonNull, multiValue, immutable, minLength, maxLength);
+        return new StringPropertyDescription(resolveName(name, fieldName), fieldName, nonNull, multiValue, immutable, minLength, maxLength);
     }
 }

@@ -16,7 +16,7 @@ public class PackageIntrospector {
     /**
      * Receives the package name and processes each @{@link Node} annotated class using @{@link NodeIntrospector}.
      * @param pckg package to ge introspected
-     * @return set of @{@link NodeDescription} instances =
+     * @return set of @{@link NodeDescription} instances
      */
     public Set<NodeDescription> introspectPackage(String pckg) {
         Set<Class<?>> nodeClasses = getClasses(pckg);

@@ -20,6 +20,6 @@ public class NumericDescriptionCreator
         boolean immutable = propertyAnnotation.immutable();
         long maxValue = propertyAnnotation.maxValue();
         long minValue = propertyAnnotation.minValue();
-        return new NumericPropertyDescription(resolveName(name, fieldName), nonNull, multiValue, immutable, new BigDecimal(minValue), new BigDecimal(maxValue));
+        return new NumericPropertyDescription(resolveName(name, fieldName), fieldName, nonNull, multiValue, immutable, new BigDecimal(minValue), new BigDecimal(maxValue));
     }
 }

@@ -1,4 +1,4 @@
-package model.definitions;
+package core.schema.definitions;
 
 import core.schema.descriptions.PropertyDescription;
 import model.Direction;

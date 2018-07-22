@@ -1,9 +1,9 @@
 package core.schema.graphcreators;
 
-import model.definitions.GraphDefinition;
+import core.schema.definitions.GraphDefinition;
 import core.schema.descriptions.NodeDescription;
 import core.schema.descriptions.RelationshipDescription;
-import model.definitions.NodeDefinition;
+import core.schema.definitions.NodeDefinition;
 
 import java.util.Collection;
 import java.util.Set;
@@ -21,5 +21,5 @@ public interface NodeDefinitionCreator<GD extends GraphDefinition> {
      * @param nodeDescriptions node descriptions set
      * @return
      */
-    Collection<NodeDefinition> buildGraph(Set<NodeDescription> nodeDescriptions, GD graphDefinition);
+    Collection<NodeDefinition> create(Set<NodeDescription> nodeDescriptions, GD graphDefinition);
 }

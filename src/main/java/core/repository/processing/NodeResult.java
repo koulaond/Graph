@@ -1,7 +1,7 @@
 package core.repository.processing;
 
 import core.repository.data.DataActionResult;
-import model.definitions.NodeDefinition;
+import core.schema.definitions.NodeDefinition;
 
 public class NodeResult {
     private DataActionResult dataActionResult;

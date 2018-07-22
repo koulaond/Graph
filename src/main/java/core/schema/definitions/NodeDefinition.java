@@ -1,9 +1,8 @@
-package model.definitions;
+package core.schema.definitions;
 
 import core.schema.descriptions.PropertyDescription;
-import core.schema.descriptions.RelationshipDescription;
 
-import java.util.Set;
+import java.util.Map;
 
 /**
  * Special Node class that describes @{@link model.Node}s of the given type.
@@ -40,9 +39,9 @@ public class NodeDefinition<T> {
     /**
      * Set of property description that describe properties, which can be stored in the node of this type.
      */
-    private Set<PropertyDescription> propertyDescriptions;
+    private Map<String, PropertyDescription> propertyDescriptions;
 
-    private Set<RelationshipDescription> relationshipDescriptions;
+    private Map<String, RelationDefinition> relationshipDescriptions;
 
     public GraphDefinition getGraphDefinition() {
         return graphDefinition;
@@ -68,7 +67,7 @@ public class NodeDefinition<T> {
         return maxCount;
     }
 
-    public Set<PropertyDescription> getPropertyDescriptions() {
+    public Map<String,PropertyDescription> getPropertyDescriptions() {
         return propertyDescriptions;
     }
 
@@ -88,15 +87,15 @@ public class NodeDefinition<T> {
         this.maxCount = maxCount;
     }
 
-    public void setPropertyDescriptions(Set<PropertyDescription> propertyDescriptions) {
+    public void setPropertyDescriptions(Map<String,PropertyDescription> propertyDescriptions) {
         this.propertyDescriptions = propertyDescriptions;
     }
 
-    public Set<RelationshipDescription> getRelationshipDescriptions() {
+    public Map<String, RelationDefinition> getRelationshipDescriptions() {
         return relationshipDescriptions;
     }
 
-    public void setRelationshipDescriptions(Set<RelationshipDescription> relationshipDescriptions) {
+    public void setRelationshipDescriptions(Map<String, RelationDefinition> relationshipDescriptions) {
         this.relationshipDescriptions = relationshipDescriptions;
     }
 
