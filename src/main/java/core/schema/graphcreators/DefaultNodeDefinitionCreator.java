@@ -1,6 +1,7 @@
 package core.schema.graphcreators;
 
 import core.schema.descriptions.NodeDescription;
+import core.schema.descriptions.PropertyDescription;
 import core.schema.descriptions.RelationshipDescription;
 import model.Direction;
 import core.schema.definitions.GraphDefinition;
@@ -29,7 +30,9 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
                 .map(description -> buildNode(description, graphDefinition))
                 .collect(toMap(o -> o.getDescribedClass(), identity()));
         nodes.values().forEach(node -> {
-            Collection<RelationshipDescription> relationshipDescriptions = node.getRelationshipDescriptions().values();
+            Collection<RelationshipDescription> relationshipDescriptions = node.getCache()
+                    .getRelationshipDescriptionsByPropertyName()
+                    .values();
             // Assign relations to opposite nodes.
             relationshipDescriptions.forEach(relDescription -> {
                 RelationDefinition relation = new RelationDefinition();
@@ -58,11 +61,9 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
                                             GraphDefinition graphDefinition) {
         NodeDefinition nodeDefinition = new NodeDefinition();
         nodeDefinition.setGraphDefinition(graphDefinition);
-        nodeDefinition.setPropertyDescriptions(description.getPropertyDescriptions()
-        .stream()
-        .collect(toMap(propertyDescription -> propertyDescription.getName(), identity())));
-
-        nodeDefinition.setRelationshipDescriptions(description.getRelationshipDescriptions()
+        Map<String, PropertyDescription> propertyDescriptionMap = description.getPropertyDescriptions().stream()
+                .collect(toMap(propertyDescription -> propertyDescription.getName(), identity()));
+        Map<String, RelationDefinition> relationDefinitionMap = description.getRelationshipDescriptions()
                 .stream()
                 .map(relationshipDescription -> {
                     RelationDefinition relation = new RelationDefinition();
@@ -70,7 +71,8 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
                     relation.setPropertyDescriptions(relationshipDescription.getPropertyDescriptions());
                     relation.setDirection(relationshipDescription.getDirection());
                     return relation;
-                }).collect(toMap(relationDefinition -> relationDefinition.getRelationType() , identity())));
+                }).collect(toMap(relationDefinition -> relationDefinition.getRelationType(), identity()));
+        nodeDefinition.cache(propertyDescriptionMap, relationDefinitionMap);
         nodeDefinition.setDescribedClass(description.getDescribedClass());
         nodeDefinition.setMaxCount(description.getMaxCount());
         nodeDefinition.setNodeType(description.getType());

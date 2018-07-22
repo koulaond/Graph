@@ -42,4 +42,5 @@ public class Schema {
     public Map<String, Object> getAdditionalInfo() {
         return additionalInfo;
     }
+
 }

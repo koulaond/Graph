@@ -1,8 +1,12 @@
 package core.schema.definitions;
 
 import core.schema.descriptions.PropertyDescription;
+import core.schema.descriptions.RelationshipDescription;
 
 import java.util.Map;
+
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * Special Node class that describes @{@link model.Node}s of the given type.
@@ -36,12 +40,7 @@ public class NodeDefinition<T> {
      */
     private Long maxCount;
 
-    /**
-     * Set of property description that describe properties, which can be stored in the node of this type.
-     */
-    private Map<String, PropertyDescription> propertyDescriptions;
-
-    private Map<String, RelationDefinition> relationshipDescriptions;
+    private NodeDefinitionCache cache;
 
     public GraphDefinition getGraphDefinition() {
         return graphDefinition;
@@ -67,10 +66,6 @@ public class NodeDefinition<T> {
         return maxCount;
     }
 
-    public Map<String,PropertyDescription> getPropertyDescriptions() {
-        return propertyDescriptions;
-    }
-
     public void setDescribedClass(Class<T> describedClass) {
         this.describedClass = describedClass;
     }
@@ -87,16 +82,13 @@ public class NodeDefinition<T> {
         this.maxCount = maxCount;
     }
 
-    public void setPropertyDescriptions(Map<String,PropertyDescription> propertyDescriptions) {
-        this.propertyDescriptions = propertyDescriptions;
+    public NodeDefinitionCache getCache() {
+        return cache;
     }
 
-    public Map<String, RelationDefinition> getRelationshipDescriptions() {
-        return relationshipDescriptions;
-    }
-
-    public void setRelationshipDescriptions(Map<String, RelationDefinition> relationshipDescriptions) {
-        this.relationshipDescriptions = relationshipDescriptions;
+    public void cache(Map<String, PropertyDescription> propertyDescriptionsByPropertyName,
+                      Map<String, RelationshipDescription> relationshipDescriptionsByPropertyName) {
+        this.cache =  new NodeDefinitionCache(propertyDescriptionsByPropertyName, relationshipDescriptionsByPropertyName);
     }
 
     @Override
@@ -112,5 +104,48 @@ public class NodeDefinition<T> {
     @Override
     public int hashCode() {
         return nodeType != null ? nodeType.hashCode() : 0;
+    }
+
+    public static class NodeDefinitionCache {
+        /**
+         * Map of property and relation descriptions that describe properties, which can be stored in the
+         * node of this type. The key to the map is property name.
+         */
+        private Map<String, PropertyDescription> propertyDescriptionsByPropertyName;
+        private Map<String, RelationshipDescription> relationshipDescriptionsByPropertyName;
+
+        /**
+         * Map of property and relation descriptions by their owner field names.
+         */
+        private Map<String, PropertyDescription> propertyDescriptionsByFieldName;
+        private Map<String, RelationshipDescription> relationDescriptionsByFieldName;
+
+        private NodeDefinitionCache(Map<String, PropertyDescription> propertyDescriptionsByPropertyName,
+                                   Map<String, RelationshipDescription> relationshipDescriptionsByPropertyName) {
+            this.propertyDescriptionsByPropertyName = propertyDescriptionsByPropertyName;
+            this.relationshipDescriptionsByPropertyName = relationshipDescriptionsByPropertyName;
+            this.propertyDescriptionsByFieldName = propertyDescriptionsByPropertyName.values()
+                    .stream()
+                    .collect(toMap(propertyDescription -> propertyDescription.getOwnerFieldName(), identity()));
+            this.relationDescriptionsByFieldName = relationshipDescriptionsByPropertyName.values()
+                    .stream()
+                    .collect(toMap(propertyDescription -> propertyDescription.getOwnerFieldName(), identity()));
+        }
+
+        public Map<String, PropertyDescription> getPropertyDescriptionsByPropertyName() {
+            return propertyDescriptionsByPropertyName;
+        }
+
+        public Map<String, RelationshipDescription> getRelationshipDescriptionsByPropertyName() {
+            return relationshipDescriptionsByPropertyName;
+        }
+
+        public Map<String, PropertyDescription> getPropertyDescriptionsByFieldName() {
+            return propertyDescriptionsByFieldName;
+        }
+
+        public Map<String, RelationshipDescription> getRelationDescriptionsByFieldName() {
+            return relationDescriptionsByFieldName;
+        }
     }
 }
