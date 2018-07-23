@@ -17,7 +17,7 @@ public class SchemaValidator {
         return true;
     }
 
-    public boolean validateObjectProperties(Object toValidate) {
+    public boolean validatePropertyValues(Object toValidate) {
         NodeDefinition definitionForObject = schema.getNodeDefinitions().get(toValidate.getClass());
         Map<String, PropertyDescription> propertyDescriptionsByFields = definitionForObject.getCache().getPropertyDescriptionsByFieldName();
 
