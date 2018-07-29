@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class DataChangeProcessor {
 
-    public <S extends Serializable> ProcessorResult processData(S data) {
+    public ProcessorResult processData(Object data) {
         return null;
     }
 

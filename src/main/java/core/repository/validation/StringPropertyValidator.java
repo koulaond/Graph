@@ -1,13 +1,26 @@
 package core.repository.validation;
 
+import java.util.Set;
+
 import core.schema.descriptions.StringPropertyDescription;
 
 public class StringPropertyValidator implements PropertyValidator<String, StringPropertyDescription> {
 
+  private static final String MESSAGE = "String property validation failed";
+
   @Override
-  public boolean validatePropertyValue(String value, StringPropertyDescription propertyDescription) {
+  public void validatePropertyValue(Object parentObject,
+                                       String value,
+                                       StringPropertyDescription propertyDescription,
+                                       Set<ValidationError> errorSet) {
     int valueLength = value.length();
-    return valueLength >= propertyDescription.getMinLength()
-        && valueLength <= propertyDescription.getMaxLength();
+    if(valueLength >= propertyDescription.getMinLength()
+        && valueLength <= propertyDescription.getMaxLength()) {
+      errorSet.add(new ValidationError(
+          parentObject,
+          propertyDescription.getName(),
+          propertyDescription.getDescribedClass(),
+          MESSAGE));
+    }
   }
 }

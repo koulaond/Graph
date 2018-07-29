@@ -7,5 +7,5 @@ import java.util.Set;
 
 public interface PropertyValidator<T extends Serializable, P extends PropertyDescription<T>> {
 
-  void validatePropertyValue(T value, P propertyDescription, Set<ValidationError> errorSet);
+  void validatePropertyValue(Object parentObject, T value, P propertyDescription, Set<ValidationError> errorSet);
 }

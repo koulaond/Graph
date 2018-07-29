@@ -12,44 +12,44 @@ import java.util.Map;
 
 public class PropertyValidatorFactory {
 
-    private Map<Class<? extends Serializable>, Map<Class<? extends PropertyDescription>, PropertyValidator>> cache;
+  private Map<Class<? extends Serializable>, Map<Class<? extends PropertyDescription>, PropertyValidator>> cache;
 
-    public PropertyValidatorFactory() {
-        this.cache = new HashMap<>();
-        initCache();
+  public PropertyValidatorFactory() {
+    this.cache = new HashMap<>();
+    initCache();
+  }
+
+
+  public <P extends Serializable, PD extends PropertyDescription<P>> PropertyValidator forProperty(Class<P> propertyClass, Class<PD> propertyDescriptionClass) {
+    Map<Class<? extends PropertyDescription>, PropertyValidator> innerMap = cache.get(propertyClass);
+    if (innerMap != null) {
+      return innerMap.get(propertyDescriptionClass);
     }
+    return null;
+  }
 
+  // TODO another, more composite validators will be implemented
+  private void initCache() {
+    initString();
+    initNumeric();
+    initDate();
+  }
 
-    public <P extends Serializable, PD extends PropertyDescription<P>> PropertyValidator forProperty(Class<P> propertyClass, Class<PD> propertyDescriptionClass) {
-        Map<Class<? extends PropertyDescription>, PropertyValidator> innerMap = cache.get(propertyClass);
-        if(innerMap != null){
-            return innerMap.get(propertyDescriptionClass);
-        }
-        return null;
-    }
+  private void initDate() {
+    Map<Class<? extends PropertyDescription>, PropertyValidator> dateMap = new HashMap<>();
+    dateMap.put(DatePropertyDescription.class, new DatePropertyValidator());
+    cache.put(Date.class, dateMap);
+  }
 
-    // TODO another, more composite validators will be implemented
-    private void initCache() {
-        initString();
-        initNumeric();
-        initDate();
-    }
+  private void initNumeric() {
+    Map<Class<? extends PropertyDescription>, PropertyValidator> numericMap = new HashMap<>();
+    numericMap.put(NumericPropertyDescription.class, new NumericPropertyValidator());
+    cache.put(BigDecimal.class, numericMap);
+  }
 
-    private void initDate() {
-        Map<Class<? extends PropertyDescription>, PropertyValidator> dateMap = new HashMap<>();
-        dateMap.put(DatePropertyDescription.class, new DatePropertyValidator());
-        cache.put(Date.class, dateMap);
-    }
-
-    private void initNumeric() {
-        Map<Class<? extends PropertyDescription>, PropertyValidator> numericMap = new HashMap<>();
-        numericMap.put(NumericPropertyDescription.class, new NumericPropertyValidator());
-        cache.put(BigDecimal.class, numericMap);
-    }
-
-    private void initString() {
-        Map<Class<? extends PropertyDescription>, PropertyValidator> stringMap = new HashMap<>();
-        stringMap.put(DatePropertyDescription.class, new DatePropertyValidator());
-        cache.put(String.class, stringMap);
-    }
+  private void initString() {
+    Map<Class<? extends PropertyDescription>, PropertyValidator> stringMap = new HashMap<>();
+    stringMap.put(DatePropertyDescription.class, new DatePropertyValidator());
+    cache.put(String.class, stringMap);
+  }
 }
