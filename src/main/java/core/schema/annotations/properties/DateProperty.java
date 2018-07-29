@@ -18,5 +18,9 @@ public @interface DateProperty {
 
     boolean immutable() default false;
 
-    String format() default "YYYY-MM-DD hh:mm:ss.s";
+    String dateFormat() default "YYYY-MM-DD hh:mm:ss.s";
+
+    String minDate() default "";
+
+    String maxDate() default "";
 }
