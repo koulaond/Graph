@@ -2,11 +2,11 @@ package core.repository.data;
 
 import java.io.Serializable;
 
-public class DataUnit<T extends Serializable> {
+public class ResultData<T extends Serializable> {
     private String propertyName;
     private T value;
 
-    public DataUnit(String propertyName, T value) {
+    public ResultData(String propertyName, T value) {
         this.propertyName = propertyName;
         this.value = value;
     }

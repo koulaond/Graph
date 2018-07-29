@@ -5,9 +5,9 @@ import core.schema.descriptions.StringPropertyDescription;
 public class StringPropertyValidator implements PropertyValidator<String, StringPropertyDescription> {
 
   @Override
-  public boolean validatePropertyValue(String value, StringPropertyDescription propertyDefinition) {
+  public boolean validatePropertyValue(String value, StringPropertyDescription propertyDescription) {
     int valueLength = value.length();
-    return valueLength >= propertyDefinition.getMinLength()
-        && valueLength <= propertyDefinition.getMaxLength();
+    return valueLength >= propertyDescription.getMinLength()
+        && valueLength <= propertyDescription.getMaxLength();
   }
 }

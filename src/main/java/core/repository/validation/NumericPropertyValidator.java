@@ -11,9 +11,9 @@ public class NumericPropertyValidator implements PropertyValidator<BigDecimal, N
   private static final int THIS_GREATER = 1;
 
   @Override
-  public boolean validatePropertyValue(BigDecimal value, NumericPropertyDescription propertyDefinition) {
-    int compareToMax = value.compareTo(propertyDefinition.getMaxValue());
-    int compareToMin = value.compareTo(propertyDefinition.getMinValue());
+  public boolean validatePropertyValue(BigDecimal value, NumericPropertyDescription propertyDescription) {
+    int compareToMax = value.compareTo(propertyDescription.getMaxValue());
+    int compareToMin = value.compareTo(propertyDescription.getMinValue());
     return compareToMax == THIS_LESS
         || compareToMax == THIS_EQUALS
         || compareToMin == THIS_GREATER
