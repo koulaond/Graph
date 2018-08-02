@@ -1,9 +1,9 @@
-package core.context;
-
-import core.schema.Schema;
+package core.repository.context;
 
 import java.util.Collection;
 import java.util.Map;
+
+import core.schema.Schema;
 
 public class RepositoryContext {
     /**
