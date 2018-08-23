@@ -10,16 +10,19 @@ import core.schema.definitions.NodeDefinition;
 
 import static java.lang.String.format;
 
-public class DataChangeProcessor {
+/**
+ * Holder class for data to be persisted.
+ */
+public class DataChangePool {
 
     private Schema schema;
-    private Map<Object, DataChangeCollection> collectionPool;
+    private Map<Object, DataChangeCollection> pool;
     IdProvider idProvider;
 
-    public DataChangeProcessor(Schema schema, IdProvider idProvider) {
+    public DataChangePool(Schema schema, IdProvider idProvider) {
         this.schema = schema;
         this.idProvider = idProvider;
-        this.collectionPool = new HashMap<>();
+        this.pool = new HashMap<>();
     }
 
     public void processData(Object data) {
@@ -28,11 +31,11 @@ public class DataChangeProcessor {
             throw new NodeDefinitionNotFoundException(format("Node definition not found for class %s", data.getClass().getName()));
         }
         // If object is already processed then exit process.
-        if(collectionPool.containsKey(data)){
+        if(pool.containsKey(data)){
             return;
         }
         DataChangeCollection changeCollection = new DataChangeCollection(idProvider.getNextId());
-        collectionPool.put(data, changeCollection);
+        pool.put(data, changeCollection);
     }
 
     private NodeDefinition getNodeDefinitionForClass(Class clazz) {
