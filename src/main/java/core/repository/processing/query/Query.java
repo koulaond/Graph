@@ -1,8 +1,8 @@
-package core.query;
+package core.repository.processing.query;
 
 import java.util.Set;
 
-import core.query.conditions.Condition;
+import core.repository.processing.query.conditions.Condition;
 
 public class Query {
   private Set<Condition> conditions;
