@@ -8,9 +8,9 @@ public interface Storage {
      * CRUD operations
      ************************************/
 
-    DataActionResult<ResultData> create(DataChangeCollection newData);
+    DataActionResult<ResultData> create(DataBucket newData);
 
-    DataActionResult<UpdateResultData> update(DataChangeCollection newData);
+    DataActionResult<UpdateResultData> update(DataBucket newData);
 
     DataActionResult<ResultData> read(Long nodeId);
 
