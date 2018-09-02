@@ -10,11 +10,6 @@ public abstract class AbstractDataChangeCommand<DT extends DataUnit<? extends Se
   protected Long nodeId;
   protected NodeDataBucket data;
 
-  public AbstractDataChangeCommand(Long nodeId, NodeDataBucket data) {
-    this.nodeId = nodeId;
-    this.data = data;
-  }
-
   @Override
   public NodeDataBucket getData() {
     return null;
@@ -27,4 +22,24 @@ public abstract class AbstractDataChangeCommand<DT extends DataUnit<? extends Se
 
   @Override
   public abstract ActionType getActionType();
+
+  public static abstract class AbstractDataChangeCommandBuilder<C extends AbstractDataChangeCommand> {
+    protected C command;
+
+    protected AbstractDataChangeCommandBuilder() {
+
+    }
+
+    public AbstractDataChangeCommandBuilder nodeId(Long nodeId) {
+      this.command.nodeId = nodeId;
+      return this;
+    }
+
+    public AbstractDataChangeCommandBuilder data(NodeDataBucket data) {
+      this.command.data = data;
+      return this;
+    }
+
+    public abstract C build();
+  }
 }
