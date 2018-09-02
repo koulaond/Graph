@@ -1,7 +1,5 @@
 package core.repository.processing.command;
 
-import core.repository.processing.ActionType;
-
 public class DataDeleteCommand implements OneNodeCommand {
   private Long nodeId;
 

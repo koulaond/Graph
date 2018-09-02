@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import core.repository.processing.command.DataChangeCommand;
 
-public class DataChangeCommandResult<C extends DataChangeCommand> extends CommandResult<C> implements CommandExecutionResult<C> {
+public class DataChangeCommandResult<C extends DataChangeCommand> extends OneNodeCommandResult<C> implements CommandExecutionResult<C> {
 
   private Collection<ResultDataChange> dataChanges;
 

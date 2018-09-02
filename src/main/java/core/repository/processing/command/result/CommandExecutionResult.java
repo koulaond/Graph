@@ -1,8 +1,8 @@
 package core.repository.processing.command.result;
 
-import core.repository.processing.command.OneNodeCommand;
+import core.repository.processing.command.Command;
 
-public interface CommandExecutionResult<C extends OneNodeCommand> {
+public interface CommandExecutionResult<C extends Command> {
   C getCommand();
 
   ResultStatus getResultStatus();

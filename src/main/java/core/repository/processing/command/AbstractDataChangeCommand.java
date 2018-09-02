@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import core.repository.data.DataBucket;
 import core.repository.data.DataUnit;
-import core.repository.processing.ActionType;
 
 public abstract class AbstractDataChangeCommand<DT extends DataUnit<? extends Serializable>> implements DataChangeCommand<DT> {
 

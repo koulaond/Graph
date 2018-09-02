@@ -2,7 +2,7 @@ package core.repository.processing.command.result;
 
 import core.repository.processing.command.OneNodeCommand;
 
-public class CommandResult<C extends OneNodeCommand> implements CommandExecutionResult<C> {
+public abstract class OneNodeCommandResult<C extends OneNodeCommand> implements CommandExecutionResult<C> {
   protected C command;
   protected ResultStatus resultStatus;
 
