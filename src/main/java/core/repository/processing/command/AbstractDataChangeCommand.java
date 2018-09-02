@@ -2,21 +2,21 @@ package core.repository.processing.command;
 
 import java.io.Serializable;
 
-import core.repository.data.DataBucket;
+import core.repository.data.NodeDataBucket;
 import core.repository.data.DataUnit;
 
-public abstract class AbstractDataChangeCommand<DT extends DataUnit<? extends Serializable>> implements DataChangeCommand<DT> {
+public abstract class AbstractDataChangeCommand<DT extends DataUnit<? extends Serializable>> implements DataChangeCommand {
 
   protected Long nodeId;
-  protected DataBucket<DT> data;
+  protected NodeDataBucket data;
 
-  public AbstractDataChangeCommand(Long nodeId, DataBucket<DT> data) {
+  public AbstractDataChangeCommand(Long nodeId, NodeDataBucket data) {
     this.nodeId = nodeId;
     this.data = data;
   }
 
   @Override
-  public DataBucket<DT> getData() {
+  public NodeDataBucket getData() {
     return null;
   }
 

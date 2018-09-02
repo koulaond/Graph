@@ -1,10 +1,10 @@
 package core.repository.processing.command;
 
-import core.repository.data.DataBucket;
+import core.repository.data.NodeDataBucket;
 
 public class DataPatchCommand extends AbstractDataChangeCommand {
 
-  public DataPatchCommand(Long nodeId, DataBucket data) {
+  public DataPatchCommand(Long nodeId, NodeDataBucket data) {
     super(nodeId, data);
   }
 

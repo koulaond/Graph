@@ -2,8 +2,8 @@ package core.repository.processing;
 import java.util.HashMap;
 import java.util.Map;
 
-import core.repository.context.id.IdProvider;
-import core.repository.data.DataBucket;
+import core.repository.idprovider.IdProvider;
+import core.repository.data.NodeDataBucket;
 import core.repository.validation.exception.NodeDefinitionNotFoundException;
 import core.schema.Schema;
 import core.schema.definitions.NodeDefinition;
@@ -16,7 +16,7 @@ import static java.lang.String.format;
 public class DataChangePool {
 
     private Schema schema;
-    private Map<Object, DataBucket> pool;
+    private Map<Object, NodeDataBucket> pool;
     IdProvider idProvider;
 
     public DataChangePool(Schema schema, IdProvider idProvider) {
@@ -34,7 +34,7 @@ public class DataChangePool {
         if(pool.containsKey(data)){
             return;
         }
-        DataBucket changeCollection = new DataBucket(idProvider.getNextId());
+        NodeDataBucket changeCollection = new NodeDataBucket(idProvider.getNextId());
         pool.put(data, changeCollection);
     }
 

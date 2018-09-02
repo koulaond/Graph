@@ -16,8 +16,7 @@ public class BatchCommand implements Command {
 
   @Override
   public ActionType getActionType() {
-    return null;
+    return ActionType.BATCH;
   }
-
 
 }

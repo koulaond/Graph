@@ -1,4 +1,4 @@
-package core.repository.processing.command.result;
+package core.repository.data;
 
 public enum ResultStatus {
     FINISHED, FAILED

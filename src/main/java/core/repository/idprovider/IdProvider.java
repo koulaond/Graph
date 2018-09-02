@@ -1,4 +1,4 @@
-package core.repository.context.id;
+package core.repository.idprovider;
 
 public interface IdProvider {
   Long getNextId();
