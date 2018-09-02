@@ -1,6 +1,4 @@
-package core.repository.validation;
-
-import java.io.Serializable;
+package core.schema.validation;
 
 public class ValidationError {
     private Object parentObject;

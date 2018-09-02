@@ -1,4 +1,4 @@
-package core.repository.validation;
+package core.schema.validation;
 
 import core.schema.descriptions.DatePropertyDescription;
 

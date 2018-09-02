@@ -1,4 +1,4 @@
-package core.repository.validation;
+package core.schema.validation;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -18,17 +18,11 @@ public class NumericPropertyValidator implements PropertyValidator<BigDecimal, N
                                     BigDecimal value,
                                     NumericPropertyDescription propertyDescription,
                                     Set<ValidationError> errorSet) {
+
     int compareToMax = value.compareTo(propertyDescription.getMaxValue());
     int compareToMin = value.compareTo(propertyDescription.getMinValue());
-    if( compareToMax == THIS_LESS
-        || compareToMax == THIS_EQUALS
-        || compareToMin == THIS_GREATER
-        || compareToMin == THIS_EQUALS) {
-      errorSet.add(new ValidationError(
-          parentObject,
-          propertyDescription.getName(),
-          propertyDescription.getDescribedClass(),
-          MESSAGE));
+    if (compareToMax == THIS_LESS || compareToMax == THIS_EQUALS || compareToMin == THIS_GREATER || compareToMin == THIS_EQUALS) {
+      errorSet.add(new ValidationError(parentObject, propertyDescription.getName(), propertyDescription.getDescribedClass(), MESSAGE));
     }
   }
 }

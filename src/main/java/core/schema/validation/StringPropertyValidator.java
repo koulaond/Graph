@@ -1,4 +1,4 @@
-package core.repository.validation;
+package core.schema.validation;
 
 import java.util.Set;
 

@@ -1,4 +1,4 @@
-package core.repository.validation.exception;
+package core.schema.validation.exception;
 
 public class NodeDefinitionNotFoundException extends RuntimeException {
 
