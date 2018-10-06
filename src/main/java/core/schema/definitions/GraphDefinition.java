@@ -1,13 +1,14 @@
 package core.schema.definitions;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class GraphDefinition {
 
     /**
      * Graph identifier.
      */
-    private Long id;
+    private UUID id;
 
     /**
      * Date where the schema was created.
@@ -21,11 +22,11 @@ public class GraphDefinition {
 
     // TODO another fields, such as Users, roles, authorization, statistics...
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

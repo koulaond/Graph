@@ -1,9 +1,10 @@
 package core.schema.introspection.collector;
 
-import org.junit.Test;
-
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.UUID;
+
+import org.junit.Test;
 
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -98,7 +99,7 @@ public class GetterCollectorTest {
         /**
          * Parent fields.
          */
-        protected Long id;
+        protected UUID id;
         protected String name;
         protected boolean ready;
         protected int count;
@@ -107,7 +108,7 @@ public class GetterCollectorTest {
         /**
          * Getters to be collected.
          */
-        public Long getId() {
+        public UUID getId() {
             return id;
         }
 

@@ -1,8 +1,10 @@
 package core.schema.descriptions;
 
-public class IdDescription extends Description<Long> {
+import java.util.UUID;
+
+public class IdDescription extends Description<UUID> {
 
     public IdDescription(String idPropertyName) {
-        super(idPropertyName, Long.class);
+        super(idPropertyName, UUID.class);
     }
 }

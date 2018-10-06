@@ -1,6 +1,7 @@
 package core.repository.data;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * {@link HashMap} extension for carry data changes. Key of map entry is changed property name,
@@ -9,9 +10,9 @@ import java.util.HashMap;
 public class NodeDataBucket extends HashMap<String, DataUnit> {
 
     //ID for the node to be created from this collection
-    private Long nodeId;
+    private UUID nodeId;
     
-    public NodeDataBucket(Long nodeId) {
+    public NodeDataBucket(UUID nodeId) {
         this.nodeId = nodeId;
     }
 
@@ -19,7 +20,7 @@ public class NodeDataBucket extends HashMap<String, DataUnit> {
         this(null);
     }
 
-    public Long getNodeId() {
+    public UUID getNodeId() {
         return nodeId;
     }
 }
