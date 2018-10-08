@@ -13,7 +13,7 @@ public class DataCreateCommandExecutor extends AbstractCommandExecutor<DataCreat
 
   @Override
   public DataChangeCommandResult<DataCreateCommand> execute(DataCreateCommand command) {
-    NodeChangeRepositoryResult result = repositoryConnector.proceedNodeChange(command.getData());
+    NodeChangeRepositoryResult result = repositoryConnector.patch(command.getData());
     DataChangeCommandResult commandResult = new DataChangeCommandResult(command, result.getResultStatus(), result);
     return commandResult;
   }

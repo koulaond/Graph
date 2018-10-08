@@ -6,9 +6,9 @@ import core.repository.data.RepositoryResult;
 
 public interface RepositoryConnector {
 
-  NodeChangeRepositoryResult proceedNodeChange(NodeDataBucket dataBucket);
+  NodeChangeRepositoryResult patch(NodeDataBucket dataBucket);
 
-  RepositoryResult deleteNode(Long nodeId);
+  RepositoryResult delete(Long nodeId);
 
   // design query
 

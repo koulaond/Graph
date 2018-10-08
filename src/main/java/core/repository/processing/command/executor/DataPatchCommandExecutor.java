@@ -13,7 +13,7 @@ public class DataPatchCommandExecutor extends AbstractCommandExecutor<DataPatchC
 
   @Override
   public DataChangeCommandResult<DataPatchCommand> execute(DataPatchCommand command) {
-    NodeChangeRepositoryResult result = repositoryConnector.proceedNodeChange(command.getData());
+    NodeChangeRepositoryResult result = repositoryConnector.patch(command.getData());
     DataChangeCommandResult commandResult = new DataChangeCommandResult(command, result.getResultStatus(), result);
     return commandResult;
   }

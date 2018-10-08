@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
@@ -16,12 +17,17 @@ import org.apache.solr.common.params.MapSolrParams;
 
 import core.repository.connector.RepositoryConnector;
 import core.repository.data.DataUnit;
+import core.repository.data.Error;
 import core.repository.data.NodeChangeRepositoryResult;
 import core.repository.data.NodeDataBucket;
 import core.repository.data.RepositoryResult;
+import core.repository.data.ResultStatus;
 import core.repository.idprovider.IdProvider;
 
+import static core.repository.data.ErrorCode.REPOSITORY_CHANGE;
 import static java.lang.String.format;
+import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Stream.of;
 
 public class SolrRepositoryConnector implements RepositoryConnector {
 
@@ -29,40 +35,50 @@ public class SolrRepositoryConnector implements RepositoryConnector {
 
   private SolrClient solrClient;
   private IdProvider idProvider;
-  private String core;
 
-  public SolrRepositoryConnector(SolrClient solrClient, String coreName, IdProvider idProvider) {
+  public SolrRepositoryConnector(SolrClient solrClient, IdProvider idProvider) {
     this.solrClient = solrClient;
     this.idProvider = idProvider;
-    this.core = coreName;
   }
 
   @Override
-  public NodeChangeRepositoryResult proceedNodeChange(NodeDataBucket dataBucket) {
+  public NodeChangeRepositoryResult patch(NodeDataBucket dataBucket) {
     SolrInputDocument inputDocument = null;
+    NodeChangeRepositoryResult result = null;
     UUID id = dataBucket.getNodeId();
     if (id == null) {
+      // CASE create new node
       inputDocument = new SolrInputDocument();
       SolrInputField idField = new SolrInputField(NODE_ID);
       idField.setValue(idProvider.getNextId());
       inputDocument.addField(NODE_ID, idField);
     } else {
+      // CASE update existing node
       SolrDocument foundDocument = findDocument(id);
       if (foundDocument == null) {
-        throw new IllegalStateException(format("Document with id=%s not found", id));
+        result = new NodeChangeRepositoryResult(
+            ResultStatus.FAILED,
+            of(new Error(REPOSITORY_CHANGE, format("Cannot proceed update: Document with id=%s not found", id))).collect(toSet()), null);
       }
     }
+
     insertValuesToDocument(inputDocument, dataBucket);
     try {
-      solrClient.add(core, inputDocument);
+      solrClient.add(inputDocument);
+      UpdateResponse updateResponse = solrClient.commit();
+
     } catch (SolrServerException | IOException e) {
-      throw new IllegalStateException(format("Cannot change repository %s, unable to change state for node with id=%s", core, id));
+      result = new NodeChangeRepositoryResult(
+          ResultStatus.FAILED,
+          of(new Error(REPOSITORY_CHANGE, e.getMessage())).collect(toSet()), null
+      );
+      e.printStackTrace();
     }
-    return null;
+    return result;
   }
 
   @Override
-  public RepositoryResult deleteNode(Long nodeId) {
+  public RepositoryResult delete(Long nodeId) {
     return null;
   }
 

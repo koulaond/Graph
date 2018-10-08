@@ -13,7 +13,7 @@ public class DataDeleteCommandExecutor extends AbstractCommandExecutor<DataDelet
 
   @Override
   public DataDeleteCommandResult execute(DataDeleteCommand command) {
-    RepositoryResult result = repositoryConnector.deleteNode(command.getNodeId());
+    RepositoryResult result = repositoryConnector.delete(command.getNodeId());
     DataDeleteCommandResult commandResult = new DataDeleteCommandResult(command, result.getResultStatus(), result);
     return commandResult;
   }
