@@ -1,4 +1,4 @@
-package core.repository.connector.solr;
+package impl.solr;
 
 public class SolrConfig {
   private String rootUrl;

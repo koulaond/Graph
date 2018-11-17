@@ -1,6 +1,6 @@
 package core.repository.processing.command.executor;
 
-import core.repository.connector.RepositoryConnector;
+import core.repository.RepositoryConnector;
 import core.repository.processing.command.Command;
 import core.repository.processing.command.result.CommandExecutionResult;
 

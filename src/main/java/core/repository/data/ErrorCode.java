@@ -1,7 +1,7 @@
 package core.repository.data;
 
 public enum ErrorCode {
-  REPOSITORY_CHANGE("Error occured during repository change.");
+  REPOSITORY_CHANGE("Error occurred during repository change.");
 
   private String cause;
 

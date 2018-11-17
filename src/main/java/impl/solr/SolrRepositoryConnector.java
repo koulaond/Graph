@@ -1,4 +1,4 @@
-package core.repository.connector.solr;
+package impl.solr;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,7 +15,8 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.SolrInputField;
 import org.apache.solr.common.params.MapSolrParams;
 
-import core.repository.connector.RepositoryConnector;
+import core.repository.Repository;
+import core.repository.RepositoryConnector;
 import core.repository.data.DataUnit;
 import core.repository.data.Error;
 import core.repository.data.NodeChangeRepositoryResult;
@@ -42,7 +43,7 @@ public class SolrRepositoryConnector implements RepositoryConnector {
   }
 
   @Override
-  public NodeChangeRepositoryResult patch(NodeDataBucket dataBucket) {
+  public NodeChangeRepositoryResult patch(NodeDataBucket dataBucket, Repository repository) {
     SolrInputDocument inputDocument = null;
     NodeChangeRepositoryResult result = null;
     UUID id = dataBucket.getNodeId();
@@ -58,6 +59,7 @@ public class SolrRepositoryConnector implements RepositoryConnector {
       if (foundDocument == null) {
         result = new NodeChangeRepositoryResult(
             ResultStatus.FAILED,
+            repository,
             of(new Error(REPOSITORY_CHANGE, format("Cannot proceed update: Document with id=%s not found", id))).collect(toSet()), null);
       }
     }
@@ -70,6 +72,7 @@ public class SolrRepositoryConnector implements RepositoryConnector {
     } catch (SolrServerException | IOException e) {
       result = new NodeChangeRepositoryResult(
           ResultStatus.FAILED,
+          repository,
           of(new Error(REPOSITORY_CHANGE, e.getMessage())).collect(toSet()), null
       );
       e.printStackTrace();
@@ -78,7 +81,17 @@ public class SolrRepositoryConnector implements RepositoryConnector {
   }
 
   @Override
-  public RepositoryResult delete(Long nodeId) {
+  public RepositoryResult delete(Long nodeId, Repository repository) {
+    return null;
+  }
+
+  @Override
+  public Repository getRepository(String repositoryName) {
+    return null;
+  }
+
+  @Override
+  public Repository persistRepository(Repository repository) {
     return null;
   }
 

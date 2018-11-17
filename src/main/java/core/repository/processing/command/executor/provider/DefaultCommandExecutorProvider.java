@@ -3,7 +3,7 @@ package core.repository.processing.command.executor.provider;
 import java.util.HashMap;
 import java.util.Map;
 
-import core.repository.connector.RepositoryConnector;
+import core.repository.RepositoryConnector;
 import core.repository.processing.command.BatchCommand;
 import core.repository.processing.command.Command;
 import core.repository.processing.command.DataCreateCommand;
