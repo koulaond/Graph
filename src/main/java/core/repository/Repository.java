@@ -7,6 +7,9 @@ import core.repository.processing.command.executor.provider.DefaultCommandExecut
 import core.repository.processing.command.result.CommandExecutionResult;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Access point to concrete repository. Allows to execute commands and queries on the repository via executors and changes its state.
+ */
 @Slf4j
 public class Repository {
 
@@ -19,6 +22,11 @@ public class Repository {
     this.repositoryName = repositoryName;
   }
 
+  /**
+   * Executes command on the repository.
+   * @param command @{@link Command} instance
+   * @return command result
+   */
   <C extends Command> CommandExecutionResult<C> executeCommand(C command) {
     CommandExecutor executorForCommandType = this.commandExecutorProvider.getExecutorForCommandType(command.getClass());
     if (executorForCommandType == null) {

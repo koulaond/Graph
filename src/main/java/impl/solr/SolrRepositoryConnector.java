@@ -73,7 +73,8 @@ public class SolrRepositoryConnector implements RepositoryConnector {
       result = new NodeChangeRepositoryResult(
           ResultStatus.FAILED,
           repository,
-          of(new Error(REPOSITORY_CHANGE, e.getMessage())).collect(toSet()), null
+          of(new Error(REPOSITORY_CHANGE, e.getMessage())).collect(toSet()),
+          null
       );
       e.printStackTrace();
     }
@@ -91,7 +92,7 @@ public class SolrRepositoryConnector implements RepositoryConnector {
   }
 
   @Override
-  public Repository persistRepository(Repository repository) {
+  public Repository createNewRepository(Repository repository) {
     return null;
   }
 

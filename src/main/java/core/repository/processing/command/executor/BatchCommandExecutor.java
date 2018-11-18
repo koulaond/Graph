@@ -12,6 +12,9 @@ import core.repository.processing.command.executor.provider.CommandExecutorProvi
 import core.repository.processing.command.result.BatchCommandResult;
 import core.repository.processing.command.result.CommandExecutionResult;
 
+/**
+ * Creator for node batch command.
+ */
 public class BatchCommandExecutor extends AbstractCommandExecutor<BatchCommand, BatchCommandResult> {
 
   private CommandExecutorProvider executorProvider;

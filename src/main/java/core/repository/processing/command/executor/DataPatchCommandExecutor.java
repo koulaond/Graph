@@ -6,6 +6,9 @@ import core.repository.data.NodeChangeRepositoryResult;
 import core.repository.processing.command.DataPatchCommand;
 import core.repository.processing.command.result.DataChangeCommandResult;
 
+/**
+ * Creator for node update command.
+ */
 public class DataPatchCommandExecutor extends AbstractCommandExecutor<DataPatchCommand, DataChangeCommandResult<DataPatchCommand>> {
 
   public DataPatchCommandExecutor(RepositoryConnector repositoryConnector) {

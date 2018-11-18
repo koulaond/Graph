@@ -25,18 +25,18 @@ public class RepositoryContext {
     // Do not use constructor for singleton context!!
     this.repositoryConnector = repositoryConnector;
     this.activeRepositories = new HashMap<>();
-    loadPersistedRepositories();
+    cachePersistedRepositories();
   }
 
   /**
    * Loads all persisted repositories from the connector.
    */
-  private void loadPersistedRepositories() {
+  private void cachePersistedRepositories() {
 
   }
 
   /**
-   * Generates new schema from all annotated classes in the package. If the schema
+   * Generates new schema from all annotated classes in the package.
    *
    * @param repositoryName repository name
    * @param pckg package the new schema is built from

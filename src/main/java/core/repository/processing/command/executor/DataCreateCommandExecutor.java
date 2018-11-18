@@ -6,6 +6,9 @@ import core.repository.data.NodeChangeRepositoryResult;
 import core.repository.processing.command.DataCreateCommand;
 import core.repository.processing.command.result.DataChangeCommandResult;
 
+/**
+ * Creator for node creation command.
+ */
 public class DataCreateCommandExecutor extends AbstractCommandExecutor<DataCreateCommand, DataChangeCommandResult<DataCreateCommand>> {
 
   public DataCreateCommandExecutor(RepositoryConnector repositoryConnector) {

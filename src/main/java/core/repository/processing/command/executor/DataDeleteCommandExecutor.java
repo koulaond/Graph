@@ -6,6 +6,9 @@ import core.repository.data.RepositoryResult;
 import core.repository.processing.command.DataDeleteCommand;
 import core.repository.processing.command.result.DataDeleteCommandResult;
 
+/**
+ * Creator for node deletion command.
+ */
 public class DataDeleteCommandExecutor extends AbstractCommandExecutor<DataDeleteCommand, DataDeleteCommandResult> {
 
   public DataDeleteCommandExecutor(RepositoryConnector repositoryConnector) {

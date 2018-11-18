@@ -18,8 +18,19 @@ import static java.util.Objects.requireNonNull;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
+/**
+ * Builder for creating @{@link Schema} from concrete package.
+ */
 public class ModelSchemaBuilder {
+
+    /**
+     * Name for schema.
+     */
     private String schemaName;
+
+    /**
+     * Package name / path.
+     */
     private String packageName;
 
     ModelSchemaBuilder() {
@@ -35,6 +46,9 @@ public class ModelSchemaBuilder {
         return this;
     }
 
+    /**
+     * Returns generated @{@link Schema} instance from the package.
+     */
     public Schema build() {
         PackageIntrospector packageIntrospector = new PackageIntrospector();
         GraphDefinitionCreator<GraphDefinition> graphDefinitionCreator = new DefaultGraphDefinitionCreator();
