@@ -1,4 +1,4 @@
 package core.repository.processing.query;
 
-public interface QueryExecutor {
+public class OneNodeQueryResult {
 }
