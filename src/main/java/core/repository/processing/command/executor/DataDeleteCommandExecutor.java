@@ -1,6 +1,6 @@
 package core.repository.processing.command.executor;
 
-import core.repository.Repository;
+import core.repository.GraphContainer;
 import core.repository.RepositoryConnector;
 import core.repository.data.RepositoryResult;
 import core.repository.processing.command.DataDeleteCommand;
@@ -16,8 +16,8 @@ public class DataDeleteCommandExecutor extends AbstractCommandExecutor<DataDelet
   }
 
   @Override
-  public DataDeleteCommandResult execute(DataDeleteCommand command, Repository repository) {
-    RepositoryResult result = repositoryConnector.delete(command.getNodeId(), repository);
+  public DataDeleteCommandResult execute(DataDeleteCommand command, GraphContainer graphContainer) {
+    RepositoryResult result = repositoryConnector.delete(command.getNodeId(), graphContainer);
     DataDeleteCommandResult commandResult = new DataDeleteCommandResult(command, result.getResultStatus(), result);
     return commandResult;
   }

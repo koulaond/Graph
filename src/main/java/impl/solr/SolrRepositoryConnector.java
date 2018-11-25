@@ -15,7 +15,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.SolrInputField;
 import org.apache.solr.common.params.MapSolrParams;
 
-import core.repository.Repository;
+import core.repository.GraphContainer;
 import core.repository.RepositoryConnector;
 import core.repository.data.DataUnit;
 import core.repository.data.Error;
@@ -43,7 +43,7 @@ public class SolrRepositoryConnector implements RepositoryConnector {
   }
 
   @Override
-  public NodeChangeRepositoryResult patch(NodeDataBucket dataBucket, Repository repository) {
+  public NodeChangeRepositoryResult patch(NodeDataBucket dataBucket, GraphContainer graphContainer) {
     SolrInputDocument inputDocument = null;
     NodeChangeRepositoryResult result = null;
     UUID id = dataBucket.getNodeId();
@@ -59,7 +59,7 @@ public class SolrRepositoryConnector implements RepositoryConnector {
       if (foundDocument == null) {
         result = new NodeChangeRepositoryResult(
             ResultStatus.FAILED,
-            repository,
+            graphContainer,
             of(new Error(REPOSITORY_CHANGE, format("Cannot proceed update: Document with id=%s not found", id))).collect(toSet()), null);
       }
     }
@@ -72,7 +72,7 @@ public class SolrRepositoryConnector implements RepositoryConnector {
     } catch (SolrServerException | IOException e) {
       result = new NodeChangeRepositoryResult(
           ResultStatus.FAILED,
-          repository,
+          graphContainer,
           of(new Error(REPOSITORY_CHANGE, e.getMessage())).collect(toSet()),
           null
       );
@@ -82,17 +82,7 @@ public class SolrRepositoryConnector implements RepositoryConnector {
   }
 
   @Override
-  public RepositoryResult delete(Long nodeId, Repository repository) {
-    return null;
-  }
-
-  @Override
-  public Repository getRepository(String repositoryName) {
-    return null;
-  }
-
-  @Override
-  public Repository createNewRepository(Repository repository) {
+  public RepositoryResult delete(Long nodeId, GraphContainer graphContainer) {
     return null;
   }
 

@@ -10,17 +10,17 @@ import org.apache.solr.client.solrj.request.CollectionAdminRequest;
 import org.apache.solr.client.solrj.request.schema.FieldTypeDefinition;
 import org.apache.solr.client.solrj.request.schema.SchemaRequest;
 
-import core.repository.Repository;
+import core.repository.GraphContainer;
 import lombok.extern.slf4j.Slf4j;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 @Slf4j
-public class SimpleRepositoryPersistManager extends RepositoryPersistManager<Repository> {
+public class SimpleRepositoryPersistManager extends RepositoryPersistManager<GraphContainer> {
 
-  public SimpleRepositoryPersistManager(SolrClient client, Repository repository) {
-    super(client, repository);
+  public SimpleRepositoryPersistManager(SolrClient client, GraphContainer graphContainer) {
+    super(client, graphContainer);
   }
 
   @Override
@@ -32,7 +32,7 @@ public class SimpleRepositoryPersistManager extends RepositoryPersistManager<Rep
       SchemaRequest.AddFieldType addFieldType = new SchemaRequest.AddFieldType(idDefinition);
       addFieldType.process(client);
     } catch (SolrServerException | IOException e) {
-      log.error("Repository {} was not created/persisted. Some error occurred.");
+      log.error("GraphContainer {} was not created/persisted. Some error occurred.");
       e.printStackTrace();
       return false;
     }

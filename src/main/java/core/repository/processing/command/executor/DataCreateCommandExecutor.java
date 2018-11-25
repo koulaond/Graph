@@ -1,6 +1,6 @@
 package core.repository.processing.command.executor;
 
-import core.repository.Repository;
+import core.repository.GraphContainer;
 import core.repository.RepositoryConnector;
 import core.repository.data.NodeChangeRepositoryResult;
 import core.repository.processing.command.DataCreateCommand;
@@ -16,8 +16,8 @@ public class DataCreateCommandExecutor extends AbstractCommandExecutor<DataCreat
   }
 
   @Override
-  public DataChangeCommandResult<DataCreateCommand> execute(DataCreateCommand command, Repository repository) {
-    NodeChangeRepositoryResult result = repositoryConnector.patch(command.getData(), repository);
+  public DataChangeCommandResult<DataCreateCommand> execute(DataCreateCommand command, GraphContainer graphContainer) {
+    NodeChangeRepositoryResult result = repositoryConnector.patch(command.getData(), graphContainer);
     DataChangeCommandResult commandResult = new DataChangeCommandResult(command, result.getResultStatus(), result);
     return commandResult;
   }

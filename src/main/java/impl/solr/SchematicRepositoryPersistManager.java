@@ -2,13 +2,13 @@ package impl.solr;
 
 import org.apache.solr.client.solrj.SolrClient;
 
-import core.repository.SchematicRepository;
+import core.repository.SchematicGraphContainer;
 
-public class SchematicRepositoryPersistManager extends RepositoryPersistManager<SchematicRepository> {
+public class SchematicRepositoryPersistManager extends RepositoryPersistManager<SchematicGraphContainer> {
 
   private SimpleRepositoryPersistManager simpleManager;
 
-  public SchematicRepositoryPersistManager(SolrClient client, SchematicRepository repository) {
+  public SchematicRepositoryPersistManager(SolrClient client, SchematicGraphContainer repository) {
     super(client, repository);
     this.simpleManager = new SimpleRepositoryPersistManager(client, repository);
   }

@@ -2,13 +2,13 @@ package impl.solr;
 
 import org.apache.solr.client.solrj.SolrClient;
 
-import core.repository.Repository;
+import core.repository.GraphContainer;
 
 /**
- * Manager class for persisting metadata about single repository.
- * @param <R> @{@link Repository} type
+ * Manager class for persisting metadata about single graphContainer.
+ * @param <R> @{@link GraphContainer} type
  */
-public abstract class RepositoryPersistManager<R extends Repository> {
+public abstract class RepositoryPersistManager<R extends GraphContainer> {
 
   // Field type attributes
   public static final String NAME = "name";
@@ -27,8 +27,8 @@ public abstract class RepositoryPersistManager<R extends Repository> {
   }
 
   /**
-   * Tries to create repository in solr.
-   * @return true if repository was created in solr, otherwise it returns true and logs error message
+   * Tries to create graphContainer in solr.
+   * @return true if graphContainer was created in solr, otherwise it returns true and logs error message
    */
   public abstract boolean persistRepository();
 }

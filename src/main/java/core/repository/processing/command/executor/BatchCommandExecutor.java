@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import core.repository.Repository;
+import core.repository.GraphContainer;
 import core.repository.RepositoryConnector;
 import core.repository.data.ResultStatus;
 import core.repository.processing.command.BatchCommand;
@@ -25,14 +25,14 @@ public class BatchCommandExecutor extends AbstractCommandExecutor<BatchCommand, 
   }
 
   @Override
-  public BatchCommandResult execute(BatchCommand command, Repository repository) {
+  public BatchCommandResult execute(BatchCommand command, GraphContainer graphContainer) {
     AtomicBoolean success = new AtomicBoolean(true);
     ResultStatus resultStatus = ResultStatus.FINISHED;
     Set<CommandExecutionResult> subResults = new HashSet<>();
 
     command.getCommands().forEach(subCommand -> {
       CommandExecutor executor = executorProvider.getExecutorForCommandType(subCommand.getClass());
-      CommandExecutionResult result = executor.execute(subCommand, repository);
+      CommandExecutionResult result = executor.execute(subCommand, graphContainer);
       subResults.add(result);
       if (ResultStatus.FAILED.equals(result.getResultStatus())) {
         success.set(false);

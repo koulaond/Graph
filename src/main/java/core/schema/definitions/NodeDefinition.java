@@ -1,9 +1,8 @@
 package core.schema.definitions;
 
-import core.schema.descriptions.PropertyDescription;
-import core.schema.descriptions.RelationshipDescription;
-
 import java.util.Map;
+
+import core.schema.descriptions.PropertyDescription;
 
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
@@ -15,10 +14,6 @@ import static java.util.stream.Collectors.toMap;
  */
 public class NodeDefinition<T> {
 
-    /**
-     * Parent Graph definition.
-     */
-    private GraphDefinition graphDefinition;
 
     /**
      * Model class that is described by this meta-node.
@@ -41,14 +36,6 @@ public class NodeDefinition<T> {
     private Long maxCount;
 
     private NodeDefinitionCache cache;
-
-    public GraphDefinition getGraphDefinition() {
-        return graphDefinition;
-    }
-
-    public void setGraphDefinition(GraphDefinition graphDefinition) {
-        this.graphDefinition = graphDefinition;
-    }
 
     public Class<T> getDescribedClass() {
         return describedClass;

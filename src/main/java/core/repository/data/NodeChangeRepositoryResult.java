@@ -2,13 +2,13 @@ package core.repository.data;
 
 import java.util.Set;
 
-import core.repository.Repository;
+import core.repository.GraphContainer;
 
 public class NodeChangeRepositoryResult extends RepositoryResult {
   protected NodeChange nodeChange;
 
-  public NodeChangeRepositoryResult(ResultStatus resultStatus, Repository repository, Set<Error> errors, NodeChange nodeChange) {
-    super(resultStatus, repository, errors);
+  public NodeChangeRepositoryResult(ResultStatus resultStatus, GraphContainer graphContainer, Set<Error> errors, NodeChange nodeChange) {
+    super(resultStatus, graphContainer, errors);
     this.nodeChange = nodeChange;
   }
 

@@ -2,11 +2,11 @@ package core.repository;
 
 import core.schema.Schema;
 
-public class SchematicRepository extends Repository {
+public class SchematicGraphContainer extends GraphContainer {
 
   private Schema schema;
 
-  public SchematicRepository(RepositoryConnector repositoryConnector, Schema schema) {
+  public SchematicGraphContainer(RepositoryConnector repositoryConnector, Schema schema) {
     super(repositoryConnector, schema.getName());
     this.schema = schema;
   }

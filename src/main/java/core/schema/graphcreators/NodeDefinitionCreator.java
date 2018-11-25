@@ -1,18 +1,17 @@
 package core.schema.graphcreators;
 
-import core.schema.definitions.GraphDefinition;
-import core.schema.descriptions.NodeDescription;
-import core.schema.descriptions.RelationshipDescription;
-import core.schema.definitions.NodeDefinition;
-
 import java.util.Collection;
 import java.util.Set;
+
+import core.schema.definitions.NodeDefinition;
+import core.schema.descriptions.NodeDescription;
+import core.schema.descriptions.RelationshipDescription;
 
 /**
  * Class for building @{@link NodeDefinition}s from @{@link NodeDescription}s stored in set and connect them each other
  * using their @{@link RelationshipDescription}s.
  */
-public interface NodeDefinitionCreator<GD extends GraphDefinition> {
+public interface NodeDefinitionCreator {
 
     /**
      * Receives a set of {@link NodeDescription}s and creates the particular {@link NodeDefinition} for each description.
@@ -21,5 +20,5 @@ public interface NodeDefinitionCreator<GD extends GraphDefinition> {
      * @param nodeDescriptions node descriptions set
      * @return
      */
-    Collection<NodeDefinition> create(Set<NodeDescription> nodeDescriptions, GD graphDefinition);
+    Collection<NodeDefinition> create(Set<NodeDescription> nodeDescriptions);
 }

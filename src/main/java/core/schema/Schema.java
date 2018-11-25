@@ -2,7 +2,6 @@ package core.schema;
 
 import java.util.Map;
 
-import core.schema.definitions.GraphDefinition;
 import core.schema.definitions.NodeDefinition;
 
 import static java.util.Collections.emptyMap;
@@ -17,11 +16,6 @@ public class Schema {
     private String name;
 
     /**
-     * Graph information.
-     */
-    private GraphDefinition graphDefinition;
-
-    /**
      * All defined nodedefinitions.
      */
     private Map<Class, NodeDefinition> nodeDefinitions;
@@ -32,25 +26,19 @@ public class Schema {
     private Map<String, Object> additionalInfo;
 
     public Schema(String name,
-                  GraphDefinition graphDefinition,
                   Map<Class, NodeDefinition> nodeDefinitions,
                   Map<String, Object> additionalInfo) {
         this.name = name;
-        this.graphDefinition = graphDefinition;
         this.nodeDefinitions = nodeDefinitions;
         this.additionalInfo = additionalInfo;
     }
 
-    public Schema(String name, GraphDefinition graphDefinition, Map<Class, NodeDefinition> nodeDefinitions) {
-       this(name, graphDefinition, nodeDefinitions, emptyMap());
+    public Schema(String name, Map<Class, NodeDefinition> nodeDefinitions) {
+       this(name, nodeDefinitions, emptyMap());
     }
 
     public String getName() {
         return name;
-    }
-
-    public GraphDefinition getGraphDefinition() {
-        return graphDefinition;
     }
 
     public Map<Class, NodeDefinition> getNodeDefinitions() {

@@ -1,7 +1,7 @@
 package core.repository.data;
 
 public enum ErrorCode {
-  REPOSITORY_CHANGE("Error occurred during repository change.");
+  REPOSITORY_CHANGE("Error occurred during graphContainer change.");
 
   private String cause;
 

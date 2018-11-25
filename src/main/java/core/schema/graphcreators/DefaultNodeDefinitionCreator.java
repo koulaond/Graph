@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import core.schema.definitions.GraphDefinition;
 import core.schema.definitions.NodeDefinition;
 import core.schema.definitions.RelationDefinition;
 import core.schema.descriptions.NodeDescription;
@@ -19,16 +18,15 @@ import static java.util.stream.Collectors.toMap;
 /**
  * {@inheritDoc}
  */
-public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<GraphDefinition> {
+public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator {
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public Collection<NodeDefinition> create(Set<NodeDescription> nodeDescriptions,
-                                           GraphDefinition graphDefinition) {
+  public Collection<NodeDefinition> create(Set<NodeDescription> nodeDescriptions) {
     Set<NodeDefinition> nodeDefinitions = new HashSet<>();
-    nodeDescriptions.stream().forEach(nodeDescription -> nodeDefinitions.add(buildNode(nodeDescription, graphDefinition)));
+    nodeDescriptions.stream().forEach(nodeDescription -> nodeDefinitions.add(buildNode(nodeDescription)));
     Map<Class, NodeDefinition> nodeDefinitionMap = new HashMap<>();
     nodeDefinitions.forEach(nodeDefinition -> nodeDefinitionMap.put(nodeDefinition.getDescribedClass(), nodeDefinition));
     nodeDefinitionMap.values().forEach(node -> {
@@ -60,10 +58,8 @@ public class DefaultNodeDefinitionCreator implements NodeDefinitionCreator<Graph
   /**
    * Builds {@link NodeDefinition} using values in {@link NodeDescription} param.
    */
-  private <T> NodeDefinition<T> buildNode(NodeDescription<T> description,
-                                          GraphDefinition graphDefinition) {
+  private <T> NodeDefinition<T> buildNode(NodeDescription<T> description) {
     NodeDefinition nodeDefinition = new NodeDefinition();
-    nodeDefinition.setGraphDefinition(graphDefinition);
     Map<String, PropertyDescription> propertyDescriptionMap = description.getPropertyDescriptions().stream()
         .collect(toMap(propertyDescription -> propertyDescription.getName(), identity()));
     Map<String, RelationDefinition> relationDefinitionMap = description.getRelationshipDescriptions()

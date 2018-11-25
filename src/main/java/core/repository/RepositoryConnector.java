@@ -10,33 +10,20 @@ import core.repository.data.RepositoryResult;
 public interface RepositoryConnector {
 
   /**
-   * Updates single node with new data or creates new if not exists in concrete repository.
+   * Updates single node with new data or creates new if not exists in concrete graphContainer.
    * @param dataBucket node data container
-   * @param repository repository
-   * @return repository change result
+   * @param graphContainer graphContainer
+   * @return graphContainer change result
    */
-  NodeChangeRepositoryResult patch(NodeDataBucket dataBucket, Repository repository);
+  NodeChangeRepositoryResult patch(NodeDataBucket dataBucket, GraphContainer graphContainer);
 
   /**
    * Deletes single node with the given id.
    * @param nodeId node identifier
-   * @param repository repository
-   * @return repository delete result
+   * @param graphContainer graphContainer
+   * @return graphContainer delete result
    */
-  RepositoryResult delete(Long nodeId, Repository repository);
-
-  /**
-   * Returns repository info by repository name.
-   * @param repositoryName repository name
-   */
-  Repository getRepository(String repositoryName);
-
-  /**
-   * Creates new repository if does not exist.
-   * @param repository @{@link Repository} to be created
-   * @return created repository
-   */
-  Repository createNewRepository(Repository repository);
+  RepositoryResult delete(Long nodeId, GraphContainer graphContainer);
 
   // TODO design query
 }

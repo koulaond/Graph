@@ -14,70 +14,11 @@ public class RepositoryContext {
    */
   private static RepositoryContext context;
 
-  /**
-   * All active repositories. Map contains pairs schemaName:repository.
-   */
-  private Map<String, Repository> activeRepositories;
-
   private RepositoryConnector repositoryConnector;
 
   private RepositoryContext(RepositoryConnector repositoryConnector) {
     // Do not use constructor for singleton context!!
     this.repositoryConnector = repositoryConnector;
-    this.activeRepositories = new HashMap<>();
-    cachePersistedRepositories();
-  }
-
-  /**
-   * Loads all persisted repositories from the connector.
-   */
-  private void cachePersistedRepositories() {
-
-  }
-
-  /**
-   * Generates new schema from all annotated classes in the package.
-   *
-   * @param repositoryName repository name
-   * @param pckg package the new schema is built from
-   *
-   * @return @{@link SchematicRepository} instance
-   */
-  SchematicRepository createRepositoryFromModel(String repositoryName, String pckg) {
-    Schema newSchema = SchemaBuilderFactory.fromModel()
-        .packageName(pckg)
-        .schemaName(repositoryName)
-        .build();
-    return new SchematicRepository(this.repositoryConnector, newSchema);
-  }
-
-  /**
-   * Creates simple repository.
-   * @param repositoryName repository name
-   * @return @{@link Repository} instance
-   */
-  Repository createRepository(String repositoryName) {
-    return new Repository(repositoryConnector, repositoryName);
-  }
-
-  /**
-   * Creates new repository definition in DB.
-   * @param repositoryToPersist repository to be persisted
-   * @return true if repository was persisted or not
-   */
-  boolean persistRepository(Repository repositoryToPersist) {
-    Repository foundByName = activeRepositories.values()
-        .stream()
-        .filter(repository -> repository.getName().equals(repositoryToPersist.getName()))
-        .findFirst()
-        .orElse(null);
-
-    if (foundByName != null) {
-      log.warn("Repository with name {} found and is returned. Returning this existing repository and no other action is performed.", foundByName.getName());
-      return false;
-    }
-    activeRepositories.put(repositoryToPersist.getName(), repositoryToPersist);
-    return true;
   }
 
   /**
@@ -89,7 +30,7 @@ public class RepositoryContext {
    */
   public static RepositoryContext instance() {
     if (context == null) {
-      log.error("Repository context has not been initialized yet.");
+      log.error("GraphContainer context has not been initialized yet.");
       throw new IllegalStateException();
     }
     return context;
@@ -98,9 +39,9 @@ public class RepositoryContext {
   /**
    * Initializes {@link RepositoryContext} singleton.
    *
-   * @param connector repository connector implementation
+   * @param connector graphContainer connector implementation
    *
-   * @throws IllegalStateException if contet is already initialized
+   * @throws IllegalStateException if context is already initialized
    */
   public static void init(RepositoryConnector connector) {
     if (context != null) {
@@ -108,6 +49,62 @@ public class RepositoryContext {
       throw new IllegalStateException();
     }
     context = new RepositoryContext(connector);
+  }
+
+  private static class ContainerManager {
+
+    private RepositoryConnector repositoryConnector;
+
+    /**
+     * All active repositories. Map contains pairs name:graphContainer.
+     */
+    private Map<String, GraphContainer> graphContainers;
+
+    public ContainerManager(RepositoryConnector repositoryConnector) {
+      this.repositoryConnector = repositoryConnector;
+      this.graphContainers = new HashMap<>();
+    }
+
+    /**
+     * Generates new schema from all annotated classes in the package.
+     *
+     * @param containerName graphContainer name
+     * @param pckg package the new schema is built from
+     *
+     * @return @{@link SchematicGraphContainer} instance
+     */
+    SchematicGraphContainer createContainerFromModel(String containerName, String pckg) {
+      Schema newSchema = SchemaBuilderFactory.fromModel()
+          .packageName(pckg)
+          .schemaName(containerName)
+          .build();
+      SchematicGraphContainer graphContainer = new SchematicGraphContainer(this.repositoryConnector, newSchema);
+      persistContainer(graphContainer);
+      return graphContainer;
+    }
+
+    /**
+     * Creates simple graphContainer.
+     *
+     * @param containerName graphContainer name
+     *
+     * @return @{@link GraphContainer} instance
+     */
+    GraphContainer createContainer(String containerName) {
+      return new GraphContainer(repositoryConnector, containerName);
+    }
+
+    /**
+     * Creates new graphContainer definition in DB.
+     *
+     * @param graphContainerToPersist graphContainer to be persisted
+     *
+     * @return true if graphContainer was persisted or not
+     */
+    private boolean persistContainer(GraphContainer graphContainerToPersist) {
+
+      return true;
+    }
   }
 
 }

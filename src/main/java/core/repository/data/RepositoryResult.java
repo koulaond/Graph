@@ -2,17 +2,17 @@ package core.repository.data;
 
 import java.util.Set;
 
-import core.repository.Repository;
+import core.repository.GraphContainer;
 
 public class RepositoryResult {
 
   protected ResultStatus resultStatus;
-  protected Repository repository;
+  protected GraphContainer graphContainer;
   protected Set<Error> errors;
 
-  public RepositoryResult(ResultStatus resultStatus, Repository repository, Set<Error> errors) {
+  public RepositoryResult(ResultStatus resultStatus, GraphContainer graphContainer, Set<Error> errors) {
     this.resultStatus = resultStatus;
-    this.repository = repository;
+    this.graphContainer = graphContainer;
     this.errors = errors;
   }
 
@@ -24,7 +24,7 @@ public class RepositoryResult {
     return errors;
   }
 
-  public Repository getRepository() {
-    return repository;
+  public GraphContainer getGraphContainer() {
+    return graphContainer;
   }
 }
