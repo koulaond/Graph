@@ -2,20 +2,22 @@ package core.repository.processing.query.conditions;
 
 import java.io.Serializable;
 
+import core.repository.processing.query.conditions.matchers.Matcher;
+
 public class Condition<V extends Serializable> {
-   private V value;
+   private String propertyName;
    private Matcher<V> matcher;
 
-   Condition(V value, Matcher<V> matcher) {
-      this.value = value;
+   Condition(String propertyName, Matcher<V> matcher) {
+      this.propertyName = propertyName;
       this.matcher = matcher;
    }
 
-   public V value() {
-      return value;
+   public String getPropertyName() {
+      return propertyName;
    }
 
-   public boolean matches() {
-      return matcher.matches(value);
+   public Matcher<V> matcher() {
+      return matcher;
    }
 }

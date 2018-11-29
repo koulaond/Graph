@@ -1,8 +1,8 @@
-package core.repository.processing.query.conditions.date;
+package core.repository.processing.query.conditions.matchers.date;
 
 import java.util.Date;
 
-import core.repository.processing.query.conditions.Matcher;
+import core.repository.processing.query.conditions.matchers.Matcher;
 
 class BeforeDateMatcher implements Matcher<Date> {
   private Date to;

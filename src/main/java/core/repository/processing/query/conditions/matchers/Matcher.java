@@ -1,4 +1,4 @@
-package core.repository.processing.query.conditions;
+package core.repository.processing.query.conditions.matchers;
 
 import java.io.Serializable;
 

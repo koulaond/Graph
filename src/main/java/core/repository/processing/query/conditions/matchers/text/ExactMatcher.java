@@ -1,6 +1,6 @@
-package core.repository.processing.query.conditions.text;
+package core.repository.processing.query.conditions.matchers.text;
 
-import core.repository.processing.query.conditions.Matcher;
+import core.repository.processing.query.conditions.matchers.Matcher;
 
 class ExactMatcher implements Matcher<String> {
   private String value;

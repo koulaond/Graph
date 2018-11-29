@@ -1,8 +1,8 @@
-package core.repository.processing.query.conditions.number;
+package core.repository.processing.query.conditions.matchers.number;
 
 import java.math.BigDecimal;
 
-import core.repository.processing.query.conditions.Matcher;
+import core.repository.processing.query.conditions.matchers.Matcher;
 
 public class NumberMatcherFactory {
 
