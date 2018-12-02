@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import core.schema.definitions.NodeDefinition;
-import core.schema.definitions.RelationDefinition;
+import core.schema.assemble.definitions.NodeDefinition;
+import core.schema.assemble.definitions.RelationDefinition;
 import core.schema.descriptions.NodeDescription;
 import core.schema.descriptions.PropertyDescription;
 import model.Direction;

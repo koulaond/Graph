@@ -2,7 +2,7 @@ package core.schema;
 
 import java.util.Map;
 
-import core.schema.definitions.NodeDefinition;
+import core.schema.assemble.definitions.NodeDefinition;
 
 import static java.util.Collections.emptyMap;
 

@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import core.schema.definitions.NodeDefinition;
+import core.schema.assemble.definitions.NodeDefinition;
 import core.schema.descriptions.NodeDescription;
 import core.schema.graphcreators.DefaultNodeDefinitionCreator;
 import core.schema.graphcreators.NodeDefinitionCreator;

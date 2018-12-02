@@ -28,6 +28,7 @@
     <version.mockito>1.10.19</version.mockito>
     <version.assertj>3.8.0</version.assertj>
     <version.lombok>1.18.4</version.lombok>
+    <version.apache.commons>3.8.1</version.apache.commons>
   </properties>
 
     <dependencies>
@@ -41,6 +42,12 @@
         <groupId>org.reflections</groupId>
         <artifactId>reflections</artifactId>
         <version>${version.reflections}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${version.apache.commons}</version>
       </dependency>
 
       <dependency>

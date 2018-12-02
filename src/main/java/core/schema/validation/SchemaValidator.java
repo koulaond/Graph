@@ -3,7 +3,7 @@ package core.schema.validation;
 import java.util.Map;
 
 import core.schema.Schema;
-import core.schema.definitions.NodeDefinition;
+import core.schema.assemble.definitions.NodeDefinition;
 import core.schema.descriptions.PropertyDescription;
 
 public class SchemaValidator {
