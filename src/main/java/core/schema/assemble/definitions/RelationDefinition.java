@@ -5,6 +5,7 @@ import java.util.Set;
 import core.schema.assemble.definitions.property.PropertyDefinition;
 import model.Direction;
 
+import static java.util.Collections.unmodifiableSet;
 import static java.util.Objects.requireNonNull;
 
 public class RelationDefinition {
@@ -43,7 +44,7 @@ public class RelationDefinition {
         this.direction = requireNonNull(direction);
         this.startNodeType = requireNonNull(startNodeType);
         this.endNodeType = requireNonNull(endNodeType);
-        this.propertyDefinitions = requireNonNull(propertyDefinitions);
+        this.propertyDefinitions = unmodifiableSet(requireNonNull(propertyDefinitions));
     }
 
     public String getRelationType() {

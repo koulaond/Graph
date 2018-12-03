@@ -2,6 +2,8 @@ package core.schema.assemble.definitions.property;
 
 import java.math.BigDecimal;
 
+import static java.util.Objects.requireNonNull;
+
 public class NumericPropertyDefinition extends PropertyDefinition {
 
   private BigDecimal minValue;
@@ -17,8 +19,8 @@ public class NumericPropertyDefinition extends PropertyDefinition {
 
   public NumericPropertyDefinition(String propertyName, boolean mandatory, boolean multiValue, boolean immutable, BigDecimal minValue, BigDecimal maxValue) {
     super(propertyName, mandatory, multiValue, immutable);
-    this.minValue = minValue;
-    this.maxValue = maxValue;
+    this.minValue = requireNonNull(minValue);
+    this.maxValue = requireNonNull(maxValue);
   }
 
   public BigDecimal getMinValue() {

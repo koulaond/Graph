@@ -3,8 +3,6 @@ package core.repository;
 import java.util.HashMap;
 import java.util.Map;
 
-import core.schema.Schema;
-import core.schema.SchemaBuilderFactory;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -63,24 +61,6 @@ public class RepositoryContext {
     public ContainerManager(RepositoryConnector repositoryConnector) {
       this.repositoryConnector = repositoryConnector;
       this.graphContainers = new HashMap<>();
-    }
-
-    /**
-     * Generates new schema from all annotated classes in the package.
-     *
-     * @param containerName graphContainer name
-     * @param pckg package the new schema is built from
-     *
-     * @return @{@link SchematicGraphContainer} instance
-     */
-    SchematicGraphContainer createContainerFromModel(String containerName, String pckg) {
-      Schema newSchema = SchemaBuilderFactory.fromModel()
-          .packageName(pckg)
-          .schemaName(containerName)
-          .build();
-      SchematicGraphContainer graphContainer = new SchematicGraphContainer(this.repositoryConnector, newSchema);
-      persistContainer(graphContainer);
-      return graphContainer;
     }
 
     /**

@@ -2,6 +2,8 @@ package core.schema.assemble.definitions.property;
 
 import java.util.Date;
 
+import static java.util.Objects.requireNonNull;
+
 public class DatePropertyDefinition extends PropertyDefinition {
 
   private Date minDate;
@@ -18,8 +20,8 @@ public class DatePropertyDefinition extends PropertyDefinition {
 
   public DatePropertyDefinition(String propertyName, boolean mandatory, boolean multiValue, boolean immutable, Date minDate, Date maxDate) {
     super(propertyName, mandatory, multiValue, immutable);
-    this.minDate = minDate;
-    this.maxDate = maxDate;
+    this.minDate = requireNonNull(minDate);
+    this.maxDate = requireNonNull(maxDate);
   }
 
   public Date getMinDate() {

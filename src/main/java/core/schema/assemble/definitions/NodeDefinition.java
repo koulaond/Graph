@@ -5,6 +5,7 @@ import java.util.Set;
 import core.schema.assemble.definitions.property.PropertyDefinition;
 
 import static java.util.Collections.emptySet;
+import static java.util.Collections.unmodifiableSet;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -36,7 +37,7 @@ public class NodeDefinition {
         this.nodeType = requireNonNull(nodeType);
         this.immutable = immutable;
         this.maxCount = requireNonNull(maxCount);
-        this.propertyDefinitions = requireNonNull(propertyDefinitions);
+        this.propertyDefinitions = unmodifiableSet(requireNonNull(propertyDefinitions));
     }
 
     public NodeDefinition(String nodeType) {

@@ -1,5 +1,7 @@
 package core.schema.assemble.definitions.property;
 
+import static java.util.Objects.requireNonNull;
+
 public class StringPropertyDefinition extends PropertyDefinition {
 
   private int minLength;
@@ -15,8 +17,8 @@ public class StringPropertyDefinition extends PropertyDefinition {
 
   public StringPropertyDefinition(String propertyName, boolean mandatory, boolean multiValue, boolean immutable, int minLength, int maxLength) {
     super(propertyName, mandatory, multiValue, immutable);
-    this.minLength = minLength;
-    this.maxLength = maxLength;
+    this.minLength = requireNonNull(minLength);
+    this.maxLength = requireNonNull(maxLength);
   }
 
   public int getMinLength() {

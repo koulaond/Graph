@@ -1,5 +1,7 @@
 package core.schema.assemble.definitions.property;
 
+import static java.util.Objects.requireNonNull;
+
 public abstract class PropertyDefinition {
 
   protected String propertyName;
@@ -8,10 +10,10 @@ public abstract class PropertyDefinition {
   protected boolean immutable;
 
   public PropertyDefinition(String propertyName, boolean mandatory, boolean multiValue, boolean immutable) {
-    this.propertyName = propertyName;
-    this.mandatory = mandatory;
-    this.multiValue = multiValue;
-    this.immutable = immutable;
+    this.propertyName = requireNonNull(propertyName);
+    this.mandatory = requireNonNull(mandatory);
+    this.multiValue = requireNonNull(multiValue);
+    this.immutable = requireNonNull(immutable);
   }
 
   public String getPropertyName() {

@@ -2,6 +2,9 @@ package core.schema.assemble.definitions.property;
 
 import java.util.Set;
 
+import static java.util.Collections.unmodifiableSet;
+import static java.util.Objects.requireNonNull;
+
 public class EnumPropertyDefinition extends PropertyDefinition {
 
   private Set<String> enumerations;
@@ -12,10 +15,10 @@ public class EnumPropertyDefinition extends PropertyDefinition {
 
   public EnumPropertyDefinition(String propertyName, boolean mandatory, boolean multiValue, boolean immutable, Set<String> enumerations) {
     super(propertyName, mandatory, multiValue, immutable);
-    this.enumerations = enumerations;
+    this.enumerations = unmodifiableSet(requireNonNull(enumerations));
   }
 
   public Set<String> getEnumerations() {
-    return enumerations;
+    return unmodifiableSet(enumerations);
   }
 }
