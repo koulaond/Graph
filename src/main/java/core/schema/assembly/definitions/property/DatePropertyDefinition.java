@@ -1,4 +1,4 @@
-package core.schema.assemble.definitions.property;
+package core.schema.assembly.definitions.property;
 
 import java.util.Date;
 

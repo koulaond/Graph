@@ -1,8 +1,8 @@
-package core.schema.assemble.definitions;
+package core.schema.assembly.definitions;
 
 import java.util.Set;
 
-import core.schema.assemble.definitions.property.PropertyDefinition;
+import core.schema.assembly.definitions.property.PropertyDefinition;
 
 import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableSet;

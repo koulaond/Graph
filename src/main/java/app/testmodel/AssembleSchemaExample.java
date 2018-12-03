@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import core.schema.assemble.NodeBuilder;
-import core.schema.assemble.RelationBuilder;
-import core.schema.assemble.SchemaAssembler;
-import core.schema.assemble.definitions.SchemaDefinition;
-import core.schema.assemble.definitions.property.DatePropertyDefinition;
-import core.schema.assemble.definitions.property.EnumPropertyDefinition;
-import core.schema.assemble.definitions.property.NumericPropertyDefinition;
-import core.schema.assemble.definitions.property.StringPropertyDefinition;
+import core.schema.assembly.NodeBuilder;
+import core.schema.assembly.RelationBuilder;
+import core.schema.assembly.SchemaAssembler;
+import core.schema.assembly.definitions.SchemaDefinition;
+import core.schema.assembly.definitions.property.DatePropertyDefinition;
+import core.schema.assembly.definitions.property.EnumPropertyDefinition;
+import core.schema.assembly.definitions.property.NumericPropertyDefinition;
+import core.schema.assembly.definitions.property.StringPropertyDefinition;
 import model.Direction;
 
 public class AssembleSchemaExample {
@@ -19,7 +19,7 @@ public class AssembleSchemaExample {
   public static void main(String[] args) {
     SchemaDefinition schemaDefinition = new SchemaAssembler()
         .name("testSchema")
-        .additionalInfo("Description", "Schema assemble example.")
+        .additionalInfo("Description", "Schema assembly example.")
         .defineNodes()
         .node(new NodeBuilder()
             .nodeType("testImmutableNode")

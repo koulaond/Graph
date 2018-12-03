@@ -1,12 +1,12 @@
-package core.schema.assemble;
+package core.schema.assembly;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import core.schema.assemble.definitions.NodeDefinition;
-import core.schema.assemble.definitions.RelationDefinition;
-import core.schema.assemble.definitions.SchemaDefinition;
+import core.schema.assembly.definitions.NodeDefinition;
+import core.schema.assembly.definitions.RelationDefinition;
+import core.schema.assembly.definitions.SchemaDefinition;
 
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Collections.unmodifiableSet;

@@ -1,10 +1,10 @@
-package core.schema.assemble;
+package core.schema.assembly;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import core.schema.assemble.definitions.NodeDefinition;
-import core.schema.assemble.definitions.property.PropertyDefinition;
+import core.schema.assembly.definitions.NodeDefinition;
+import core.schema.assembly.definitions.property.PropertyDefinition;
 
 import static java.util.stream.Collectors.toSet;
 

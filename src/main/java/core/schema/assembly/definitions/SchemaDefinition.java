@@ -1,4 +1,4 @@
-package core.schema.assemble.definitions;
+package core.schema.assembly.definitions;
 
 import java.util.Map;
 import java.util.Set;
