@@ -7,8 +7,16 @@ public class NumericPropertyDefinition extends PropertyDefinition {
   private BigDecimal minValue;
   private BigDecimal maxValue;
 
-  public NumericPropertyDefinition(boolean mandatory, boolean multiValue, boolean immutable, BigDecimal minValue, BigDecimal maxValue) {
-    super(mandatory, multiValue, immutable);
+  public NumericPropertyDefinition(String propertyName) {
+    this(propertyName, false, false, false);
+  }
+
+  public NumericPropertyDefinition(String propertyName, boolean mandatory, boolean multiValue, boolean immutable) {
+    this(propertyName, mandatory, multiValue, immutable, new BigDecimal(Long.MIN_VALUE), new BigDecimal(Long.MAX_VALUE));
+  }
+
+  public NumericPropertyDefinition(String propertyName, boolean mandatory, boolean multiValue, boolean immutable, BigDecimal minValue, BigDecimal maxValue) {
+    super(propertyName, mandatory, multiValue, immutable);
     this.minValue = minValue;
     this.maxValue = maxValue;
   }

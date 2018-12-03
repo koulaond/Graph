@@ -7,7 +7,8 @@ public abstract class PropertyDefinition {
   protected boolean multiValue;
   protected boolean immutable;
 
-  public PropertyDefinition(boolean mandatory, boolean multiValue, boolean immutable) {
+  public PropertyDefinition(String propertyName, boolean mandatory, boolean multiValue, boolean immutable) {
+    this.propertyName = propertyName;
     this.mandatory = mandatory;
     this.multiValue = multiValue;
     this.immutable = immutable;

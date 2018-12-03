@@ -1,25 +1,51 @@
 package core.schema.assemble;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import core.schema.assemble.definitions.NodeDefinition;
 import core.schema.assemble.definitions.RelationDefinition;
+import core.schema.assemble.definitions.SchemaDefinition;
 
+import static java.util.Collections.unmodifiableMap;
 import static java.util.Collections.unmodifiableSet;
 
 public class SchemaAssembler {
 
   private Set<NodeDefinition> nodes;
   private Set<RelationDefinition> relations;
+  private String name;
+  private Map<String, Object> additionalInfo;
 
-  private
+
+  public SchemaAssembler name(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public SchemaAssembler additionalInfo(String key, Object value) {
+    this.additionalInfo.put(key, value);
+    return this;
+  }
+
+  public SchemaAssembler additionalInfo(Map<String, Object> additionalInfo) {
+    this.additionalInfo.putAll(additionalInfo);
+    return this;
+  }
 
   public NodeCollector defineNodes() {
     if (nodes != null) {
-      throw new IllegalStateException("Nodes are already defined. Reset nodes first.");
+      throw new IllegalStateException("Nodes are already defined.");
     }
     return new NodeCollector(this);
+  }
+
+  public RelationCollector defineRelations() {
+    if (relations != null) {
+      throw new IllegalStateException("RElations are already defined.");
+    }
+    return new RelationCollector(this);
   }
 
   public Set<NodeDefinition> getNodes() {
@@ -30,9 +56,16 @@ public class SchemaAssembler {
     return unmodifiableSet(relations);
   }
 
-  public void reset() {
-    this.nodes = null;
-    this.relations = null;
+  public String getName() {
+    return name;
+  }
+
+  public Map<String, Object> getAdditionalInfo() {
+    return unmodifiableMap(additionalInfo);
+  }
+
+  public SchemaDefinition assemble() {
+    return new SchemaDefinition(name, unmodifiableSet(nodes), unmodifiableSet(relations), unmodifiableMap(additionalInfo));
   }
 
   private void addNodes(Set<NodeDefinition> nodes) {
@@ -43,12 +76,12 @@ public class SchemaAssembler {
     this.relations = relations;
   }
 
-  private static class NodeCollector {
+  public static class NodeCollector {
 
     private SchemaAssembler schemaAssembler;
     private Set<NodeDefinition> nodeDefinitions;
 
-    public NodeCollector(SchemaAssembler schemaAssembler) {
+    private NodeCollector(SchemaAssembler schemaAssembler) {
       this.schemaAssembler = schemaAssembler;
       this.nodeDefinitions = new HashSet<>();
     }
@@ -64,16 +97,17 @@ public class SchemaAssembler {
       return this;
     }
 
-    public void finish() {
+    public SchemaAssembler finish() {
       this.schemaAssembler.addNodes(this.nodeDefinitions);
+      return schemaAssembler;
     }
   }
 
-  private static class RelationCollector {
+  public static class RelationCollector {
     private SchemaAssembler schemaAssembler;
     private Set<RelationDefinition> relationDefinitions;
 
-    public RelationCollector(SchemaAssembler schemaAssembler) {
+    private RelationCollector(SchemaAssembler schemaAssembler) {
       this.schemaAssembler = schemaAssembler;
       this.relationDefinitions = new HashSet<>();
     }
@@ -101,8 +135,9 @@ public class SchemaAssembler {
       return nodes.contains(new NodeDefinition(startNodeType)) && nodes.contains(new NodeDefinition(endNodeType));
     }
 
-    public void finish() {
+    public SchemaAssembler finish() {
       this.schemaAssembler.addRelations(this.relationDefinitions);
+      return schemaAssembler;
     }
   }
 

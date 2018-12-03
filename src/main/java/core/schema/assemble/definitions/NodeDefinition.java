@@ -5,6 +5,7 @@ import java.util.Set;
 import core.schema.assemble.definitions.property.PropertyDefinition;
 
 import static java.util.Collections.emptySet;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Special Node class that describes @{@link model.Node}s of the given type.
@@ -32,10 +33,10 @@ public class NodeDefinition {
     private Set<PropertyDefinition> propertyDefinitions;
 
     public NodeDefinition(String nodeType, boolean immutable, Long maxCount, Set<PropertyDefinition> propertyDefinitions) {
-        this.nodeType = nodeType;
+        this.nodeType = requireNonNull(nodeType);
         this.immutable = immutable;
-        this.maxCount = maxCount;
-        this.propertyDefinitions = propertyDefinitions;
+        this.maxCount = requireNonNull(maxCount);
+        this.propertyDefinitions = requireNonNull(propertyDefinitions);
     }
 
     public NodeDefinition(String nodeType) {

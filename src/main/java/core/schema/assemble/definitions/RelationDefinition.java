@@ -5,6 +5,8 @@ import java.util.Set;
 import core.schema.assemble.definitions.property.PropertyDefinition;
 import model.Direction;
 
+import static java.util.Objects.requireNonNull;
+
 public class RelationDefinition {
 
     /**
@@ -37,11 +39,11 @@ public class RelationDefinition {
                               String startNodeType,
                               String endNodeType,
                               Set<PropertyDefinition> propertyDefinitions) {
-        this.relationType = relationType;
-        this.direction = direction;
-        this.startNodeType = startNodeType;
-        this.endNodeType = endNodeType;
-        this.propertyDefinitions = propertyDefinitions;
+        this.relationType = requireNonNull(relationType);
+        this.direction = requireNonNull(direction);
+        this.startNodeType = requireNonNull(startNodeType);
+        this.endNodeType = requireNonNull(endNodeType);
+        this.propertyDefinitions = requireNonNull(propertyDefinitions);
     }
 
     public String getRelationType() {
