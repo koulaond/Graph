@@ -1,5 +1,6 @@
 package core.schema.assembly;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -16,11 +17,22 @@ public class SchemaAssembler {
   private Set<NodeDefinition> nodes;
   private Set<RelationDefinition> relations;
   private String name;
+  private boolean strict;
   private Map<String, Object> additionalInfo;
 
+  public SchemaAssembler() {
+    // Default values
+    additionalInfo = new HashMap<>();
+    strict = true;
+  }
 
   public SchemaAssembler name(String name) {
     this.name = name;
+    return this;
+  }
+
+  public SchemaAssembler strict(boolean strict) {
+    this.strict = strict;
     return this;
   }
 
@@ -65,7 +77,14 @@ public class SchemaAssembler {
   }
 
   public SchemaDefinition assemble() {
-    return new SchemaDefinition(name, unmodifiableSet(nodes), unmodifiableSet(relations), unmodifiableMap(additionalInfo));
+    // TODO replace name check by validator
+    if (name == null || name.trim().isEmpty()) {
+      throw new IllegalStateException("Schema name bad value.");
+    }
+    if (strict && (nodes == null || nodes.isEmpty())) {
+      throw new IllegalStateException("Node(s) mut be defined in strict mode.");
+    }
+    return new SchemaDefinition(name, unmodifiableSet(nodes), unmodifiableSet(relations), strict, unmodifiableMap(additionalInfo));
   }
 
   private void addNodes(Set<NodeDefinition> nodes) {

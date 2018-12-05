@@ -12,12 +12,14 @@ public class SchemaDefinition {
   private Set<NodeDefinition> nodeDefinitions;
   private Set<RelationDefinition> relationDefinitions;
   private Map<String, Object> additionalInfo;
+  private boolean strict = true;
 
-  public SchemaDefinition(String name, Set<NodeDefinition> nodeDefinitions, Set<RelationDefinition> relationDefinitions, Map<String, Object> additionalInfo) {
+  public SchemaDefinition(String name, Set<NodeDefinition> nodeDefinitions, Set<RelationDefinition> relationDefinitions, boolean strict, Map<String, Object> additionalInfo) {
     this.name = requireNonNull(name);
     this.nodeDefinitions = unmodifiableSet(requireNonNull(nodeDefinitions));
     this.relationDefinitions = unmodifiableSet(requireNonNull(relationDefinitions));
     this.additionalInfo = unmodifiableMap(requireNonNull(additionalInfo));
+    this.strict = strict;
   }
 
   public String getName() {
@@ -34,5 +36,9 @@ public class SchemaDefinition {
 
   public Map<String, Object> getAdditionalInfo() {
     return additionalInfo;
+  }
+
+  public boolean isStrict() {
+    return strict;
   }
 }
