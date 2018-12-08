@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.METHOD})
 public @interface NumericProperty {
 
-    String name() default "";
+    String name();
 
     boolean nonNull() default false;
 

@@ -11,16 +11,23 @@ import org.reflections.ReflectionUtils;
 
 import core.schema.annotations.Node;
 import core.schema.assembly.definitions.SchemaDefinition;
+import core.schema.assembly.definitions.property.PropertyDefinition;
+
+import static utils.CommonUtils.uncapitalize;
 
 public class ModelSchemaAssembler {
   private String name;
   private String basePackage;
   private boolean strict = true;
   private Map<String, Object> additionalInfo;
+  private Map<String, NodeBuilder> nodeBuilders;
+  private Map<String, RelationBuilder> relationBuilders;
 
   public ModelSchemaAssembler() {
     // Default values
     additionalInfo = new HashMap<>();
+    nodeBuilders = new HashMap<>();
+    relationBuilders = new HashMap<>();
     strict = true;
   }
 
@@ -78,6 +85,7 @@ public class ModelSchemaAssembler {
 
     SchemaAssembler schemaAssembler = new SchemaAssembler();
     schemaAssembler.additionalInfo(additionalInfo).name(name).strict(strict);
+
     // TODO collect all @Node classes
     // TODO for each @Node class
     // 1. Collect @Node values
@@ -85,7 +93,15 @@ public class ModelSchemaAssembler {
     // 3. Collect all relations
 
     Set<Class<?>> nodeCLasses = searchNodeClasses(basePackage);
-    // 1.
+    nodeCLasses.forEach(nodeCLass -> {
+      NodeBuilder nodeBuilder = new NodeBuilder();
+      // Enhance of node builder with @Node annotation values
+      NodeValuesEnhancer nodeValuesEnhancer = new NodeValuesEnhancer();
+      nodeValuesEnhancer.enhance(nodeCLass, nodeBuilder);
+
+
+    });
+
     return null;
   }
 
@@ -107,5 +123,36 @@ public class ModelSchemaAssembler {
       clazz = clazz.getSuperclass();
     }
     return false;
+  }
+
+  private interface Enhancer {
+
+    void enhance(Class<?> nodeClass, NodeBuilder nodeBuilder);
+  }
+
+  private static class NodeValuesEnhancer implements Enhancer {
+
+    @Override
+    public void enhance(Class<?> nodeClass, NodeBuilder nodeBuilder) {
+      Node nodeAnnotation = nodeClass.getAnnotation(Node.class);
+      String nodeType = uncapitalize(nodeAnnotation.nodeType());
+      if (nodeType.isEmpty()) {
+        // Default nodeType is uncapitalized class.simpleName()
+        nodeType = uncapitalize(nodeClass.getSimpleName());
+      }
+      nodeBuilder.nodeType(nodeType);
+      nodeBuilder.immutable(nodeAnnotation.immutable());
+      nodeBuilder.maxCount(nodeAnnotation.maxCount());
+    }
+  }
+
+  private static class NodePropertiesEnhancer implements Enhancer {
+
+    @Override
+    public void enhance(Class<?> nodeClass, NodeBuilder nodeBuilder) {
+      PropertyExtractor propertyExtractor = new PropertyExtractor();
+      Set<PropertyDefinition> propertyDefinitions = propertyExtractor.extractProperties(nodeClass);
+      propertyDefinitions.forEach(propertyDefinition -> nodeBuilder.addProperty(propertyDefinition));
+    }
   }
 }
