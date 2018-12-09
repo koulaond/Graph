@@ -11,12 +11,13 @@ import core.schema.assembly.definitions.SchemaDefinition;
 
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Collections.unmodifiableSet;
+import static java.util.Objects.requireNonNull;
 
 public class SchemaAssembler {
 
+  private String name;
   private Set<NodeDefinition> nodes;
   private Set<RelationDefinition> relations;
-  private String name;
   private boolean strict;
   private Map<String, Object> additionalInfo;
 
@@ -27,7 +28,7 @@ public class SchemaAssembler {
   }
 
   public SchemaAssembler name(String name) {
-    this.name = name;
+    this.name = requireNonNull(name);
     return this;
   }
 
@@ -37,12 +38,15 @@ public class SchemaAssembler {
   }
 
   public SchemaAssembler additionalInfo(String key, Object value) {
-    this.additionalInfo.put(key, value);
+    if(key == null || key.isEmpty()) {
+      throw new IllegalStateException(String.format("Key is not defined properly: %s", key));
+    }
+    this.additionalInfo.put(key, requireNonNull(value));
     return this;
   }
 
   public SchemaAssembler additionalInfo(Map<String, Object> additionalInfo) {
-    this.additionalInfo.putAll(additionalInfo);
+    this.additionalInfo.putAll(requireNonNull(additionalInfo));
     return this;
   }
 
@@ -70,6 +74,10 @@ public class SchemaAssembler {
 
   public String getName() {
     return name;
+  }
+
+  public boolean isStrict() {
+    return strict;
   }
 
   public Map<String, Object> getAdditionalInfo() {

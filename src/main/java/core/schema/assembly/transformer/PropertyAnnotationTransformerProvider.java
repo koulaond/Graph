@@ -1,26 +1,28 @@
 package core.schema.assembly.transformer;
 
+import java.lang.annotation.Annotation;
+
 import core.schema.annotations.properties.DateProperty;
 import core.schema.annotations.properties.EnumProperty;
 import core.schema.annotations.properties.NumericProperty;
 import core.schema.annotations.properties.StringProperty;
 
-public class PropertyAnnotationTransformerFactory {
+public class PropertyAnnotationTransformerProvider {
 
-  public PropertyAnnotationTransformer forPropertyAnnotation(Class annotationType) {
-    if(DateProperty.class.equals(annotationType)){
+  public PropertyAnnotationTransformer forPropertyAnnotation(Annotation annotation) {
+    if(DateProperty.class.equals(annotation.annotationType())){
       return new DatePropertyAnnotationTransformer();
     }
 
-    if(EnumProperty.class.equals(annotationType)){
+    if(EnumProperty.class.equals(annotation.annotationType())){
       return new EnumPropertyAnnotationTransformer();
     }
 
-    if(NumericProperty.class.equals(annotationType)){
+    if(NumericProperty.class.equals(annotation.annotationType())){
       return new NumericPropertyAnnotationTransformer();
     }
 
-    if(StringProperty.class.equals(annotationType)){
+    if(StringProperty.class.equals(annotation.annotationType())){
       return new StringPropertyAnnotationTransformer();
     }
 
