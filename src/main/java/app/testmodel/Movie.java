@@ -9,10 +9,10 @@ import java.util.Set;
 @Node(nodeType = "movie")
 public class Movie {
 
-    @StringProperty(nonNull = true)
+    @StringProperty(name = "name", nonNull = true)
     private String name;
 
-    @NumericProperty(nonNull = true, minValue = 1890, maxValue = 2050, immutable = true)
+    @NumericProperty(name = "year", nonNull = true, minValue = 1890, maxValue = 2050, immutable = true)
     private int year;
 
 

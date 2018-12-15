@@ -32,7 +32,7 @@ public class SimpleRepositoryPersistManager extends RepositoryPersistManager<Gra
       SchemaRequest.AddFieldType addFieldType = new SchemaRequest.AddFieldType(idDefinition);
       addFieldType.process(client);
     } catch (SolrServerException | IOException e) {
-      log.error("GraphContainer {} was not created/persisted. Some error occurred.");
+//      log.error("GraphContainer {} was not created/persisted. Some error occurred.");
       e.printStackTrace();
       return false;
     }

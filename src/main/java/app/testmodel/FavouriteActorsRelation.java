@@ -6,6 +6,6 @@ import core.schema.annotations.properties.StringProperty;
 @PropertyHolder
 public class FavouriteActorsRelation {
 
-    @StringProperty
+    @StringProperty(name = "personalRank")
     private String personalRank;
 }

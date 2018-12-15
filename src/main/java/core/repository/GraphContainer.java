@@ -32,7 +32,7 @@ public class GraphContainer {
   <C extends Command> CommandExecutionResult<C> executeCommand(C command) {
     CommandExecutor executorForCommandType = this.commandExecutorProvider.getExecutorForCommandType(command.getClass());
     if (executorForCommandType == null) {
-      log.error("No executor for command of type ", command.getClass().getName());
+//      log.error("No executor for command of type ", command.getClass().getName());
       throw new IllegalArgumentException();
     }
     return executorForCommandType.execute(command, this);

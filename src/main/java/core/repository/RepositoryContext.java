@@ -28,7 +28,7 @@ public class RepositoryContext {
    */
   public static RepositoryContext instance() {
     if (context == null) {
-      log.error("GraphContainer context has not been initialized yet.");
+//      log.error("GraphContainer context has not been initialized yet.");
       throw new IllegalStateException();
     }
     return context;
@@ -43,7 +43,7 @@ public class RepositoryContext {
    */
   public static void init(RepositoryConnector connector) {
     if (context != null) {
-      log.error("Context is already initialized.");
+//      log.error("Context is already initialized.");
       throw new IllegalStateException();
     }
     context = new RepositoryContext(connector);

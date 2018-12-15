@@ -7,9 +7,9 @@ import core.schema.annotations.properties.StringProperty;
 @PropertyHolder
 public class WatchListRelation {
 
-    @EnumProperty(nonNull = true, enumClass = WatchListState.class)
+    @EnumProperty(name = "state", nonNull = true, enumClass = WatchListState.class)
     private WatchListState state;
 
-    @StringProperty
+    @StringProperty(name = "note")
     private String note;
 }

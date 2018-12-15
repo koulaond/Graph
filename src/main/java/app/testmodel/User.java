@@ -10,10 +10,10 @@ import java.util.Set;
 @Node(nodeType = "user")
 public class User {
 
-    @StringProperty(nonNull = true)
+    @StringProperty(name = "userName", nonNull = true)
     private String userName;
 
-    @Relationship(name = "WATCHLIST", propertyHolderClass = WatchListRelation.class, direction = Direction.OUTGOING, referencedClass = Movie.class)
+    @Relationship(name = "watchList", propertyHolderClass = WatchListRelation.class, direction = Direction.OUTGOING, referencedClass = Movie.class)
     private Set<Movie> watchList;
 
 
