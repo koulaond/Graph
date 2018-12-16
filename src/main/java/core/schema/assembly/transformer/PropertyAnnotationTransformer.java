@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 
 import core.schema.assembly.definitions.property.PropertyDefinition;
 
-public interface PropertyAnnotationTransformer<T extends Annotation> {
+public interface PropertyAnnotationTransformer<A extends Annotation> {
 
-  PropertyDefinition transformToDefinition(T annotation, boolean multiValue);
+  PropertyDefinition transformToDefinition(A annotation, boolean multiValue);
 }

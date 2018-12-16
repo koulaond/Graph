@@ -126,6 +126,7 @@ public class RelationDefinition {
    * @return new @{@link RelationDefinition} instance with same values as input (shallow copy).
    */
   private RelationDefinition normalizedClone(RelationDefinition relationDefinition) {
+    // TODO move to RelationDefinition class + implement invert method
     Direction direction = relationDefinition.getDirection();
     if (Direction.INCOMING.equals(direction)) {
       return new RelationDefinition(relationDefinition.getRelationType(),

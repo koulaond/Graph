@@ -58,8 +58,8 @@ public class PropertyExtractor {
             PropertyDefinition propertyDefinitionOnMethod = transformAnnotationsToDefinitions(annotationsOnMethod, method.getName(), method.getReturnType());
             if (propertyDefinitionOnMethod != null) {
               if (oneLevelDefinitions.contains(propertyDefinitionOnMethod)) {
-//                log.warn("Property definition with name {} is already defined in class. Overwriting.",
-//                    propertyDefinitionOnMethod.getPropertyName());
+                log.warn("Property definition with name {} is already defined in class. Overwriting.",
+                    propertyDefinitionOnMethod.getPropertyName());
               }
               oneLevelDefinitions.add(propertyDefinitionOnMethod);
             }
@@ -75,9 +75,9 @@ public class PropertyExtractor {
             PropertyDefinition propertyDefinitionOnField = transformAnnotationsToDefinitions(annotationsOnField, field.getName(), field.getType());
             if (propertyDefinitionOnField != null) {
               if (oneLevelDefinitions.contains(propertyDefinitionOnField)) {
-//                log.warn("Property annotation {} on field {} is already defined on one of accessory methods, skipping this annotation.",
-//                    propertyDefinitionOnField.getPropertyName(),
-//                    field.getName());
+                log.warn("Property annotation {} on field {} is already defined on one of accessory methods, skipping this annotation.",
+                    propertyDefinitionOnField.getPropertyName(),
+                    field.getName());
               } else {
                 oneLevelDefinitions.add(propertyDefinitionOnField);
               }

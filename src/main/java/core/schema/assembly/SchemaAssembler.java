@@ -59,7 +59,7 @@ public class SchemaAssembler {
 
   public RelationCollector defineRelations() {
     if (relations != null) {
-      throw new IllegalStateException("RElations are already defined.");
+      throw new IllegalStateException("Relations are already defined.");
     }
     return new RelationCollector(this);
   }

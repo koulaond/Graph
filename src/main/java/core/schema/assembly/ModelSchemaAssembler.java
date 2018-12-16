@@ -1,12 +1,11 @@
 package core.schema.assembly;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import core.schema.assembly.definitions.NodeDefinition;
+import core.schema.assembly.definitions.RelationDefinition;
 import org.reflections.ReflectionUtils;
 
 import core.schema.annotations.Node;
@@ -76,15 +75,14 @@ public class ModelSchemaAssembler {
   public SchemaDefinition assemble() {
     // TODO replace name check by validator
     if (name == null || name.trim().isEmpty()) {
-      throw new IllegalStateException("Schema name bad value.");
+      throw new IllegalStateException("Schema name not defined.");
     }
 
     if (basePackage == null || basePackage.trim().isEmpty()) {
-      throw new IllegalStateException("Base package bad value");
+      throw new IllegalStateException("Base package not defined.");
     }
 
     SchemaAssembler schemaAssembler = new SchemaAssembler();
-    schemaAssembler.additionalInfo(additionalInfo).name(name).strict(strict);
 
     // TODO collect all @Node classes
     // TODO for each @Node class
@@ -92,24 +90,49 @@ public class ModelSchemaAssembler {
     // 2. Collect all properties
     // 3. Collect all relations
 
+    // 1. and 2.
     Set<Class<?>> nodeCLasses = searchNodeClasses(basePackage);
-    nodeCLasses.forEach(nodeCLass -> {
+    NodeValuesEnhancer nodeValuesEnhancer = new NodeValuesEnhancer();
+    NodePropertiesEnhancer nodePropertiesEnhancer = new NodePropertiesEnhancer();
+    Set<NodeDefinition> nodeDefinitions = new HashSet<>();
+    nodeCLasses.forEach(nodeClass -> {
       NodeBuilder nodeBuilder = new NodeBuilder();
-      // Enhance of node builder with @Node annotation values
-      NodeValuesEnhancer nodeValuesEnhancer = new NodeValuesEnhancer();
-      nodeValuesEnhancer.enhance(nodeCLass, nodeBuilder);
-
-
+      // Enhance node builder with @Node annotation values
+      nodeValuesEnhancer.enhance(nodeClass, nodeBuilder);
+      // Enhance node builder with set of properties from the node class
+      nodePropertiesEnhancer.enhance(nodeClass, nodeBuilder);
+      nodeDefinitions.add(nodeBuilder.build());
     });
 
-    return null;
+    // 3.
+    Set<RelationDefinition> relationDefinitions = new HashSet<>();
+    nodeCLasses.forEach(nodeClass -> {
+      RelationExtractor relationExtractor = new RelationExtractor();
+      Set<RelationDefinition> relationDefinitionsForNode = relationExtractor.extractRelations(nodeClass);
+      relationDefinitions.addAll(relationDefinitionsForNode);
+    });
+
+    // Assemble schema
+    schemaAssembler.name(name)
+            .strict(strict)
+            .additionalInfo(additionalInfo);
+
+    SchemaAssembler.NodeCollector nodeCollector = schemaAssembler.defineNodes();
+    nodeDefinitions.forEach(nodeCollector::node);
+    nodeCollector.finish();
+
+    SchemaAssembler.RelationCollector relationCollector = schemaAssembler.defineRelations();
+    relationDefinitions.forEach(relationCollector::relation);
+    relationCollector.finish();
+
+    return schemaAssembler.assemble();
   }
 
   private Set<Class<?>> searchNodeClasses(String basePackage) {
     List<Class<?>> classes = ReflectionUtils.forNames(Stream.of(basePackage).collect(Collectors.toSet()));
     return classes.stream()
-        .filter(clazz -> isNode(clazz))
-        .collect(Collectors.toSet());
+            .filter(clazz -> isNode(clazz))
+            .collect(Collectors.toSet());
   }
 
   /**
@@ -125,12 +148,12 @@ public class ModelSchemaAssembler {
     return false;
   }
 
-  private interface Enhancer {
+  private interface Enhancer<T> {
 
-    void enhance(Class<?> nodeClass, NodeBuilder nodeBuilder);
+    void enhance(Class<?> nodeClass, T enhancedObject);
   }
 
-  private static class NodeValuesEnhancer implements Enhancer {
+  private static class NodeValuesEnhancer implements Enhancer<NodeBuilder> {
 
     @Override
     public void enhance(Class<?> nodeClass, NodeBuilder nodeBuilder) {
@@ -146,13 +169,13 @@ public class ModelSchemaAssembler {
     }
   }
 
-  private static class NodePropertiesEnhancer implements Enhancer {
+  private static class NodePropertiesEnhancer implements Enhancer<NodeBuilder> {
 
     @Override
     public void enhance(Class<?> nodeClass, NodeBuilder nodeBuilder) {
       PropertyExtractor propertyExtractor = new PropertyExtractor();
       Set<PropertyDefinition> propertyDefinitions = propertyExtractor.extractProperties(nodeClass);
-      propertyDefinitions.forEach(propertyDefinition -> nodeBuilder.addProperty(propertyDefinition));
+      propertyDefinitions.forEach(nodeBuilder::addProperty);
     }
   }
 }
