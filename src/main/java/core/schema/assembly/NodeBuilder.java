@@ -35,7 +35,7 @@ public class NodeBuilder {
   }
 
   public NodeBuilder addProperty(PropertyDefinition propertyDefinition) {
-    String propertyName = propertyDefinition.getPropertyName();
+    String propertyName = propertyDefinition.getName();
     if (propertyName == null) {
       throw new IllegalStateException("Missing property name.");
     }

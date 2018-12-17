@@ -1,26 +1,23 @@
 package core.schema.assembly.definitions.property;
 
+import core.schema.assembly.definitions.AbstractDefinition;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import static java.util.Objects.requireNonNull;
 
-public abstract class PropertyDefinition {
+public abstract class PropertyDefinition extends AbstractDefinition {
 
-  protected String propertyName;
   protected boolean mandatory;
   protected boolean multiValue;
   protected boolean immutable;
 
-  public PropertyDefinition(String propertyName, boolean mandatory, boolean multiValue, boolean immutable) {
-    this.propertyName = requireNonNull(propertyName);
+  public PropertyDefinition(String name, boolean mandatory, boolean multiValue, boolean immutable) {
+    super(name);
+    this.name = requireNonNull(name);
     this.mandatory = requireNonNull(mandatory);
     this.multiValue = requireNonNull(multiValue);
     this.immutable = requireNonNull(immutable);
-  }
-
-  public String getPropertyName() {
-    return propertyName;
   }
 
   public boolean isMandatory() {
@@ -46,14 +43,14 @@ public abstract class PropertyDefinition {
     PropertyDefinition that = (PropertyDefinition) o;
     // Property uniqueness is given by its name
     return new EqualsBuilder()
-        .append(propertyName, that.propertyName)
+        .append(name, that.name)
         .isEquals();
   }
 
   @Override
   public int hashCode() {
     return new HashCodeBuilder(17, 37)
-        .append(propertyName)
+        .append(name)
         .toHashCode();
   }
 }

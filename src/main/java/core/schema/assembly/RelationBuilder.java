@@ -1,11 +1,11 @@
 package core.schema.assembly;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import core.schema.assembly.definitions.RelationDefinition;
 import core.schema.assembly.definitions.property.PropertyDefinition;
 import model.Direction;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -14,6 +14,7 @@ public class RelationBuilder {
   private String relationType;
   private String startNodeType;
   private String endNodeType;
+  private boolean multiValue;
   private Map<String, PropertyDefinition> propertyDefinitions;
   private Direction direction;
 
@@ -41,8 +42,13 @@ public class RelationBuilder {
     return this;
   }
 
+  public RelationBuilder multiValue(boolean multiValue) {
+    this.multiValue = multiValue;
+    return this;
+  }
+
   public RelationBuilder addProperty(PropertyDefinition propertyDefinition) {
-    String propertyName = propertyDefinition.getPropertyName();
+    String propertyName = propertyDefinition.getName();
     if (propertyName == null) {
       throw new IllegalStateException("Missing property name.");
     }
@@ -51,6 +57,6 @@ public class RelationBuilder {
   }
 
   public RelationDefinition build() {
-    return new RelationDefinition(relationType, direction, startNodeType, endNodeType, propertyDefinitions.values().stream().collect(toSet()));
+    return new RelationDefinition(relationType, direction, startNodeType, endNodeType, multiValue, propertyDefinitions.values().stream().collect(toSet()));
   }
 }

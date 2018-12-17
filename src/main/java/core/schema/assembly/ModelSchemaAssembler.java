@@ -1,19 +1,25 @@
 package core.schema.assembly;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+import core.schema.annotations.Node;
 import core.schema.assembly.definitions.NodeDefinition;
 import core.schema.assembly.definitions.RelationDefinition;
-import org.reflections.ReflectionUtils;
-
-import core.schema.annotations.Node;
 import core.schema.assembly.definitions.SchemaDefinition;
 import core.schema.assembly.definitions.property.PropertyDefinition;
+import lombok.extern.slf4j.Slf4j;
+import org.reflections.Reflections;
+import org.reflections.scanners.ResourcesScanner;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static utils.CommonUtils.uncapitalize;
 
+@Slf4j
 public class ModelSchemaAssembler {
   private String name;
   private String basePackage;
@@ -92,6 +98,10 @@ public class ModelSchemaAssembler {
 
     // 1. and 2.
     Set<Class<?>> nodeCLasses = searchNodeClasses(basePackage);
+    if(strict && isEmpty(nodeCLasses)) {
+      log.error("No @Node classes found in package {}. This state is not allowed in strict mode.", basePackage);
+      throw new IllegalStateException();
+    }
     NodeValuesEnhancer nodeValuesEnhancer = new NodeValuesEnhancer();
     NodePropertiesEnhancer nodePropertiesEnhancer = new NodePropertiesEnhancer();
     Set<NodeDefinition> nodeDefinitions = new HashSet<>();
@@ -107,8 +117,8 @@ public class ModelSchemaAssembler {
     // 3.
     Set<RelationDefinition> relationDefinitions = new HashSet<>();
     nodeCLasses.forEach(nodeClass -> {
-      RelationExtractor relationExtractor = new RelationExtractor();
-      Set<RelationDefinition> relationDefinitionsForNode = relationExtractor.extractRelations(nodeClass);
+      RelationExtractor relationExtractor = new RelationExtractor(nodeClass);
+      Set<RelationDefinition> relationDefinitionsForNode = relationExtractor.extractDefinitions();
       relationDefinitions.addAll(relationDefinitionsForNode);
     });
 
@@ -129,7 +139,15 @@ public class ModelSchemaAssembler {
   }
 
   private Set<Class<?>> searchNodeClasses(String basePackage) {
-    List<Class<?>> classes = ReflectionUtils.forNames(Stream.of(basePackage).collect(Collectors.toSet()));
+    List<ClassLoader> classLoadersList = new LinkedList<ClassLoader>();
+    classLoadersList.add(ClasspathHelper.contextClassLoader());
+    classLoadersList.add(ClasspathHelper.staticClassLoader());
+
+    Reflections reflections = new Reflections(new ConfigurationBuilder()
+            .setScanners(new SubTypesScanner(false /* don't exclude Object.class */), new ResourcesScanner())
+            .setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
+            .filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix(basePackage))));
+    Set<Class<?>> classes = reflections.getSubTypesOf(Object.class);
     return classes.stream()
             .filter(clazz -> isNode(clazz))
             .collect(Collectors.toSet());
@@ -173,8 +191,8 @@ public class ModelSchemaAssembler {
 
     @Override
     public void enhance(Class<?> nodeClass, NodeBuilder nodeBuilder) {
-      PropertyExtractor propertyExtractor = new PropertyExtractor();
-      Set<PropertyDefinition> propertyDefinitions = propertyExtractor.extractProperties(nodeClass);
+      PropertyExtractor propertyExtractor = new PropertyExtractor(nodeClass);
+      Set<PropertyDefinition> propertyDefinitions = propertyExtractor.extractDefinitions();
       propertyDefinitions.forEach(nodeBuilder::addProperty);
     }
   }

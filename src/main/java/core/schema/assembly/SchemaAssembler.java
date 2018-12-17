@@ -114,7 +114,7 @@ public class SchemaAssembler {
     }
 
     public NodeCollector node(NodeDefinition nodeDefinition) {
-      String nodeType = nodeDefinition.getNodeType();
+      String nodeType = nodeDefinition.getName();
 
       if (nodeType == null || nodeType.isEmpty()) {
         throw new IllegalStateException("Missing node type.");
@@ -140,7 +140,7 @@ public class SchemaAssembler {
     }
 
     public RelationCollector relation(RelationDefinition relationDefinition) {
-      String relationType = relationDefinition.getRelationType();
+      String relationType = relationDefinition.getName();
 
       if (relationType == null || relationType.isEmpty()) {
         throw new IllegalStateException("Missing relation type.");

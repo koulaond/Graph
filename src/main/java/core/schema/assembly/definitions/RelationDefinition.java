@@ -2,23 +2,17 @@ package core.schema.assembly.definitions;
 
 import java.util.Set;
 
+import core.schema.assembly.definitions.property.PropertyDefinition;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import core.schema.assembly.definitions.property.PropertyDefinition;
 import model.Direction;
 
 import static java.util.Collections.unmodifiableSet;
 import static java.util.Objects.requireNonNull;
 import static model.Direction.UNDIRECTED;
 
-public class RelationDefinition {
-
-  /**
-   * Unique type for relations that are defined by this meta-relation. It is something like class type for relations.
-   */
-  private String relationType;
-
+public class RelationDefinition extends AbstractDefinition {
 
   /**
    * Relationship direction.
@@ -34,32 +28,32 @@ public class RelationDefinition {
    * Ending node type.
    */
   private String endNodeType;
+
+  private boolean multiValue;
   /**
    * Set of property description that describe properties, which can be stored in the relation of this type.
    */
-  private Set<PropertyDefinition> propertyDefinitions;
+  private Set<core.schema.assembly.definitions.property.PropertyDefinition> propertyDefinitions;
 
-  public RelationDefinition(String relationType,
+  public RelationDefinition(String name,
                             Direction direction,
                             String startNodeType,
                             String endNodeType,
+                            boolean multiValue,
                             Set<PropertyDefinition> propertyDefinitions) {
-    this.relationType = requireNonNull(relationType);
+    super(name);
     this.direction = requireNonNull(direction);
     this.startNodeType = requireNonNull(startNodeType);
     this.endNodeType = requireNonNull(endNodeType);
+    this.multiValue = multiValue;
     this.propertyDefinitions = unmodifiableSet(requireNonNull(propertyDefinitions));
-  }
-
-  public String getRelationType() {
-    return relationType;
   }
 
   public Direction getDirection() {
     return direction;
   }
 
-  public Set<PropertyDefinition> getPropertyDefinitions() {
+  public Set<core.schema.assembly.definitions.property.PropertyDefinition> getPropertyDefinitions() {
     return propertyDefinitions;
   }
 
@@ -69,6 +63,10 @@ public class RelationDefinition {
 
   public String getEndNodeType() {
     return endNodeType;
+  }
+
+  public boolean isMultiValue() {
+    return multiValue;
   }
 
   @Override
@@ -84,7 +82,7 @@ public class RelationDefinition {
 
     // In case of both directions are UNDIRECTED provide crossEquals on start and end nodes on both relations.
     if (UNDIRECTED.equals(getDirection()) && UNDIRECTED.equals(that.getDirection())) {
-      return getRelationType().equals(that.getRelationType())
+      return getName().equals(that.getName())
           && crossEquals(startNodeType, endNodeType, that.getStartNodeType(), that.getEndNodeType());
     }
 
@@ -94,7 +92,7 @@ public class RelationDefinition {
 
     return new EqualsBuilder()
         .append(normalizedThis.getDirection(), normalizedThat.getDirection())
-        .append(normalizedThis.getRelationType(), normalizedThat.getRelationType())
+        .append(normalizedThis.getName(), normalizedThat.getName())
         .append(normalizedThis.getStartNodeType(), normalizedThat.getStartNodeType())
         .append(normalizedThis.getEndNodeType(), normalizedThat.getEndNodeType())
         .build();
@@ -115,7 +113,7 @@ public class RelationDefinition {
     return new HashCodeBuilder(17, 37)
         .append(direction)
         .append(nodesHashCode)
-        .append(relationType)
+        .append(name)
         .toHashCode();
   }
 
@@ -129,16 +127,18 @@ public class RelationDefinition {
     // TODO move to RelationDefinition class + implement invert method
     Direction direction = relationDefinition.getDirection();
     if (Direction.INCOMING.equals(direction)) {
-      return new RelationDefinition(relationDefinition.getRelationType(),
+      return new RelationDefinition(relationDefinition.getName(),
           Direction.OUTGOING,
           relationDefinition.getEndNodeType(),
           relationDefinition.getStartNodeType(),
+          relationDefinition.isMultiValue(),
           relationDefinition.getPropertyDefinitions());
     } else {
-      return new RelationDefinition(relationDefinition.getRelationType(),
+      return new RelationDefinition(relationDefinition.getName(),
           relationDefinition.getDirection(),
           relationDefinition.getStartNodeType(),
           relationDefinition.getEndNodeType(),
+          relationDefinition.isMultiValue(),
           relationDefinition.getPropertyDefinitions());
     }
   }

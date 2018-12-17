@@ -11,7 +11,7 @@ public class PropertyAnnotationTransformerProvider {
 
   public PropertyAnnotationTransformer forPropertyAnnotation(Annotation annotation) {
     if(DateProperty.class.equals(annotation.annotationType())){
-      return new DatePropertyAnnotationTransformer();
+      return new DatePropertyPropertyAnnotationTransformer();
     }
 
     if(EnumProperty.class.equals(annotation.annotationType())){

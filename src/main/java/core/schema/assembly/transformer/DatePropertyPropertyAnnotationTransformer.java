@@ -7,7 +7,7 @@ import java.util.Date;
 import core.schema.annotations.properties.DateProperty;
 import core.schema.assembly.definitions.property.DatePropertyDefinition;
 
-public class DatePropertyAnnotationTransformer implements PropertyAnnotationTransformer<DateProperty> {
+public class DatePropertyPropertyAnnotationTransformer implements PropertyAnnotationTransformer<DateProperty> {
 
   @Override
   public DatePropertyDefinition transformToDefinition(DateProperty annotation, boolean multiValue) {
