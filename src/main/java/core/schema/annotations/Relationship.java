@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * Relation annotation describing relation between two node types
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.METHOD})
 public @interface Relationship {
 
     String name();
@@ -23,8 +23,6 @@ public @interface Relationship {
     Direction direction() default Direction.UNDIRECTED;
 
     Class<?> propertyHolderClass() default EmptyHolder.class;
-
-    Class<?> referencedClass();
 
     class EmptyHolder {
         // Just default empty holder class that does not describe any property

@@ -16,6 +16,7 @@ import org.reflections.util.FilterBuilder;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.lang.reflect.Modifier.isAbstract;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static utils.CommonUtils.uncapitalize;
 
@@ -149,7 +150,7 @@ public class ModelSchemaAssembler {
             .filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix(basePackage))));
     Set<Class<?>> classes = reflections.getSubTypesOf(Object.class);
     return classes.stream()
-            .filter(clazz -> isNode(clazz))
+            .filter(clazz -> isNode(clazz) && !isAbstract(clazz.getModifiers()))
             .collect(Collectors.toSet());
   }
 

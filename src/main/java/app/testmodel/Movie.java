@@ -4,8 +4,6 @@ import core.schema.annotations.Node;
 import core.schema.annotations.properties.NumericProperty;
 import core.schema.annotations.properties.StringProperty;
 
-import java.util.Set;
-
 @Node(nodeType = "movie")
 public class Movie {
 
@@ -15,6 +13,4 @@ public class Movie {
     @NumericProperty(name = "year", nonNull = true, minValue = 1890, maxValue = 2050, immutable = true)
     private int year;
 
-
-    private Set<Actor> actors;
 }

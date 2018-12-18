@@ -13,7 +13,7 @@ public @interface Node {
     /**
      * Unique type of the node.
      */
-    String nodeType() default "";
+    String nodeType();
 
     /**
      * Indicator whether instance of this node type are immutable or not.

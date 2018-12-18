@@ -22,7 +22,7 @@ public class PropertyExtractor extends AbstractDefinitionExtractor<PropertyDefin
   }
 
   @Override
-  protected PropertyDefinition doTransform(Annotation annotation, Class<?> elementType) {
+  protected PropertyDefinition doTransform(Annotation annotation, Class<?> elementType, Class<?>... genericTypes) {
     PropertyAnnotationTransformer propertyAnnotationTransformer = transformerProvider.forPropertyAnnotation(annotation);
     return propertyAnnotationTransformer.transformToDefinition(annotation, isMultiValue(elementType));
   }

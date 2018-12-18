@@ -10,12 +10,18 @@ import java.util.Set;
 @Node(nodeType = "user")
 public class User {
 
-    @StringProperty(name = "userName", nonNull = true)
-    private String userName;
+  @StringProperty(name = "userName", nonNull = true)
+  private String userName;
 
-    @Relationship(name = "watchList", propertyHolderClass = WatchListRelation.class, direction = Direction.OUTGOING, referencedClass = Movie.class)
-    private Set<Movie> watchList;
+  // Single-value relation
+  @Relationship(name = "bestMovie")
+  private Movie bestMovie;
 
+  // Collection-based multi-value relation
+  @Relationship(name = "watchList", propertyHolderClass = WatchListRelation.class, direction = Direction.OUTGOING)
+  private Set<Movie> watchList;
 
-    private Set<Actor> favoriteActors;
+  // Array-based multi-value relation
+  @Relationship(name = "actors")
+  private Actor[] favoriteActors;
 }
