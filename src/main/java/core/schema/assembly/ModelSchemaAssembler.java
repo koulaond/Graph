@@ -89,7 +89,7 @@ public class ModelSchemaAssembler {
       throw new IllegalStateException("Base package not defined.");
     }
 
-    SchemaAssembler schemaAssembler = new SchemaAssembler();
+    CustomSchemaAssembler schemaAssembler = new CustomSchemaAssembler();
 
     // TODO collect all @Node classes
     // TODO for each @Node class
@@ -128,11 +128,11 @@ public class ModelSchemaAssembler {
             .strict(strict)
             .additionalInfo(additionalInfo);
 
-    SchemaAssembler.NodeCollector nodeCollector = schemaAssembler.defineNodes();
+    CustomSchemaAssembler.NodeCollector nodeCollector = schemaAssembler.defineNodes();
     nodeDefinitions.forEach(nodeCollector::node);
     nodeCollector.finish();
 
-    SchemaAssembler.RelationCollector relationCollector = schemaAssembler.defineRelations();
+    CustomSchemaAssembler.RelationCollector relationCollector = schemaAssembler.defineRelations();
     relationDefinitions.forEach(relationCollector::relation);
     relationCollector.finish();
 

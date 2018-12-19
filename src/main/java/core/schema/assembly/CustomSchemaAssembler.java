@@ -1,19 +1,19 @@
 package core.schema.assembly;
 
+import core.schema.assembly.definitions.NodeDefinition;
+import core.schema.assembly.definitions.RelationDefinition;
+import core.schema.assembly.definitions.SchemaDefinition;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import core.schema.assembly.definitions.NodeDefinition;
-import core.schema.assembly.definitions.RelationDefinition;
-import core.schema.assembly.definitions.SchemaDefinition;
-
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.Objects.requireNonNull;
 
-public class SchemaAssembler {
+public class CustomSchemaAssembler {
 
   private String name;
   private Set<NodeDefinition> nodes;
@@ -21,23 +21,23 @@ public class SchemaAssembler {
   private boolean strict;
   private Map<String, Object> additionalInfo;
 
-  public SchemaAssembler() {
+  public CustomSchemaAssembler() {
     // Default values
     additionalInfo = new HashMap<>();
     strict = true;
   }
 
-  public SchemaAssembler name(String name) {
+  public CustomSchemaAssembler name(String name) {
     this.name = requireNonNull(name);
     return this;
   }
 
-  public SchemaAssembler strict(boolean strict) {
+  public CustomSchemaAssembler strict(boolean strict) {
     this.strict = strict;
     return this;
   }
 
-  public SchemaAssembler additionalInfo(String key, Object value) {
+  public CustomSchemaAssembler additionalInfo(String key, Object value) {
     if(key == null || key.isEmpty()) {
       throw new IllegalStateException(String.format("Key is not defined properly: %s", key));
     }
@@ -45,7 +45,7 @@ public class SchemaAssembler {
     return this;
   }
 
-  public SchemaAssembler additionalInfo(Map<String, Object> additionalInfo) {
+  public CustomSchemaAssembler additionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo.putAll(requireNonNull(additionalInfo));
     return this;
   }
@@ -105,10 +105,10 @@ public class SchemaAssembler {
 
   public static class NodeCollector {
 
-    private SchemaAssembler schemaAssembler;
+    private CustomSchemaAssembler schemaAssembler;
     private Set<NodeDefinition> nodeDefinitions;
 
-    private NodeCollector(SchemaAssembler schemaAssembler) {
+    private NodeCollector(CustomSchemaAssembler schemaAssembler) {
       this.schemaAssembler = schemaAssembler;
       this.nodeDefinitions = new HashSet<>();
     }
@@ -124,17 +124,17 @@ public class SchemaAssembler {
       return this;
     }
 
-    public SchemaAssembler finish() {
+    public CustomSchemaAssembler finish() {
       this.schemaAssembler.addNodes(this.nodeDefinitions);
       return schemaAssembler;
     }
   }
 
   public static class RelationCollector {
-    private SchemaAssembler schemaAssembler;
+    private CustomSchemaAssembler schemaAssembler;
     private Set<RelationDefinition> relationDefinitions;
 
-    private RelationCollector(SchemaAssembler schemaAssembler) {
+    private RelationCollector(CustomSchemaAssembler schemaAssembler) {
       this.schemaAssembler = schemaAssembler;
       this.relationDefinitions = new HashSet<>();
     }
@@ -162,7 +162,7 @@ public class SchemaAssembler {
       return nodes.contains(new NodeDefinition(startNodeType)) && nodes.contains(new NodeDefinition(endNodeType));
     }
 
-    public SchemaAssembler finish() {
+    public CustomSchemaAssembler finish() {
       this.schemaAssembler.addRelations(this.relationDefinitions);
       return schemaAssembler;
     }

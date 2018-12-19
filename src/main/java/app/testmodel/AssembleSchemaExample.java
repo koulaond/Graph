@@ -1,12 +1,8 @@
 package app.testmodel;
 
-import java.math.BigDecimal;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+import core.schema.assembly.CustomSchemaAssembler;
 import core.schema.assembly.NodeBuilder;
 import core.schema.assembly.RelationBuilder;
-import core.schema.assembly.SchemaAssembler;
 import core.schema.assembly.definitions.SchemaDefinition;
 import core.schema.assembly.definitions.property.DatePropertyDefinition;
 import core.schema.assembly.definitions.property.EnumPropertyDefinition;
@@ -14,10 +10,14 @@ import core.schema.assembly.definitions.property.NumericPropertyDefinition;
 import core.schema.assembly.definitions.property.StringPropertyDefinition;
 import model.Direction;
 
+import java.math.BigDecimal;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class AssembleSchemaExample {
 
   public static void main(String[] args) {
-    SchemaDefinition schemaDefinition = new SchemaAssembler()
+    SchemaDefinition schemaDefinition = new CustomSchemaAssembler()
         .name("testSchema")
         .additionalInfo("Description", "Schema assembly example.")
         .defineNodes()
