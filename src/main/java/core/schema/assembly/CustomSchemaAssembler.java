@@ -1,8 +1,8 @@
 package core.schema.assembly;
 
-import core.schema.assembly.definitions.NodeDefinition;
-import core.schema.assembly.definitions.RelationDefinition;
-import core.schema.assembly.definitions.SchemaDefinition;
+import repository.api.definitions.NodeDefinition;
+import repository.api.definitions.RelationDefinition;
+import repository.api.definitions.SchemaDefinition;
 
 import java.util.HashMap;
 import java.util.HashSet;

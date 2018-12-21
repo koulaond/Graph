@@ -1,6 +1,6 @@
 package core.schema.assembly;
 
-import core.schema.assembly.definitions.AbstractDefinition;
+import repository.api.definitions.AbstractDefinition;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;

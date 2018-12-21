@@ -2,7 +2,7 @@ package core.schema.assembly;
 
 import core.schema.annotations.Node;
 import core.schema.annotations.Relationship;
-import core.schema.assembly.definitions.RelationDefinition;
+import repository.api.definitions.RelationDefinition;
 import core.schema.assembly.transformer.RelationAnnotationTransformer;
 import lombok.extern.slf4j.Slf4j;
 

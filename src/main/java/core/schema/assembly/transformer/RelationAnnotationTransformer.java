@@ -2,8 +2,8 @@ package core.schema.assembly.transformer;
 
 import core.schema.annotations.Relationship;
 import core.schema.assembly.PropertyExtractor;
-import core.schema.assembly.definitions.RelationDefinition;
-import core.schema.assembly.definitions.property.PropertyDefinition;
+import repository.api.definitions.RelationDefinition;
+import repository.api.definitions.property.PropertyDefinition;
 
 import java.util.Set;
 

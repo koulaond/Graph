@@ -2,8 +2,7 @@ package core.schema.assembly.transformer;
 
 import java.lang.annotation.Annotation;
 
-import core.schema.assembly.definitions.AbstractDefinition;
-import core.schema.assembly.definitions.property.PropertyDefinition;
+import repository.api.definitions.property.PropertyDefinition;
 
 public interface PropertyAnnotationTransformer<A extends Annotation> {
 

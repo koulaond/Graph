@@ -1,8 +1,8 @@
-package core.schema.assembly.definitions;
+package repository.api.definitions;
 
 import java.util.Set;
 
-import core.schema.assembly.definitions.property.PropertyDefinition;
+import repository.api.definitions.property.PropertyDefinition;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -33,7 +33,7 @@ public class RelationDefinition extends AbstractDefinition {
   /**
    * Set of property description that describe properties, which can be stored in the relation of this type.
    */
-  private Set<core.schema.assembly.definitions.property.PropertyDefinition> propertyDefinitions;
+  private Set<repository.api.definitions.property.PropertyDefinition> propertyDefinitions;
 
   public RelationDefinition(String name,
                             Direction direction,
@@ -53,7 +53,7 @@ public class RelationDefinition extends AbstractDefinition {
     return direction;
   }
 
-  public Set<core.schema.assembly.definitions.property.PropertyDefinition> getPropertyDefinitions() {
+  public Set<repository.api.definitions.property.PropertyDefinition> getPropertyDefinitions() {
     return propertyDefinitions;
   }
 

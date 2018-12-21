@@ -1,4 +1,4 @@
-package core.schema.assembly.definitions;
+package repository.api.definitions;
 
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +11,7 @@ public class SchemaDefinition extends AbstractDefinition {
   private Set<NodeDefinition> nodeDefinitions;
   private Set<RelationDefinition> relationDefinitions;
   private Map<String, Object> additionalInfo;
-  private boolean strict = true;
+  private boolean strict;
 
   public SchemaDefinition(String name, Set<NodeDefinition> nodeDefinitions, Set<RelationDefinition> relationDefinitions, boolean strict, Map<String, Object> additionalInfo) {
     super(name);

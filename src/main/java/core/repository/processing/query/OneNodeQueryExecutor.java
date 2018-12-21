@@ -1,7 +1,7 @@
 package core.repository.processing.query;
 
 import core.repository.GraphContainer;
-import core.repository.RepositoryConnector;
+import repository.api.RepositoryConnector;
 
 public class OneNodeQueryExecutor {
   private RepositoryConnector repositoryConnector;

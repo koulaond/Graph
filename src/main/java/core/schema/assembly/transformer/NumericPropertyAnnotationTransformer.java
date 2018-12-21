@@ -3,7 +3,7 @@ package core.schema.assembly.transformer;
 import java.math.BigDecimal;
 
 import core.schema.annotations.properties.NumericProperty;
-import core.schema.assembly.definitions.property.NumericPropertyDefinition;
+import repository.api.definitions.property.NumericPropertyDefinition;
 
 public class NumericPropertyAnnotationTransformer implements PropertyAnnotationTransformer<NumericProperty> {
 

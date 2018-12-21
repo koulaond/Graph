@@ -1,7 +1,7 @@
 package core.schema.assembly;
 
-import core.schema.assembly.definitions.RelationDefinition;
-import core.schema.assembly.definitions.property.PropertyDefinition;
+import repository.api.definitions.RelationDefinition;
+import repository.api.definitions.property.PropertyDefinition;
 import model.Direction;
 
 import java.util.HashMap;

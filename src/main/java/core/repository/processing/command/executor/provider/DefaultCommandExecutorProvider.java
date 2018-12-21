@@ -1,19 +1,11 @@
 package core.repository.processing.command.executor.provider;
 
+import core.repository.processing.command.*;
+import core.repository.processing.command.executor.*;
+import repository.api.RepositoryConnector;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import core.repository.RepositoryConnector;
-import core.repository.processing.command.BatchCommand;
-import core.repository.processing.command.Command;
-import core.repository.processing.command.DataCreateCommand;
-import core.repository.processing.command.DataDeleteCommand;
-import core.repository.processing.command.DataPatchCommand;
-import core.repository.processing.command.executor.BatchCommandExecutor;
-import core.repository.processing.command.executor.CommandExecutor;
-import core.repository.processing.command.executor.DataCreateCommandExecutor;
-import core.repository.processing.command.executor.DataDeleteCommandExecutor;
-import core.repository.processing.command.executor.DataPatchCommandExecutor;
 
 public class DefaultCommandExecutorProvider implements CommandExecutorProvider {
 

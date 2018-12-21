@@ -16,7 +16,7 @@ import org.apache.solr.common.SolrInputField;
 import org.apache.solr.common.params.MapSolrParams;
 
 import core.repository.GraphContainer;
-import core.repository.RepositoryConnector;
+import repository.api.RepositoryConnector;
 import core.repository.data.DataUnit;
 import core.repository.data.Error;
 import core.repository.data.NodeChangeRepositoryResult;

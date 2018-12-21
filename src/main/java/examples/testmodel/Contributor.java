@@ -1,4 +1,4 @@
-package app.testmodel;
+package examples.testmodel;
 
 import core.schema.annotations.properties.NumericProperty;
 import core.schema.annotations.properties.StringProperty;

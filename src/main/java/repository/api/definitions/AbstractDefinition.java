@@ -1,4 +1,4 @@
-package core.schema.assembly.definitions;
+package repository.api.definitions;
 
 import static java.util.Objects.requireNonNull;
 

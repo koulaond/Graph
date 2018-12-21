@@ -1,7 +1,7 @@
 package core.schema.assembly.transformer;
 
 import core.schema.annotations.properties.StringProperty;
-import core.schema.assembly.definitions.property.StringPropertyDefinition;
+import repository.api.definitions.property.StringPropertyDefinition;
 
 public class StringPropertyAnnotationTransformer implements PropertyAnnotationTransformer<StringProperty> {
   @Override

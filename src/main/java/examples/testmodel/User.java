@@ -1,4 +1,4 @@
-package app.testmodel;
+package examples.testmodel;
 
 import model.Direction;
 import core.schema.annotations.Node;

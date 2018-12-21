@@ -1,6 +1,6 @@
-package core.schema.assembly.definitions.property;
+package repository.api.definitions.property;
 
-import core.schema.assembly.definitions.AbstractDefinition;
+import repository.api.definitions.AbstractDefinition;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import core.schema.annotations.properties.DateProperty;
-import core.schema.assembly.definitions.property.DatePropertyDefinition;
+import repository.api.definitions.property.DatePropertyDefinition;
 
 public class DatePropertyPropertyAnnotationTransformer implements PropertyAnnotationTransformer<DateProperty> {
 

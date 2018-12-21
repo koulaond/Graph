@@ -3,8 +3,8 @@ package core.schema.assembly;
 import java.util.HashMap;
 import java.util.Map;
 
-import core.schema.assembly.definitions.NodeDefinition;
-import core.schema.assembly.definitions.property.PropertyDefinition;
+import repository.api.definitions.NodeDefinition;
+import repository.api.definitions.property.PropertyDefinition;
 
 import static java.util.stream.Collectors.toSet;
 

@@ -1,13 +1,13 @@
-package app.testmodel;
+package examples.testmodel;
 
 import core.schema.assembly.CustomSchemaAssembler;
 import core.schema.assembly.NodeBuilder;
 import core.schema.assembly.RelationBuilder;
-import core.schema.assembly.definitions.SchemaDefinition;
-import core.schema.assembly.definitions.property.DatePropertyDefinition;
-import core.schema.assembly.definitions.property.EnumPropertyDefinition;
-import core.schema.assembly.definitions.property.NumericPropertyDefinition;
-import core.schema.assembly.definitions.property.StringPropertyDefinition;
+import repository.api.definitions.SchemaDefinition;
+import repository.api.definitions.property.DatePropertyDefinition;
+import repository.api.definitions.property.EnumPropertyDefinition;
+import repository.api.definitions.property.NumericPropertyDefinition;
+import repository.api.definitions.property.StringPropertyDefinition;
 import model.Direction;
 
 import java.math.BigDecimal;

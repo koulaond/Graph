@@ -1,4 +1,4 @@
-package core.schema.assembly.definitions.property;
+package repository.api.definitions.property;
 
 public class IdDefinition {
   private String name;

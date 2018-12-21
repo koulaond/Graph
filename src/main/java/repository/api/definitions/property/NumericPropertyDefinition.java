@@ -1,4 +1,4 @@
-package core.schema.assembly.definitions.property;
+package repository.api.definitions.property;
 
 import java.math.BigDecimal;
 

@@ -4,7 +4,7 @@ import core.schema.annotations.properties.DateProperty;
 import core.schema.annotations.properties.EnumProperty;
 import core.schema.annotations.properties.NumericProperty;
 import core.schema.annotations.properties.StringProperty;
-import core.schema.assembly.definitions.property.PropertyDefinition;
+import repository.api.definitions.property.PropertyDefinition;
 import core.schema.assembly.transformer.PropertyAnnotationTransformer;
 import core.schema.assembly.transformer.PropertyAnnotationTransformerProvider;
 import lombok.extern.slf4j.Slf4j;

@@ -31,9 +31,17 @@
     <version.apache.lang>3.8.1</version.apache.lang>
     <version.apache.collections>4.0</version.apache.collections>
 
+    <version.reactor>3.2.3.RELEASE</version.reactor>
   </properties>
 
     <dependencies>
+
+      <dependency>
+        <groupId>io.projectreactor</groupId>
+        <artifactId>reactor-core</artifactId>
+        <version>${version.reactor}</version>
+      </dependency>
+
       <dependency>
         <groupId>org.apache.solr</groupId>
         <artifactId>solr-solrj</artifactId>

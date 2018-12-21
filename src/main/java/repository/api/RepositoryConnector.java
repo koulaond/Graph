@@ -1,5 +1,6 @@
-package core.repository;
+package repository.api;
 
+import core.repository.GraphContainer;
 import core.repository.data.NodeChangeRepositoryResult;
 import core.repository.data.NodeDataBucket;
 import core.repository.data.RepositoryResult;

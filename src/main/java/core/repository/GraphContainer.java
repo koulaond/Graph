@@ -6,6 +6,7 @@ import core.repository.processing.command.executor.provider.CommandExecutorProvi
 import core.repository.processing.command.executor.provider.DefaultCommandExecutorProvider;
 import core.repository.processing.command.result.CommandExecutionResult;
 import lombok.extern.slf4j.Slf4j;
+import repository.api.RepositoryConnector;
 
 /**
  * Access point to concrete graphContainer. Allows to execute commands and queries on the graphContainer via executors and changes its state.

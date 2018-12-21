@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import core.schema.annotations.properties.EnumProperty;
-import core.schema.assembly.definitions.property.EnumPropertyDefinition;
+import repository.api.definitions.property.EnumPropertyDefinition;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toSet;

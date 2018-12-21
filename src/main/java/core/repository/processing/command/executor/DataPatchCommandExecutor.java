@@ -1,7 +1,7 @@
 package core.repository.processing.command.executor;
 
 import core.repository.GraphContainer;
-import core.repository.RepositoryConnector;
+import repository.api.RepositoryConnector;
 import core.repository.data.NodeChangeRepositoryResult;
 import core.repository.processing.command.DataPatchCommand;
 import core.repository.processing.command.result.DataChangeCommandResult;

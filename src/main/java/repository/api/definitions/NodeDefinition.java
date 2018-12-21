@@ -1,4 +1,4 @@
-package core.schema.assembly.definitions;
+package repository.api.definitions;
 
 import java.util.Set;
 
@@ -24,9 +24,9 @@ public class NodeDefinition extends AbstractDefinition {
     /**
      * Set of property definitions (descriptions of node child properties)
      */
-    private Set<core.schema.assembly.definitions.property.PropertyDefinition> propertyDefinitions;
+    private Set<repository.api.definitions.property.PropertyDefinition> propertyDefinitions;
 
-    public NodeDefinition(String name, boolean immutable, Long maxCount, Set<core.schema.assembly.definitions.property.PropertyDefinition> propertyDefinitions) {
+    public NodeDefinition(String name, boolean immutable, Long maxCount, Set<repository.api.definitions.property.PropertyDefinition> propertyDefinitions) {
         super(name);
         this.immutable = immutable;
         this.maxCount = requireNonNull(maxCount);
@@ -45,7 +45,7 @@ public class NodeDefinition extends AbstractDefinition {
         return maxCount;
     }
 
-    public Set<core.schema.assembly.definitions.property.PropertyDefinition> getPropertyDefinitions() {
+    public Set<repository.api.definitions.property.PropertyDefinition> getPropertyDefinitions() {
         return propertyDefinitions;
     }
 

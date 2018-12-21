@@ -1,10 +1,10 @@
 package core.schema.assembly;
 
 import core.schema.annotations.Node;
-import core.schema.assembly.definitions.NodeDefinition;
-import core.schema.assembly.definitions.RelationDefinition;
-import core.schema.assembly.definitions.SchemaDefinition;
-import core.schema.assembly.definitions.property.PropertyDefinition;
+import repository.api.definitions.NodeDefinition;
+import repository.api.definitions.RelationDefinition;
+import repository.api.definitions.SchemaDefinition;
+import repository.api.definitions.property.PropertyDefinition;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
